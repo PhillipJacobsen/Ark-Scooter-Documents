@@ -84,7 +84,23 @@ Quick List(not in any particular order)
 - IOT device simulator/emulator
 - Test
 
+## Optional Blocks
+- publish data according to General Bikeshare Feed Specification(GBFS)
 
+
+## Bridge Chain Requirements
+- Core V2.6 Testnet
+- Number of forging nodes?
+
+
+## Logic platform
+I am still thinking about how much of the logic should be implemented in the core plugin and how much in a cloud IOT service. Using a common/simple IOT tool such as Node Red for much of the logic would be a good approach for a POC. It is a very accesible tool to a wide range of people. It is a great tool for rapid prototyping. 
+
+## Admin App
+Requirements
+- view status and configure Devices
+- View stats
+- 
 
 ## Interesting Links 
 #### Bike Share Data
