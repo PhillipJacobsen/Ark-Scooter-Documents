@@ -91,6 +91,7 @@ Quick List(not in any particular order)
 - [General Bikeshare Feed Specification](https://github.com/NABSA/gbfs/blob/master/gbfs.md)
 - [how cities can ask for data from micromobility providers](https://blog.remix.com/mds-gbfs-and-how-cities-can-ask-for-data-from-micromobility-providers-7957ca639f16)
 - [How long do scooters last](https://qz.com/1561654/how-long-does-a-scooter-last-less-than-a-month-louisville-data-suggests/amp/)
+- [better manage sharing bikes by tapping into blockchain](https://dailyfintech.com/2018/05/19/can-ofo-better-manages-their-sharing-bikes-by-tapping-into-blockchain/)
 
 #### Bike Share Apps
 - [Bitlock Bike Lock + Bike Share Platform](https://bitlock.co/bikeshare.html)
@@ -99,7 +100,7 @@ Quick List(not in any particular order)
 
 #### Scooter Hardware Reverse Engineering
 - [decoding serial bus data on a Xiaomi M365 Scooter](https://gitlab.com/esp32m365/esp32_xiaomi_m365_display)
-- [](https://github.com/camcamfresh/Xiaomi-M365-BLE-Controller-Replacement)
+- [BLE controller replacement](https://github.com/camcamfresh/Xiaomi-M365-BLE-Controller-Replacement)
 
 
 ###### tags: `ark.io` `Documentation` `IOT`
