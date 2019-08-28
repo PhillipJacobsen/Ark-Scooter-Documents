@@ -15,20 +15,25 @@ Create a Scooter rental solution utilizing a mobile app and an associated Ark cu
 
 ### Mobile App
 The core user interface of the project will be a mobile app for both iOS and Android. This mobile app will manage the following:
-- Show and track the location of available scooters
+- Customer Onboarding
+- Booking
+- Real-time GPS tracking of available scooters using Google Maps
+- QR code / ID scanner integration
 - Lock and unlock an IoT physical device (lock) to manage the security of the scooters
-- Process payments in ARK (Ѧ) to unlock the device
+- In-app payments in ARK (Ѧ)
 - Show and track drop-off locations once a scooter has been rented
 - Manage and track time and distance of rental (from pick-up to drop-off)
 - Process deposit and fees on drop-off at a designated location
 - Make the scooter available for rental after proper drop-off is completed
 
-
 Optional Upgrades:
 - Support multiple types of the rental by allowing the owner to take a picture of an object and upload it to the app with a category and price of their choosing
 - Allow additional currencies and payment methods
 - Allow a web interface for managing rentals
-
+- Loyality Program
+- Publish data according to General Bikeshare Feed Specification(GBFS)
+- Rider Identification Verification
+- Social media integration
 
 ### Custom ARK Bridgechain
 All information related to the rental will be stored on the blockchain. This will be accomplished through several potentially new custom transaction types as follows:
@@ -46,7 +51,6 @@ All information related to the rental will be stored on the blockchain. This wil
 - Provide a functioning ARK based blockchain with the above custom transactions and functionality
 - Demonstrate the application working as described
 - Provide a Bill of Materials (BOM) for the required IoT hardware.
-
 
 ---
 
@@ -70,6 +74,9 @@ All information related to the rental will be stored on the blockchain. This wil
 
 # Technical Specification
 
+
+
+
 ## Main Blocks 
 Quick List(not in any particular order)
 - Bridge Chain Node Management
@@ -84,13 +91,13 @@ Quick List(not in any particular order)
 - IOT device simulator/emulator
 - Test
 
-## Optional Blocks
-- publish data according to General Bikeshare Feed Specification(GBFS)
+
 
 
 ## Bridge Chain Requirements
 - Core V2.6 Testnet
 - Number of forging nodes?
+- Not sure if deployer will be updated to support V2.6 when we are ready for it so this might take a bit more work than the standard push button blockchain flow
 
 
 ## Logic platform
@@ -98,11 +105,42 @@ I am still thinking about how much of the logic should be implemented in the cor
 
 ## Admin App
 Requirements
-- view status and configure Devices
-- View stats
-- 
+- View device status
+- Configure Devices
+- View usage stats
+- Create/View various reports
+- Generate Alerts
 
-## Interesting Links 
+
+## Potential IOT Platforms that we could use for dashboards, communication, logic
+
+### MQTT
+- Publish / Subscribe low complexity communication protocol
+- Mosquito Broker is open source and requires low end VPS or Raspberry Pi
+- Low cost cloud service also available to minimize setup time [CloudMQTT](https://www.cloudmqtt.com/)
+- MQTT Clients
+    - MQTT Box - good client for PC / chrome extension
+    - MQTT Explorer - Awesome tool for exploring all the available topics on Broker
+    - Many MQTT Android / iOS apps are available
+
+### Node-Red
+- Open source browser-based programming tool for wiring together hardware devices, APIs and online services
+- Runs on Raspberry Pi.
+- IBM Cloud has free tier with 250MB storage
+
+### Thingsboard
+- Device management, data collection, processing and visualization for your IoT solution
+- Open Source. 
+- Runs on Raspberry Pi
+- Runs on Digital Ocean VPS
+- Free service probably does what we need. Paid license also avaialble
+
+
+
+
+
+# Interesting Links 
+
 #### Bike Share Data
 - [General Bikeshare Feed Specification](https://github.com/NABSA/gbfs/blob/master/gbfs.md)
 - [how cities can ask for data from micromobility providers](https://blog.remix.com/mds-gbfs-and-how-cities-can-ask-for-data-from-micromobility-providers-7957ca639f16)
