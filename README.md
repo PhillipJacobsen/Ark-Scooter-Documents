@@ -37,6 +37,18 @@ All information related to the rental will be stored on the blockchain. This wil
 - Rental Pick-up Transaction
 - Rental Drop-off Transaction
 
+### Provided by the ARK.io Team:
+- The custom mobile app UI design
+- Additional guidance and support as necessary
+
+### Requirements for completion:
+- Provide a completed mobile application that meets the above minimum criteria.
+- Provide a functioning ARK based blockchain with the above custom transactions and functionality
+- Demonstrate the application working as described
+- Provide a Bill of Materials (BOM) for the required IoT hardware.
+
+
+---
 
 ## Team Members
 ### Community Members
@@ -45,16 +57,49 @@ All information related to the rental will be stored on the blockchain. This wil
 - @Chris (ciband)
 - @pj
 
-### Ark Crew (Main Contact and Tech Support)
-- @sleepdeficit -IOT
+### Ark Crew (Main Contacts and Tech Support)
+- @sleepdeficit - IOT
 - @Matthew DC - Project Specs
 - Oleg - UI
+
+## Milestones
+
+
 
 
 
 # Technical Specification
 
+## Main Blocks 
+Quick List(not in any particular order)
+- Bridge Chain Node Management
+- Custom Transaction Core Plugin(s)
+- Custom Ark Logic Core Plugin
+- Logic Platforms(cloud) - example: NodeRed, MQTT
+- Analytics Platform(cloud) - example: thingsboard, NodeRed
+- Admin App - might be included in Logic/Analytics platform
+- Client App(s)(web, Android, IOS)
+- IOT Hardware
+- IOT Firmware
+- IOT device simulator/emulator
+- Test
 
+
+
+## Interesting Links 
+#### Bike Share Data
+- [General Bikeshare Feed Specification](https://github.com/NABSA/gbfs/blob/master/gbfs.md)
+- [how cities can ask for data from micromobility providers](https://blog.remix.com/mds-gbfs-and-how-cities-can-ask-for-data-from-micromobility-providers-7957ca639f16)
+- [How long do scooters last](https://qz.com/1561654/how-long-does-a-scooter-last-less-than-a-month-louisville-data-suggests/amp/)
+
+#### Bike Share Apps
+- [Bitlock Bike Lock + Bike Share Platform](https://bitlock.co/bikeshare.html)
+- [Joyride Bike/Scooter Share Platform](https://www.joyride.city/plans.html)
+- [How to build a Scooter Sharing App](https://www.mobindustry.net/building-a-scooter-sharing-app-like-lime-nextbike-and-mobike/)
+
+#### Scooter Hardware Reverse Engineering
+- [decoding serial bus data on a Xiaomi M365 Scooter](https://gitlab.com/esp32m365/esp32_xiaomi_m365_display)
+- [](https://github.com/camcamfresh/Xiaomi-M365-BLE-Controller-Replacement)
 
 
 ###### tags: `ark.io` `Documentation` `IOT`
