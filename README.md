@@ -52,7 +52,6 @@ All information related to the rental will be stored on the blockchain. This wil
 - Demonstrate the application working as described
 - Provide a Bill of Materials (BOM) for the required IoT hardware.
 
----
 
 ## Team Members
 ### Community Members
@@ -62,8 +61,8 @@ All information related to the rental will be stored on the blockchain. This wil
 - @pj
 
 ### Ark Crew (Main Contacts and Tech Support)
-- @sleepdeficit - IOT
-- @Matthew DC - Project Specs
+- @sleepdeficit - IOT - Coordinator
+- @Matthew DC - Project Specs 
 - Oleg - UI
 
 ## Milestones
@@ -72,25 +71,26 @@ All information related to the rental will be stored on the blockchain. This wil
 
 
 
+---
+
+
 # Technical Specification
 
 
 
 
 ## Main Blocks 
-Quick List(not in any particular order)
 - Bridge Chain Node Management
 - Custom Transaction Core Plugin(s)
 - Custom Ark Logic Core Plugin
-- Logic Platforms(cloud) - example: NodeRed, MQTT
+- Logic & Communication Platforms(cloud) - example: NodeRed, MQTT
 - Analytics Platform(cloud) - example: thingsboard, NodeRed
 - Admin App - might be included in Logic/Analytics platform
 - Client App(s)(web, Android, IOS)
-- IOT Hardware
+- Hardware
 - IOT Firmware
 - IOT device simulator/emulator
 - Test
-
 
 
 
@@ -104,6 +104,7 @@ Quick List(not in any particular order)
 I am still thinking about how much of the logic should be implemented in the core plugin and how much in a cloud IOT service. Using a common/simple IOT tool such as Node Red for much of the logic would be a good approach for a POC. It is a very accesible tool to a wide range of people. It is a great tool for rapid prototyping. 
 
 ## Admin App
+I think this could all be done with IOT platform tools.
 Requirements
 - View device status
 - Configure Devices
@@ -133,10 +134,13 @@ Requirements
 - Open Source. 
 - Runs on Raspberry Pi
 - Runs on Digital Ocean VPS
-- Free service probably does what we need. Paid license also avaialble
+- Free service probably does what we need. Paid license also available
 
 
-
+## Hardware
+- xiaomi m365 is a common scooter that rideshare companies rebranded for their launch in the last couple of years. The large rideshare companies are now starting to create modified electronics and upgraded scooters.
+- There seems to be an easily accessible serial interface available for reading out data from the m365 scooter.
+    ![](https://i.imgur.com/xKw6CRW.jpg)
 
 
 # Interesting Links 
