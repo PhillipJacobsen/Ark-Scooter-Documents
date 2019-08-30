@@ -92,12 +92,31 @@ All information related to the rental will be stored on the blockchain. This wil
 - IOT device simulator/emulator
 - Test
 
+## Block Diagram
+![](https://i.imgur.com/AHIrylh.jpg)
 
 
-## Bridge Chain Requirements
+## Bridgechain Requirements
 - Core V2.6 Testnet
 - Number of forging nodes?
 - Not sure if deployer will be updated to support V2.6 when we are ready for it so this might take a bit more work than the standard push button blockchain flow
+
+## Data Stored on the Bridgechain
+* Device Registration Transaction
+    * Custom transaction used to register a new lock or device
+    * This will be sent directly by lock/device
+* Location Registration Transaction
+    * Custom transaction used to register a specific pick-up / drop-off depot location.
+    * **Not sure exactly how this would be triggered**
+* Rental Pickup/Drop-off Transaction.
+    * **I think this should be sent by logic controller/server.**
+
+**I don't think that user App needs to know anything about the bridgechain. I think it just needs to proces payments by ARK**
+
+    
+
+## Custom Transactions
+
 
 
 ## Logic platform
@@ -211,13 +230,14 @@ I believe that we could relatively easily generate a very similar dashboard as t
 
 ## IOT Communication
 
-The Scooter electronics will use MQTT protocol for all bidirectional communication with the cloud server. Data will be sent with JSON formatting. 
+The Scooter electronics will use MQTT protocol for all bidirectional communication with the cloud server. Data will be sent with JSON formatting. The server application will subscribe to the topics to retrieve data and publish to send commands.
 
 ### MQTT
 MQTT is a lightweight publish/subscribe system that allows devices to publish information about a given topic to a server that functions as a message broker. The broker then pushes the information out to those clients that have previously subscribed to the topic. MQTT is very popular for hobby home automation projects however it is also popular in commercial applications. Facebook Messenger uses MQTT on mobile devices due to its low power consumption and fast transport with easy support for private or group chats.
 - Mosquito MQTT Broker is open source and requires a low end VPS or Raspberry Pi
 - Low cost cloud service is also available to minimize setup time [CloudMQTT](https://www.cloudmqtt.com/)
-- MQTT Clients to aid  development
+- Extensive library support for any language you would like to develop with.
+- MQTT Clients to aid development
     - MQTT Box - good client for PC / chrome extension
     - MQTT Explorer - Awesome tool for exploring all the available topics on Broker
     - Many MQTT Android / iOS apps are available
