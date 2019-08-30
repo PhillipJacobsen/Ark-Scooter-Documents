@@ -103,6 +103,83 @@ All information related to the rental will be stored on the blockchain. This wil
 ## Logic platform
 I am still thinking about how much of the logic should be implemented in the core plugin and how much in a cloud IOT service. Using a common/simple IOT tool such as Node Red for much of the logic would be a good approach for a POC. It is a very accesible tool to a wide range of people. It is a great tool for rapid prototyping. 
 
+
+## Client Mobile Application
+
+### Show and track the location of available scooters
+1. Mobile App requests location data from server.
+2. Server queries bridgechain for location data.
+3. Server received data from bridgechain and emits this data through a socket back to the
+Mobile App. The server also emits the same data to all other connected clients.
+4. Clients update their views according to data.
+
+### Lock and unlock an IoT physical device (lock) to manage the security of the scooters
+1. Mobile App scans QR code on the smart lock.
+2. Mobile App reads data from QR and initiate lock or unlock transaction by sending a
+request to the server.
+3. Server accepts request (in case of unlock the server emits a reservation to all connected
+clients) and passes data back to the Mobile App.
+4. Mobile App creates intent / URL scheme and opens Ark Mobile app.
+5. User sends the custom transaction.
+6. Transaction gets forged and bridgechain plugin emits this event to the server.
+7. Server emits update to all connected clients.
+8. Clients update their views according to data.
+9. Server locks / unlocks the smart lock.
+10. Optional: in case of a timeout the server will cancel the reservation and update all clients.  
+
+Q: Does the Ark Mobile app support custom transactions?  
+Q: Is anyone familiar with smart locks? Is there a smart lock on the market with a display which is able to show QR codes?
+
+
+### Process payments in ARK (Ѧ) to unlock the device
+1. Every transaction will be requested via the server.
+2. The server sends data to the Mobile App.
+3. The Mobile App interprets the data and opens the Ark Mobile App.
+4. User sends tokens.
+5. Server waits for bridgechain event.
+6. Server sends update to client.
+7. Client update view according to data.
+
+### Show and track drop-off locations once a scooter has been rented
+1. Server determines drop-off location.
+2. Server sends custom transaction to bridgechain with location data.
+3. Server waits for bridgechain event.
+4. Server sends update to client.
+5. Client update view according to data.
+
+Q: Are the drop-off locations fixed? Is the drop-off location the same as the rental start location?  
+Q: Is the smart lock attached to the scooter? Or is the smart lock attached to a stand?
+
+### Manage and track time and distance of rental (from pick-up to drop-off)
+1. Mobile App requests track times.
+2. Server determines track time (during rental: timestamp now - timestamp pick-up or total
+rental time: timestamp drop-off - timestamp pick-up).
+3. Server sends update to client.
+4. Client update view according to data.  
+
+Q: Distance tracking requires GPS data of the user which means the app needs to be open all time which is not a good combination riding a scooter. What if the user closes the app in the meantime? This might need some refinement.
+
+### Process deposit and fees on drop-off at a designated location.
+1. Scan QR of lock and initiate drop-off transaction.
+2. Server instructs Mobile App to send custom transaction to the bridgechain.
+3. Intent / URL scheme opens Ark Mobile App and fills the form with data.
+4. User sends the transaction.
+5. Server waits for bridgechain event.
+6. Server sends update to client.
+7. Client update view according to data.
+8. Smart lock will start rental process, see below.
+
+### Make the scooter available for rental after proper drop-off is completed
+1. Smart lock sends location to server and requests availability for rental.
+2. Server sends custom pick-up transaction to bridgechain with location data.
+3. Server waits for bridgechain event.
+4. Server sends update to all connected clients (scooter is now available for rental).
+5. Clients update their views according to the data.
+
+
+
+
+
 ## Admin App
 I think this could all be done with IOT platform tools.
 Requirements
@@ -112,17 +189,7 @@ Requirements
 - Create/View various reports
 - Generate Alerts
 
-
-## Potential IOT Platforms that we could use for dashboards, communication, logic
-
-### MQTT
-- Publish / Subscribe low complexity communication protocol
-- Mosquito Broker is open source and requires low end VPS or Raspberry Pi
-- Low cost cloud service also available to minimize setup time [CloudMQTT](https://www.cloudmqtt.com/)
-- MQTT Clients
-    - MQTT Box - good client for PC / chrome extension
-    - MQTT Explorer - Awesome tool for exploring all the available topics on Broker
-    - Many MQTT Android / iOS apps are available
+## IOT Platforms for Analytics, Device Monitoring, and some data processing
 
 ### Node-Red
 - Open source browser-based programming tool for wiring together hardware devices, APIs and online services
@@ -130,17 +197,60 @@ Requirements
 - IBM Cloud has free tier with 250MB storage
 
 ### Thingsboard
+Thingsboard would be a great tool for visualizing all of the data from the nodes and providing a very nice admin dashboard. This would Not be used for creating the Mobile user application.
 - Device management, data collection, processing and visualization for your IoT solution
 - Open Source. 
 - Runs on Raspberry Pi
 - Runs on Digital Ocean VPS
-- Free service probably does what we need. Paid license also available
+- Free license likely provides what we need. Paid license also available. Free license would be installed on VPS
+
+I believe that we could relatively easily generate a very similar dashboard as the demo below by simply subscribing to data published to the MQTT broker and using the standard Thingsboard Widgets.
+![](https://i.imgur.com/W4Z3hKb.jpg)
 
 
-## Hardware
+
+## IOT Communication
+
+The Scooter electronics will use MQTT protocol for all bidirectional communication with the cloud server. Data will be sent with JSON formatting. 
+
+### MQTT
+MQTT is a lightweight publish/subscribe system that allows devices to publish information about a given topic to a server that functions as a message broker. The broker then pushes the information out to those clients that have previously subscribed to the topic. MQTT is very popular for hobby home automation projects however it is also popular in commercial applications. Facebook Messenger uses MQTT on mobile devices due to its low power consumption and fast transport with easy support for private or group chats.
+- Mosquito MQTT Broker is open source and requires a low end VPS or Raspberry Pi
+- Low cost cloud service is also available to minimize setup time [CloudMQTT](https://www.cloudmqtt.com/)
+- MQTT Clients to aid  development
+    - MQTT Box - good client for PC / chrome extension
+    - MQTT Explorer - Awesome tool for exploring all the available topics on Broker
+    - Many MQTT Android / iOS apps are available
+
+
+
+## IOT Hardware / Firmware
+
+### Scooter
 - xiaomi m365 is a common scooter that rideshare companies rebranded for their launch in the last couple of years. The large rideshare companies are now starting to create modified electronics and upgraded scooters.
 - There seems to be an easily accessible serial interface available for reading out data from the m365 scooter.
-    ![](https://i.imgur.com/xKw6CRW.jpg)
+
+### Custom Electronics
+The ESP32 processor is a 32bit highly integrated SoC with Wifi. Firmware will be developed using Arduino / PlatformIO environment and Ark C++ SDK.  
+A GPS module with active external antenna will be used.  
+The lock/unlock security mechanism will be a relay enabling the power to the stock scooter controller.  
+Initially a cellphone wifi hotspot will provide the internet connection to the ESP32. A GSM module can be integrated as an optional feature.
+A small 2.4" or 3.5" TFT could provided if it provides functionality to the user interface. It could be used to dynamically generate a QR code instead of a static printed code.  
+The custom electronics may not be able to be integrated inside of the scooter due to space constraints. In this case a small enclosure will be used that can be attached to the base or handle of the scooter.
+
+ ![](https://i.imgur.com/BSaLcJf.jpg)
+
+
+
+### Communication with Bridgechain and Cloud Server
+The ESP32 will be assigned a unique Bridgechain address and store its private key in Flash memory. Secure storage methods will be an optional enhanced feature. The ESP32 will be able to send device registration transactions and optionally use its private key to sign / encrypt messages sent offchain. Transactions will use the public Bridgechain API.
+
+The ESP32 will not communicate with the Ark Mainnet.
+
+MQTT protocol will be used for bidirectional communication with the cloud server. ESP32 will periodically publish sensor data(Location, Battery level).  ESP32 will subscribe to command topics and publish command acknowledgments.
+
+### Addtional Firmware Details
+The firmware/hardware will not be optimized for low power extended battery operation.
 
 
 # Interesting Links 
