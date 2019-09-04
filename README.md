@@ -66,40 +66,99 @@ All information related to the rental will be stored on the blockchain. This wil
 - Oleg - UI
 
 ## Milestones
+Implementation of custom transactions and deployment of bridgechain will occur near the latter stages of design.
 
-
-
+#### Highlevel Timeline
 
 
 ---
 
 
 # Technical Specification
+- **@pj, @emsy**
 
 
 
+## Main Blocks / Tasks
 
-## Main Blocks 
-- Bridge Chain Node Management
-- Custom Transaction Core Plugin(s)
-- Custom Ark Logic Core Plugin
-- Logic & Communication Platforms(cloud) - example: NodeRed, MQTT
-- Analytics Platform(cloud) - example: thingsboard, NodeRed
-- Admin App - might be included in Logic/Analytics platform
-- Client App(s)(web, Android, IOS)
-- Hardware
-- IOT Firmware
-- IOT device simulator/emulator
-- Test
+#### Bridge Chain Deployment & Node Management
+- **@emsy**
 
-## Block Diagram
+#### Custom Transaction Design
+- **@emsy, @pj**
+
+#### Custom Transaction Implementation
+- **@emsy, @roks0n ??**
+
+#### Custom Core Module: MQTT plugin
+- used for data analytics only. Likely needs minor tweaks
+- **@roks0n**
+
+
+#### Custom Core Module: Device and Location Registries
+- **@emsy, @roks0n ??**
+
+#### Custom Core Module: Logic Controller
+- Note: I am not yet clear on location of all the logic (Core plugin, cloud server)
+- **@emsy**
+
+#### Cloud Server: Data Processing / Logic Controller
+- Note: I am not yet clear on location of all the logic (Core plugin, cloud server)
+- some data pre-processing / modules may be implemented via Node-Red
+- NodeJS + Express + SocketCluster
+- **@emsy, @pj**
+
+#### MQTT Broker Management
+- **@pj**
+
+#### MQTT Protocol Design
+- **@pj**
+
+#### Analytics/Admin Cloud Platform (Thingsboard??)
+- **@pj**
+
+#### IOS/ Andriod Client App
+- Appcelerator using JavaScript
+- **@emsy with UI guidance from Oleg**
+
+#### IOT device simulator / emulator
+- Simulator of additional Scooters on Map. 
+- **@pj, @roks0n**
+
+
+#### Hardware Electronics
+- **@pj**
+
+#### Firmware
+- **@pj, @Chris (ciband)**
+- definitely will get @Chris (ciband)'s help with C++ SDK library enhancements if needed
+
+#### Hardware Integration into Scooter
+- **@pj**
+
+
+#### System Test
+-
+
+
+
+## System Block Diagram
 ![](https://i.imgur.com/AHIrylh.jpg)
+
+--- 
+
+## dApp Block Diagram
+![](https://i.imgur.com/VohsPuC.jpg)
+
+
+
+
 
 
 ## Bridgechain Requirements
 - Core V2.6 Testnet
-- Number of forging nodes?
-- Not sure if deployer will be updated to support V2.6 when we are ready for it so this might take a bit more work than the standard push button blockchain flow
+- 8 seconds blocktime with 53 forgers.
+- Not sure if deployer will be updated to support V2.6 when we are ready for it so this might take a bit more work than the standard push button blockchain flow - I'm also not sure but I did setup a bridgechain without the deployer before and I documented it which might be helpfull (emsy)
 
 ## Data Stored on the Bridgechain
 * Device Registration Transaction
@@ -107,17 +166,18 @@ All information related to the rental will be stored on the blockchain. This wil
     * This will be sent directly by lock/device
 * Location Registration Transaction
     * Custom transaction used to register a specific pick-up / drop-off depot location.
-    * **Not sure exactly how this would be triggered**
+    * **Not sure exactly how this would be triggered** - Who may determine these locations? The customer or us? Do we add / manage these locations via our Admin app? (emsy)
 * Rental Pickup/Drop-off Transaction.
-    * **I think this should be sent by logic controller/server.**
+    * **I think this should be sent by logic controller/server.** - I think that the customer picks-up an available scooter(server sends this custom tx to bridgechain). Customer scoots along and requests a deposit after a while(may the customer decide this location by himself?). Server accepts deposit and instructs customer to make the payment. Customer pays with Ark and server locks the scooter and stores the drop-of transaction on the bridgechain. (emsy)
 
-**I don't think that user App needs to know anything about the bridgechain. I think it just needs to proces payments by ARK**
+**I don't think that user App needs to know anything about the bridgechain. I think it just needs to proces payments by ARK** - I agree (emsy)
 
     
 
 ## Custom Transactions
+Structure of the custom transactions goes here.
 
-
+I added some links ad the bottom which might help on this topic (emsy)
 
 ## Logic platform
 I am still thinking about how much of the logic should be implemented in the core plugin and how much in a cloud IOT service. Using a common/simple IOT tool such as Node Red for much of the logic would be a good approach for a POC. It is a very accesible tool to a wide range of people. It is a great tool for rapid prototyping. 
@@ -199,7 +259,7 @@ Q: Distance tracking requires GPS data of the user which means the app needs to 
 
 
 
-## Admin App
+## Admin App (optional upgrade)
 I think this could all be done with IOT platform tools.
 Requirements
 - View device status
@@ -275,6 +335,9 @@ The firmware/hardware will not be optimized for low power extended battery opera
 
 # Interesting Links 
 
+#### Ark
+- [Tier 0 project details](https://github.com/ArkEcosystem/tier-0-program/issues/12)
+
 #### Bike Share Data
 - [General Bikeshare Feed Specification](https://github.com/NABSA/gbfs/blob/master/gbfs.md)
 - [how cities can ask for data from micromobility providers](https://blog.remix.com/mds-gbfs-and-how-cities-can-ask-for-data-from-micromobility-providers-7957ca639f16)
@@ -290,5 +353,10 @@ The firmware/hardware will not be optimized for low power extended battery opera
 - [decoding serial bus data on a Xiaomi M365 Scooter](https://gitlab.com/esp32m365/esp32_xiaomi_m365_display)
 - [BLE controller replacement](https://github.com/camcamfresh/Xiaomi-M365-BLE-Controller-Replacement)
 
+#### Custom transaction / application development
+- [Introduction to development part 1](https://blog.ark.io/an-introduction-to-blockchain-application-development-part-1-7bb2082e5e44)
+- [Introduction to development part 2](https://blog.ark.io/an-introduction-to-blockchain-application-development-part-2-2-909b4984bae)
+
+[IOT Data Simulator](https://github.com/IBA-Group-IT/IoT-data-simulator)
 
 ###### tags: `ark.io` `Documentation` `IOT`
