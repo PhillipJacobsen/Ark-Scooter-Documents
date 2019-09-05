@@ -51,6 +51,7 @@ All information related to the rental will be stored on the blockchain. This wil
 - Provide a functioning ARK based blockchain with the above custom transactions and functionality
 - Demonstrate the application working as described
 - Provide a Bill of Materials (BOM) for the required IoT hardware.
+- Project will not include final integration of electronics into scooter hardware. 
 
 
 ## Team Members
@@ -66,23 +67,45 @@ All information related to the rental will be stored on the blockchain. This wil
 - Oleg - UI
 
 ## Milestones
-Implementation of custom transactions and deployment of bridgechain will occur near the latter stages of design.
 
-#### Highlevel Timeline
+#### App UI Mockup
+#### Custom Transaction Structure Defined
+#### MQTT Data/Command Packets Defined
+#### Firmware/Electronics V0.1
+#### V2.6 BridgeChain Testnet Deployed
+#### Custom Transactions Implemented
+#### Custom Core Plugin(Registries + Logic) Implemented
+#### App v0.1
+#### Server / Logic Controller
+#### Firmware/Electronics V0.2
+#### Analytics Platfrom Dashboard Implemented
+#### App v0.2
+#### Working Demo (Electronics not integrated into scooter)
 
+
+
+## Project Costs
+Applications could be optimized to operate on 1 or 2 VPS. Using separate services at the beginning will reduce implementation time.
+- MQTT server - $19 USD/Month
+- Node Red - Free Monthly Plan
+- Thingsboard - $20 USD/Month
+- BridgeChain Testnet (1 node): $30 USD/month
+- 2 or 3 sets of Prototype Electronics: 
+    - ESP32, TFT screen, GPS module, Antenna, Battery
+    - ~$125->$175 per set
 
 ---
 
+## Main Project Tasks
 
-# Technical Specification
+#### Write Technical Specification
 - **@pj, @emsy**
 
-
-
-## Main Blocks / Tasks
+#### Final Documentation / Blog Post
+- Maybe we should let the Ark team handle this task? (emsy)
 
 #### Bridge Chain Deployment & Node Management
-- **@emsy**
+- **@emsy** 
 
 #### Custom Transaction Design
 - **@emsy, @pj**
@@ -94,12 +117,11 @@ Implementation of custom transactions and deployment of bridgechain will occur n
 - used for data analytics only. Likely needs minor tweaks
 - **@roks0n**
 
-
 #### Custom Core Module: Device and Location Registries
 - **@emsy, @roks0n ??**
 
 #### Custom Core Module: Logic Controller
-- Note: I am not yet clear on location of all the logic (Core plugin, cloud server)
+- Note: I am not yet clear on location of all the logic (Core plugin, cloud server). My current vision is that the core plugin will only forward real-time bridgechain events to the cloud server. The cloud server will contain all the logic. When we're in a further stage we can determine what cloud server logic should be in a core plugin. Custom transactions are new to me and I think we should see how it goes and refactor from there. (emsy)
 - **@emsy**
 
 #### Cloud Server: Data Processing / Logic Controller
@@ -107,6 +129,7 @@ Implementation of custom transactions and deployment of bridgechain will occur n
 - some data pre-processing / modules may be implemented via Node-Red
 - NodeJS + Express + SocketCluster
 - **@emsy, @pj**
+- We can host this application on the same VPS as the bridgechain. (emsy)
 
 #### MQTT Broker Management
 - **@pj**
@@ -123,6 +146,8 @@ Implementation of custom transactions and deployment of bridgechain will occur n
 
 #### IOT device simulator / emulator
 - Simulator of additional Scooters on Map. 
+- This would be used to aid in development of the logic controller and app. It may just be some simple scripts to produce artificial MQTT data to emulate additional scooters. 
+- For demo purposes it could also just be used to show additional devices on the map.
 - **@pj, @roks0n**
 
 
@@ -134,11 +159,19 @@ Implementation of custom transactions and deployment of bridgechain will occur n
 - definitely will get @Chris (ciband)'s help with C++ SDK library enhancements if needed
 
 #### Hardware Integration into Scooter
-- **@pj**
+- **not included in this project** 
 
 
 #### System Test
--
+- Are there tools that we need to develop to test/develop modules?
+
+
+
+---
+
+# Technical Specification
+
+
 
 
 
@@ -177,7 +210,6 @@ Implementation of custom transactions and deployment of bridgechain will occur n
 ## Custom Transactions
 Structure of the custom transactions goes here.
 
-I added some links ad the bottom which might help on this topic (emsy)
 
 ## Logic platform
 I am still thinking about how much of the logic should be implemented in the core plugin and how much in a cloud IOT service. Using a common/simple IOT tool such as Node Red for much of the logic would be a good approach for a POC. It is a very accesible tool to a wide range of people. It is a great tool for rapid prototyping. 
