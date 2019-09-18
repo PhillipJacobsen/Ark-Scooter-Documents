@@ -15,23 +15,24 @@ Create a Scooter rental solution utilizing a mobile app and an associated Ark cu
 
 ### Mobile App
 The core user interface of the project will be a mobile app for both iOS and Android. This mobile app will manage the following:
-- Customer Onboarding
+- Basic customer Onboarding
 - Booking
 - Real-time GPS tracking of available scooters using Google Maps
 - QR code / ID scanner integration
-- Lock and unlock an IoT physical device (lock) to manage the security of the scooters
+- Send Lock and unlock signal to and IoT physical device (lock) to manage the security of the scooters
 - In-app payments in ARK (Ѧ)
 - Show and track drop-off locations once a scooter has been rented
 - Manage and track time and distance of rental (from pick-up to drop-off)
 - Process deposit and fees on drop-off at a designated location
-- Make the scooter available for rental after proper drop-off is completed
+- Make the scooter available for rental after drop-off is completed
 
 ### Custom ARK Bridgechain
 All information related to the rental will be stored on the blockchain. This will be accomplished through several potentially new custom transaction types as follows:
 - Device Registration Transaction (to register a new lock or device)
 - Location Registration Transaction (pick-up/drop-off GPS coordinates)
-- Rental Pick-up Transaction
-- Rental Drop-off Transaction
+- Rental Pick-up / Drop-off Transaction  
+
+Administration functions to handle the registration of scooters and locations will not be implemented in the demo app. The transactions could be demonstrated by some script/tool(Not sure if the Ark Team has some utility for this)
 
 ### Provided by the ARK.io Team
 - The custom mobile app UI design
@@ -39,7 +40,7 @@ All information related to the rental will be stored on the blockchain. This wil
 
 ### Requirements for completion
 - Provide a completed mobile application that meets the above minimum criteria.
-- Provide a functioning ARK based blockchain with the above custom transactions and functionality
+- Provide a functioning custom ARK Bridgchain blockchain with the above custom transactions and functionality
 - Demonstrate the application working as described
 - Provide a Bill of Materials (BOM) for the required IoT hardware.
 - Project will not include final integration of electronics into scooter hardware. 
@@ -61,39 +62,57 @@ All information related to the rental will be stored on the blockchain. This wil
 ### Community Members
 - @emsy
 - @pj
-- @Chris (ciband)
 
 
 ### Ark Crew (Main Contacts and Tech Support)
 - @sleepdeficit - IOT - Coordinator
 - @Matthew DC - Project Specs 
 - Oleg - UI
-- 
+
 ## Milestones
 
-#### App UI Mockup
-#### Custom Transaction Structure Defined
-#### MQTT Data/Command Packets Defined
-#### Firmware/Electronics V0.1
-#### V2.6 BridgeChain Testnet Deployed
-#### Custom Transactions Implemented
-#### Custom Core Plugin(Registries + Logic) Implemented
-#### App v0.1
-#### Server / Logic Controller
-#### Firmware/Electronics V0.2
-#### Analytics Platfrom Dashboard Implemented
-#### App v0.2
-#### Working Demo (Electronics not integrated into scooter)
+We both agreed to split the amount of funding, each contributor will have 12.5k to diversify over the assigned milestones. After completed approved by the Ark team the contributer is egible to request a payment.
 
+#### IOT communication Protocol Defined, IOT Servers deployed (pj) - 1750‬ ARK
+- MQTT & Node-red servers deployed
+- IOT Communication Protocol defined.
+- Device Simulator
+#### IOT Hardware procurred and detailed hardware block diagram (pj) - 1000 ARK
+#### Firmware/Electronics/data preprocessing V0.1 (pj) - 3000‬ ARK
+- basic feature set to support App v0.1
+- data pre-processing in Node-Red
+#### Firmware/Electronics V0.2 (pj) - 3000‬ ARK
+- final feature set to support App v0.2
+#### Analytics Dashboard, Detailed Technical Specifcation (pj) - 2000‬ ARK
+---
+#### Custom Transaction Structure Defined (emsy + pj) - 1000 ARK(pj). 1000 ARK(emsy)
+#### Working Demo(final milestone) (Electronics not integrated into scooter) (pj + emsy) - 750 ARK(pj). 750 ARK(emsy)
+- Video of working product. Performance could be verified by Simon.
+---
+#### V2.6 BridgeChain Testnet Deployed (emsy) - 750 ARK
+#### Custom Transactions Created (emsy) - 1500 ARK
+#### Custom Core Plugin(Registries + Logic) Implemented (emsy) - 1000 ARK
+#### Server / Logic Controller (emsy) - 2000 ARK
+#### App UI Mockup (emsy) - 500 ARK
+#### App v0.1 (emsy) - 2500 ARK
+- Show and track the location of available scooters
+- Lock and unlock an IoT physical device (lock) to manage the security of the scooters
+- Process payments in ARK (Ѧ) to unlock the device
+- Show and track drop-off locations once a scooter has been rented
+#### App v0.2 (emsy) - 2500 ARK
+- Manage and track time and distance of rental (from pick-up to drop-off)
+- Process deposit and fees on drop-off at a designated location
+- Make the scooter available for rental after proper drop-off is completed
 
 ## Project Costs
 Applications could be optimized to operate on 1 or 2 VPS. Using separate services at the beginning will reduce implementation time.
-- MQTT server - $19 USD/Month
-- Node Red - Free Monthly Plan
-- Thingsboard - $20 USD/Month
-- BridgeChain Testnet (1 node): $30 USD/Month
-- Cloud Server - $20 USD/Month (could run on Bridgechain node) 
-- 1 or 2 sets of Prototype Electronics: 
+- MQTT server - $19 USD/Month (pj)
+- Node Red - Free Monthly Plan (pj)
+- Thingsboard - $20 USD/Month (pj)
+- BridgeChain Testnet and app logic server 1 VPS with 2 CPU, 4GB RAM, 150GB SSD, 5TB pooled traffic +- $30 USD/Month (emsy) 
+- Ark mainnet relay node 1 VPS with 2 CPU, 4GB RAM, 150GB SSD, 5TB pooled traffic +- $30 USD/Month (emsy)
+    - Might need more RAM, this can be added at any time at a cost of +- 10$ / Month per 1GB.
+- 1 or 2 sets of Prototype Electronics (pj): 
     - ESP32, TFT screen, GPS module, Antenna, Battery
     - ~$125->$175 USD per set
 
@@ -114,25 +133,23 @@ Applications could be optimized to operate on 1 or 2 VPS. Using separate service
 - **@emsy**
 
 #### Custom Core Module: Device and Location Registries
-- **@emsy?**
+- **@emsy**
 
 #### Custom Core Module: Logic Controller
-- Note: I am not yet clear on location of all the logic (Core plugin, cloud server). My current vision is that the core plugin will only forward real-time bridgechain events to the cloud server. The cloud server will contain all the logic. When we're in a further stage we can determine what cloud server logic should be in a core plugin. Custom transactions are new to me and I think we should see how it goes and refactor from there. (emsy)
+- My current vision is that the core plugin will only forward real-time bridgechain events to the cloud server. The cloud server will contain all the logic. When we're in a further stage we can determine what cloud server logic should be in a core plugin. 
 - **@emsy**
 
 #### Cloud Server: Data Processing / Logic Controller
-- Note: I am not yet clear on location of all the logic (Core plugin, cloud server)
-- some data pre-processing / modules may be implemented via Node-Red
-- NodeJS + Express + SocketCluster
+- NodeJS + Express + SocketCluster (maybe Node-Red)
 - **@emsy, @pj**
 
 #### MQTT Broker Management
 - **@pj**
 
-#### MQTT Protocol Design
+#### IOT Protocol Design
 - **@pj**
 
-#### Analytics/Admin Cloud Platform (Thingsboard??)
+#### Analytics/Admin Cloud Platform
 - **@pj**
 
 #### IOS/ Andriod Client App
@@ -174,7 +191,6 @@ Applications could be optimized to operate on 1 or 2 VPS. Using separate service
 
 
 
-
 ## Bridgechain Requirements
 - Core V2.6 Testnet
 - 8 seconds blocktime with 53 forgers.
@@ -188,12 +204,9 @@ Applications could be optimized to operate on 1 or 2 VPS. Using separate service
     * This will be sent directly by lock/device
 * Location Registration Transaction
     * Custom transaction used to register a specific pick-up / drop-off depot location.
-    * **Not sure exactly how this would be triggered** - Who may determine these locations? The customer or us? Do we add / manage these locations via our Admin app? (emsy)
-        * I think application support to register devices and locations is beyond the scope of this project.(pj)
 * Rental Pickup/Drop-off Transaction.
     * **I think this should be sent by logic controller/server.** - I think that the customer picks-up an available scooter(server sends this custom tx to bridgechain). Customer scoots along and requests a deposit after a while(may the customer decide this location by himself?). Server accepts deposit and instructs customer to make the payment. Customer pays with Ark and server locks the scooter and stores the drop-of transaction on the bridgechain. (emsy)
 
-**I don't think that user App needs to know anything about the bridgechain. I think it just needs to proces payments by ARK** - I agree (emsy)
 
     
 
@@ -207,14 +220,14 @@ I am still thinking about how much of the logic should be implemented in the cor
 
 ## Client Mobile Application
 
-### Show and track the location of available scooters
+#### Show and track the location of available scooters
 1. Mobile App requests location data from server.
 2. Server queries bridgechain for location data.
 3. Server received data from bridgechain and emits this data through a socket back to the
 Mobile App. The server also emits the same data to all other connected clients.
 4. Clients update their views according to data.
 
-### Lock and unlock an IoT physical device (lock) to manage the security of the scooters
+#### Lock and unlock an IoT physical device (lock) to manage the security of the scooters
 1. Mobile App scans QR code on the smart lock.
 2. Mobile App reads data from QR and initiate lock or unlock transaction by sending a
 request to the server.
@@ -229,10 +242,14 @@ clients) and passes data back to the Mobile App.
 10. Optional: in case of a timeout the server will cancel the reservation and update all clients.  
 
 Q: Does the Ark Mobile app support custom transactions?  
+
+(simon): Not currently. When the Tx spec is hammered out, we can get you help with this though.
+
 Q: Is anyone familiar with smart locks? Is there a smart lock on the market with a display which is able to show QR codes?
+(simon): Not that I'm aware of. We could probably just use a screen and a relay to cut power for an MVP.
 
 
-### Process payments in ARK (Ѧ) to unlock the device
+#### Process payments in ARK (Ѧ) to unlock the device
 1. Every transaction will be requested via the server.
 2. The server sends data to the Mobile App.
 3. The Mobile App interprets the data and opens the Ark Mobile App.
@@ -241,7 +258,7 @@ Q: Is anyone familiar with smart locks? Is there a smart lock on the market with
 6. Server sends update to client.
 7. Client update view according to data.
 
-### Show and track drop-off locations once a scooter has been rented
+#### Show and track drop-off locations once a scooter has been rented
 1. Server determines drop-off location.
 2. Server sends custom transaction to bridgechain with location data.
 3. Server waits for bridgechain event.
@@ -249,9 +266,12 @@ Q: Is anyone familiar with smart locks? Is there a smart lock on the market with
 5. Client update view according to data.
 
 Q: Are the drop-off locations fixed? Is the drop-off location the same as the rental start location?  
-Q: Is the smart lock attached to the scooter? Or is the smart lock attached to a stand?
+(simon): I'd say there should probably not be a designated drop-off location. 
 
-### Manage and track time and distance of rental (from pick-up to drop-off)
+Q: Is the smart lock attached to the scooter? Or is the smart lock attached to a stand?
+(simon): I think for the MVP, maybe just a relay to cut power as mentioned above should work well enough.
+
+#### Manage and track time and distance of rental (from pick-up to drop-off)
 1. Mobile App requests track times.
 2. Server determines track time (during rental: timestamp now - timestamp pick-up or total
 rental time: timestamp drop-off - timestamp pick-up).
@@ -259,8 +279,9 @@ rental time: timestamp drop-off - timestamp pick-up).
 4. Client update view according to data.  
 
 Q: Distance tracking requires GPS data of the user which means the app needs to be open all time which is not a good combination riding a scooter. What if the user closes the app in the meantime? This might need some refinement.
+(simon): We could probably just use a simple time-based calculation. X ARK == X minutes
 
-### Process deposit and fees on drop-off at a designated location.
+#### Process deposit and fees on drop-off at a designated location.
 1. Scan QR of lock and initiate drop-off transaction.
 2. Server instructs Mobile App to send custom transaction to the bridgechain.
 3. Intent / URL scheme opens Ark Mobile App and fills the form with data.
@@ -270,7 +291,7 @@ Q: Distance tracking requires GPS data of the user which means the app needs to 
 7. Client update view according to data.
 8. Smart lock will start rental process, see below.
 
-### Make the scooter available for rental after proper drop-off is completed
+#### Make the scooter available for rental after proper drop-off is completed
 1. Smart lock sends location to server and requests availability for rental.
 2. Server sends custom pick-up transaction to bridgechain with location data.
 3. Server waits for bridgechain event.
@@ -305,14 +326,15 @@ Thingsboard would be a great tool for visualizing all of the data from the nodes
 - Runs on Digital Ocean VPS
 - Free license likely provides what we need. Paid license also available. Free license would be installed on VPS
 
-I believe that we could relatively easily generate a very similar dashboard as the demo below by simply subscribing to data published to the MQTT broker and using the standard Thingsboard Widgets.
-![](https://i.imgur.com/W4Z3hKb.jpg)
+#### Admin Analytics Dashboard ####
+![](https://i.imgur.com/8mLIbhs.jpg)
+
 
 
 
 ## IOT Communication
 
-The Scooter electronics will use MQTT protocol for all bidirectional communication with the cloud server. Data will be sent with JSON formatting. The server application will subscribe to the topics to retrieve data and publish to send commands.
+The Scooter electronics will use MQTT protocol for all bidirectional communication with the cloud server.  The server application will subscribe to the topics to retrieve data and publish to send commands.
 
 ### MQTT Overview
 MQTT is a lightweight publish/subscribe system that allows devices to publish information about a given topic to a server that functions as a message broker. The broker then pushes the information out to those clients that have previously subscribed to the topic. MQTT is very popular for hobby home automation projects however it is also popular in commercial applications. Facebook Messenger uses MQTT on mobile devices due to its low power consumption and fast transport with easy support for private or group chats.
@@ -323,30 +345,41 @@ MQTT is a lightweight publish/subscribe system that allows devices to publish in
     - MQTT Box - good client for PC / chrome extension
     - MQTT Explorer - Awesome tool for exploring all the available topics on Broker
     - Many MQTT Android / iOS apps are available
+- library used by @roks0n: https://www.npmjs.com/package/mqtt
 
-### MQTT Protocol V3.1.1
-
+### MQTT Packet Structure
+Supports MQTT Protocol V3.1.1
 #### MQTT Topic Structure
 Topics are a string that the broker uses to filter messages for each client. The topic consists of three or more levels. Each level is separated by a froward slash.  
-The root topic is Level1/Level2/
+
+The first 2 topic levels will be referred to as the root level of the device.  
 
 Level1: Top Level Application Name  
-Level2: Ark Public Key. This is the base topic of the device.  
+Level2: Bridgechain Public Key. This is the base topic of the device.  
 Level3: Function(status,set, get,) or Device Property(begins with $)  
 Additional levels: Item Name  
   
-Example Topics: scooters/03b3019278420fb9351fa716a6c80d400a370d088058cec6e4260246cca83fe862/status/gps
- 
+Example Topics: 
+scooters/03b3019278420fb9351fa716a6c80d400a370d088058cec6e4260246cca83fe862/status/gps
 scooters/03b3019278420fb9351fa716a6c80d400a370d088058cec6e4260246cca83fe862/set/lock 
-
 scooters/03b3019278420fb9351fa716a6c80d400a370d088058cec6e4260246cca83fe862/status/lock 
 
+root level = scooters/03b3019278420fb9351fa716a6c80d400a370d088058cec6e4260246cca83fe862/
+
+#### Scooter MQTT Topics
+
 ##### Device Properties
-These are level3 topics starting with $ after the root topic.
+These are special level3 topics starting with $.
 - $state -> device connection state
 - $name -> friendly device name
 - $fw/version -> Version of firmware
 - $fw/checksum -> checksum of firmware
+
+##### Status Topics
+Scooter devices will publish to these topics
+
+##### Cmd Topics
+Scooter devices will Subscribe to these topics. This is used by the server logic to control actions on the scooter. The device will update the state of the corresponding status topic after command has been executed. The server logic should monitor the status toouc to kniw when command has been completed.
 
 
 #### MQTT Message Payload Structure
@@ -354,12 +387,14 @@ These are level3 topics starting with $ after the root topic.
 - The message fromat for set function topics is a simple value(boolean, integer, floating point number, or string)
 
 #### Broadcast Channel
-This is a special topic that the server can use to broadcast messages to all devices:  root/$broadcast
+This is a special topic that the server can use to broadcast messages to all devices.  
+scooters/$broadcast
 
 ## IOT Hardware / Firmware
 
 ### Scooter
-- xiaomi m365 is a common scooter that rideshare companies rebranded for their launch in the last couple of years. The large rideshare companies are now starting to create modified electronics and upgraded scooters.
+- xiaomi m365 is a common scooter that rideshare companies rebranded for their
+- launch in the last couple of years. The large rideshare companies are now starting to create modified electronics and upgraded scooters.
 - There seems to be an easily accessible serial interface available for reading out data from the m365 scooter.
 
 ### Custom Electronics
@@ -408,6 +443,7 @@ The firmware/hardware will not be optimized for low power extended battery opera
 #### Custom transaction / application development
 - [Introduction to development part 1](https://blog.ark.io/an-introduction-to-blockchain-application-development-part-1-7bb2082e5e44)
 - [Introduction to development part 2](https://blog.ark.io/an-introduction-to-blockchain-application-development-part-2-2-909b4984bae)
+- [Cryptocurrency Checkout](https://cryptocurrencycheckout.com/guides/individual_item)
 
 [IOT Data Simulator](https://github.com/IBA-Group-IT/IoT-data-simulator)
 
