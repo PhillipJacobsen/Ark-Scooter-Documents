@@ -2,8 +2,9 @@ https://github.com/bramp/js-sequence-diagrams/blob/master/README.md
 
 
 
-## Manually Generate Private Keys for app & scooter
-App and Scooter will store hardcoded bridgechain private keys in memory. Every rider and scooter would need a unique build with its own hardcoded bridgechain wallet.
+## Manually generate private keys for app & scooter
+App and Scooter will store hardcoded bridgechain private keys in memory. Every rider app and scooter would need a unique build with its own hardcoded bridgechain wallet.  
+There is no automatic IOT device registration feature.
 
 ```sequence
 Title: Device / App Wallet Init. (hack)
@@ -32,7 +33,7 @@ app->app:wait for payment to be received in company wallet
 
 ```
 ## Step 2 -  Rental Session
-App sends rental start tx. Scooter polls API(or maybe MQTT plugin) looking for rental start tx containing its own public key. Scooter is then unlocked until timer expires. Scooter locks and sends rental finish tx. App polls API(or maybe webhooks??) looking for rental finish tx containing its own public key. App displays rental summary.
+App sends rental start tx. Scooter polls API(or MQTT plugin)and starts looking for rental start tx containing its own public key. Scooter is then unlocked until timer expires. Scooter locks and sends rental finish tx. App receivs data from a custom plugin looking for rental finish tx containing its own public key. App displays rental summary.
 ```sequence
 Title: Step 2: Rental Session
 
@@ -74,14 +75,15 @@ app->app:Display ride stats(GPS,timestamps)
 - finish rental GPS
 - finish rental timestamp
 
-
 The rental finished transaction has the full details of the entire ride.
 If you wanted to analyze all of the ride data then I think you would only need to look at the rental finished messages.  
+The intial parameter in the custom transaction could be a type field so you could have just 1 custom transaction. I don't really know if this simplifies things. It might be better to have 2 separate transactions.
 
 
 ## Other details
 - Scooter IOT will publish realtime GPS & battery level to MQTT broker
-- Thingsboard Dashboard will subscribe via MQTT to GPS and battery info and display on realtime map 
+- Scooter IOT will also publish via MQTT its current operating mode(parked, in use, low battery, broken, etc).
+- Thingsboard Dashboard will subscribe via MQTT to GPS, battery, and operating mode and display on realtime map. 
 - Thingsboard Dashboard will subscribe via MQTT to bridgechain transaction events and display them in log
 - There is no custom device registration TX so there is no device registry that needs to be created as a custom plugin. 
 
