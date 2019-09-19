@@ -3,7 +3,6 @@ Ark Scooters
 ===
 [Tier 0 Program](https://github.com/ArkEcosystem/tier-0-program/issues/12)
 
-
 ## Table of Contents
 
 [TOC]
