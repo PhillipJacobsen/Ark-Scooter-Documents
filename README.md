@@ -3,7 +3,6 @@ Ark Scooters
 ===
 [Tier 0 Program](https://github.com/ArkEcosystem/tier-0-program/issues/12)
 
-
 ## Table of Contents
 
 [TOC]
@@ -15,48 +14,132 @@ Create a Scooter rental solution utilizing a mobile app and an associated Ark cu
 
 ### Mobile App
 The core user interface of the project will be a mobile app for both iOS and Android. This mobile app will manage the following:
-- Basic customer Onboarding
-- Booking
-- Real-time GPS tracking of available scooters using Google Maps
+<!-- - Basic customer Onboarding -->
+<!-- - Booking -->
+<!-- - Real-time GPS tracking of available scooters using Google Maps -->
 - QR code / ID scanner integration
 - Send Lock and unlock signal to and IoT physical device (lock) to manage the security of the scooters
 - In-app payments in ARK (Ѧ)
-- Show and track drop-off locations once a scooter has been rented
-- Manage and track time and distance of rental (from pick-up to drop-off)
-- Process deposit and fees on drop-off at a designated location
-- Make the scooter available for rental after drop-off is completed
+<!-- - Show and track drop-off locations once a scooter has been rented -->
+<!-- - Manage and track time and distance of rental (from pick-up to drop-off) -->
+<!-- - Process deposit and fees on drop-off at a designated location -->
+<!-- - Make the scooter available for rental after drop-off is completed -->
 
 ### Custom ARK Bridgechain
 All information related to the rental will be stored on the blockchain. This will be accomplished through several potentially new custom transaction types as follows:
-- Device Registration Transaction (to register a new lock or device)
-- Location Registration Transaction (pick-up/drop-off GPS coordinates)
+<!--- Device Registration Transaction (to register a new lock or device)
+- Location Registration Transaction (pick-up/drop-off GPS coordinates) -->
 - Rental Pick-up / Drop-off Transaction  
 
-Administration functions to handle the registration of scooters and locations will not be implemented in the demo app. The transactions could be demonstrated by some script/tool(Not sure if the Ark Team has some utility for this)
+<!---Administration functions to handle the registration of scooters and locations will not be implemented in the demo app. The transactions could be demonstrated by some script/tool(Not sure if the Ark Team has some utility for this) -->
 
 ### Provided by the ARK.io Team
 - The custom mobile app UI design
 - Additional guidance and support as necessary
 
 ### Requirements for completion
-- Provide a completed mobile application that meets the above minimum criteria.
+- Provide a mobile application that meets the above minimum criteria.
 - Provide a functioning custom ARK Bridgchain blockchain with the above custom transactions and functionality
 - Demonstrate the application working as described
 - Provide a Bill of Materials (BOM) for the required IoT hardware.
 - Project will not include final integration of electronics into scooter hardware. 
 
-### Optional Upgrades:
+<!---### Optional Upgrades:
 - Support multiple types of the rental by allowing the owner to take a picture of an object and upload it to the app with a category and price of their choosing
 - Allow additional currencies and payment methods
 - Allow a web interface for managing rentals
 - Loyality Program
 - Publish data according to General Bikeshare Feed Specification(GBFS)
 - Rider Identification Verification
-- Social media integration
+- Social media integration -->
 
 ## System Block Diagram
-![](https://i.imgur.com/AHIrylh.jpg)
+![](https://i.imgur.com/jOf7CFZ.jpg)
 
+---
+### Manually generate private keys for app & scooter
+App and Scooter will store hardcoded bridgechain private keys in memory. Every rider app and scooter would need a unique build with its own hardcoded bridgechain wallet.  
+There is no automatic IOT device registration feature.
+
+```sequence
+Title: Device / App Wallet Init. (hack)
+
+Note left of Desktop Wallet: generate wallets for scooter,app
+Note left of scooter: keys hardcoded in flash
+Note left of app: keys hardcoded in application
+Desktop Wallet->scooter: send tokens
+Desktop Wallet->app: send tokens
+
+```
+## Message Sequence Diagrams
+### Step 1 - Payment
+Public Key of scooter is encoded in QR code. App will need to include the public key of scooter in the rental start TX.
+Rider selects # of minutes of play time and then prepays in ARK.
+
+```sequence
+Title: Step 1: Scan & Pay
+
+scooter->scooter:Display QRcode(bridgechain public key)
+app->app:Scan QRcode to get public key of scooter
+app->app:Rider selects time.
+app->Rider's ARK wallet:Payment info sent to ARK Wallet
+Rider's ARK wallet->Company ARK Wallet: send ARK payment
+app->app:wait for payment to be received in company wallet
+
+```
+### Step 2 -  Rental Session
+App sends rental start tx. Scooter polls API(or MQTT plugin)and starts looking for rental start tx containing its own public key. Scooter is then unlocked until timer expires. Scooter locks and sends rental finish tx. App receivs data from a custom plugin looking for rental finish tx containing its own public key. App displays rental summary.
+```sequence
+Title: Step 2: Rental Session
+
+app->bridgechain:custom tx:rental start
+app->app:Display ride starting message
+bridgechain->scooter:custom tx:rental start
+Note left of scooter: public key needs to match
+scooter->scooter: record start time and GPS
+scooter->scooter:unlock scooter
+scooter->scooter: IOT screen displays countdown timer
+Note right of scooter:fun with scooter until timer expires
+scooter->scooter:lock scooter
+scooter->scooter:record end time and GPS
+scooter->scooter:IOT screen displays ride finished msg
+scooter->bridgechain:custom tx:rental finish
+bridgechain->app:custom tx: rental finish
+Note right of app:public key needs to match
+app->app:Display ride stats(GPS,timestamps)
+
+```
+
+
+## Details of Custom TXs
+### custom tx: rental start 
+- public key of scooter
+- public key of app
+- txid of ARK payment
+- number of minutes of scooter time
+- reserved data
+
+### custom tx: rental finished
+- public key of scooter
+- public key of app
+- txid of ARK payment
+- reserved data
+- number of minutes of scooter time
+- start rental GPS
+- start rental timestamp
+- finish rental GPS
+- finish rental timestamp
+
+The rental finished transaction has the full details of the entire ride.
+If you wanted to analyze all of the ride data then I think you would only need to look at the rental finished messages.  
+The intial parameter in the custom transaction could be a type field so you could have just 1 custom transaction. I don't really know if this simplifies things. It might be better to have 2 separate transactions.
+
+
+## Other details
+- Scooter IOT will publish realtime GPS & battery level to MQTT broker
+- Scooter IOT will also publish via MQTT its current operating mode(parked, in use, low battery, broken, etc).
+- Thingsboard Dashboard will subscribe via MQTT to GPS, battery, and operating mode and display on realtime map. 
+- Thingsboard Dashboard will subscribe via MQTT to bridgechain transaction events and display them in log
 
 ## Team Members
 ### Community Members
