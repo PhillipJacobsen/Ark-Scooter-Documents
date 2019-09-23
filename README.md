@@ -8,7 +8,7 @@ Ark Scooters
 [TOC]
 
 # Functional Requirements 
-Create a Scooter rental solution utilizing a mobile app and an associated Ark custom bridgechain to manage locking, unlocking, deposits, locations, and management of ARK Scooter rentals.
+Create a Scooter rental solution utilizing a mobile app and an associated Ark custom bridgechain to manage locking, unlocking, deposits, locations, and management of  Scooter rentals.
 
 ## Components
 
@@ -19,7 +19,7 @@ The core user interface of the project will be a mobile app for both iOS and And
 <!-- - Real-time GPS tracking of available scooters using Google Maps -->
 - QR code / ID scanner integration
 - Send unlock signal to and IoT physical device (lock) to manage the security of the scooters
-- In-app payments in ARK (Ѧ)
+- In-app payments in the Bridgechain Token
 - Display statistics once ride has been completed
 <!-- - Show and track drop-off locations once a scooter has been rented -->
 <!-- - Manage and track time and distance of rental (from pick-up to drop-off) -->
@@ -65,6 +65,8 @@ All information related to the rental will be stored on the blockchain. This wil
 ![](https://i.imgur.com/jOf7CFZ.jpg)
 
 ---
+
+<!---
 ### Manually generate private keys for app & scooter
 App and Scooter will store hardcoded bridgechain private keys in memory. Every rider app and scooter would need a unique build with its own hardcoded bridgechain wallet.  
 There is no automatic IOT device registration feature.
@@ -79,6 +81,9 @@ Desktop Wallet->scooter: send tokens
 Desktop Wallet->app: send tokens
 
 ```
+-->
+
+
 ## Message Sequence Diagrams
 ### Step 1 - Payment
 Public Key of scooter is encoded in QR code. App will need to include the public key of scooter in the rental pickup TX.
@@ -96,7 +101,7 @@ app->app:wait for payment to be received in company wallet
 
 ```
 ### Step 2 -  Rental Session
-App sends rental pickup tx. Scooter polls API(or MQTT plugin)and starts looking for rental pickup tx containing its own public key. Scooter is then unlocked until timer expires. Scooter locks and sends rental dropoff tx. App receives data from a custom plugin looking for rental dropoff tx containing its own public key. App displays rental summary.
+App sends rental pickup tx. Scooter polls API and starts looking for rental pickup tx containing its own public key. Scooter is then unlocked until timer expires. Scooter locks and sends rental dropoff tx. App receives data from a custom plugin looking for rental dropoff tx containing its own public key. App displays rental summary.
 ```sequence
 Title: Step 2: Rental Session
 
