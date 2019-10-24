@@ -1,14 +1,13 @@
-## Scooter Device Registration
+## Scooter Device Registration Sequence
 ```sequence
 Title: Scooter Device Registration
 
 Scooter Owner->bridgechain: custom tx(Registration)
 Note right of Scooter Owner: Registration TX \n To: multisig(1:2 device/owner)\n Amount: Deposit  \n Fee: Registration \n Asset: Scooter Device Public Key
-bridgechain->scooter: emit registration
+Note right of bridgechain:  emit registration complete 
 
 
 ```
-
 
 
 ## Rental Session Sequence
