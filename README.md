@@ -8,7 +8,7 @@ Ark Scooters
 [TOC]
 
 # Functional Requirements 
-Create a Scooter rental solution utilizing a mobile app and an associated Ark custom bridgechain to manage locking, unlocking, deposits, locations, and management of  Scooter rentals.
+Create an electric scooter rental solution utilizing a mobile app and an associated Ark custom bridgechain to manage locking, unlocking, deposits, locations, and management of  Scooter rentals. All communication between the App and the IOT device will be on chain through the use of custom transactions.
 
 ## Components
 
@@ -18,7 +18,7 @@ The core user interface of the project will be a mobile app for both iOS and And
 <!-- - Booking -->
 <!-- - Real-time GPS tracking of available scooters using Google Maps -->
 - QR code / ID scanner integration
-- Send unlock signal to and IoT physical device (lock) to manage the security of the scooters
+- Send rental pickup transaction to the IoT physical device (lock) to manage the security of the scooter.
 - In-app payments in the Bridgechain Token
 - Display statistics once ride has been completed
 <!-- - Show and track drop-off locations once a scooter has been rented -->
@@ -62,7 +62,10 @@ All information related to the rental will be stored on the blockchain. This wil
 - Social media integration -->
 
 ## System Block Diagram
-![](https://i.imgur.com/jOf7CFZ.jpg)
+![](https://i.imgur.com/2Uha6kw.jpg)
+
+
+
 
 ---
 
@@ -85,74 +88,100 @@ Desktop Wallet->app: send tokens
 
 
 ## Message Sequence Diagrams
-### Step 1 - Payment
-Public Key of scooter is encoded in QR code. App will need to include the public key of scooter in the rental pickup TX.
-Rider selects # of minutes of play time and then prepays in ARK.
-
+### Scooter Device Registration Sequence
 ```sequence
-Title: Step 1: Scan & Pay
+Title: Scooter Device Registration
 
-scooter->scooter:Display QRcode(bridgechain public key)
-app->app:Scan QRcode to get public key of scooter
-app->app:Rider selects time.
-app->Rider's ARK wallet:Payment info sent to ARK Wallet
-Rider's ARK wallet->Company ARK Wallet: send ARK payment
-app->app:wait for payment to be received in company wallet
+Scooter Owner->bridgechain: custom tx(Registration)
+Note right of Scooter Owner: Registration TX \n To: multisig(1:2 device/owner)\n Amount: Deposit  \n Fee: Registration \n Asset: Scooter Device Public Key, other....
+Note right of bridgechain:  emit registration complete 
 
 ```
-### Step 2 -  Rental Session
-App sends rental pickup tx. Scooter polls API and starts looking for rental pickup tx containing its own public key. Scooter is then unlocked until timer expires. Scooter locks and sends rental dropoff tx. App receives data from a custom plugin looking for rental dropoff tx containing its own public key. App displays rental summary.
-```sequence
-Title: Step 2: Rental Session
 
-app->bridgechain:custom tx:rental pickup
-app->app:Display ride starting message
-bridgechain->scooter:custom tx:rental pickup
-Note left of scooter: public key needs to match
-scooter->scooter: record start time and GPS
-scooter->scooter:unlock scooter
-scooter->scooter: IOT screen displays countdown timer
-Note right of scooter:fun with scooter until timer expires
+### Rental Session Sequence
+
+```sequence
+Title: Rental Session   
+app->app: start app
+scooter->scooter:Display QR code:Public Key,Pseudorandom,Rate
+scooter->app: scan QR code
+app->app: Select Rental Duration
+app->app: Finalize Payment
+app->bridgechain:custom tx:(Rental start) to scooter address
+
+Note right of app: Rental Start TX \n To: Scooter Address\n Amount: Rental Amount  \n Fee: Rental \n Asset: hash(Pseudorandom)
+
+app->app: wait for tx confirmation
+app->app: display message in app
+
+
+scooter->scooter: search for Rental Start
+bridgechain->scooter:custom tx:Rental Start
+Note right of scooter:verify hash. Refund if invalid
+
+scooter->scooter: Unlock scooter
+scooter->scooter: Record start time, display ride timer
+
+Note right of app:fun with scooter until timer expires
 scooter->scooter:lock scooter
-scooter->scooter:record end time and GPS
-scooter->scooter:IOT screen displays ride finished msg
-scooter->bridgechain:custom tx:rental dropoff
-bridgechain->app:custom tx: rental dropoff
-Note right of app:public key needs to match
-app->app:Display ride stats(GPS,timestamps)
+scooter->scooter:record GPS, display ride finished msg
+
+scooter->bridgechain:custom tx:(Rental finish)
+Note right of scooter: Rental Finish TX \n To: Renter Address \n Amount: 0  \n Fee: Rental \n Asset:start & end GPS,rate,duration \n start timestamp
+
+
+app->app: search for Rental finish
+bridgechain->app:custom tx: rental finish
+
+app->app:Display ride stats(GPS,time,etc)
 
 ```
 
 
 ## Details of Custom TXs
-### custom tx: rental dropoff 
-- public key of scooter
-- public key of app
-- txid of ARK payment
-- number of minutes of scooter time
-- reserved data
+### custom tx: Rental Start 
+- To: Scooter
+- Amount: Rental payment. 
+- Fee: Rental
+- Asset: 
+  - hash(pseudorandom data)
 
-### custom tx: rental pickup
-- public key of scooter
-- public key of app
-- txid of ARK payment
-- reserved data
-- number of minutes of scooter time
-- start rental GPS
-- start rental timestamp
-- finish rental GPS
-- finish rental timestamp
+**Comments:**
+- I don't think we need to expicitly include the rental time as an asset. Scooter can calculate rental duration by the amount received and its own rental rate
+- Is there any other info that the app should include as an asset?
+
+---
+
+
+
+### custom tx: Rental Finish
+- To: App
+- Amount: 0 (or refund amount)
+- Fee: Rental
+- Asset: 
+  - original payment
+  - rate (RAD/min)
+  - start rental GPS (full precision)
+  - start rental timestamp
+  - finish rental GPS (full precision)
+  - finish rental timestamp
 
 The rental dropoff transaction has the full details of the entire ride.
-If you wanted to analyze all of the ride data then I think you would only need to look at the rental dropoff messages.  
-The intial parameter in the custom transaction could be a type field so you could have just 1 custom transaction. I don't really know if this simplifies things. It might be better to have 2 separate transactions.
+If you wanted to analyze all of the ride data then you would only need to look at the rental finish transaction. 
+
+
+---
 
 
 ## Other details
+- Analytics/Debug platform will be used to aid debugging and development of the hardware and the entire system. This tool will allow for realtime monitoring of the embedded hardware/firmware to verify correct operation during mobile testing.  
+- The Event log will be used to vaudit all the transactions on the chain and correlate with resulting actions of the IOT device. 
+- Operation of the rental platform does not depend on the analytics platform in any way.
 - Scooter IOT will publish realtime GPS & battery level to MQTT broker
 - Scooter IOT will also publish via MQTT its current operating mode(parked, in use, low battery, broken, etc).
 - Thingsboard Dashboard will subscribe via MQTT to GPS, battery, and operating mode and display on realtime map. 
 - Thingsboard Dashboard will subscribe via MQTT to bridgechain transaction events and display them in log
+![](https://i.imgur.com/8mLIbhs.jpg)
 
 ## Team Members
 ### Community Members
@@ -170,8 +199,7 @@ The intial parameter in the custom transaction could be a type field so you coul
 We both agreed to split the amount of funding, each contributor will have 12.5k to diversify over the assigned milestones. After completed approved by the Ark team the contributer is egible to request a payment.
 
 
-#### IOT Hardware procurred, detailed hardware block diagram, IOT communication protocol defined, IOT analytics servers deployed (pj) - 1750 ARK
-#### Firmware/Electronics/data preprocessing V0.1 (pj) - 3500‬ ARK
+#### IOT Hardware procurred, detailed hardware block diagram, IOT communication protocol defined, IOT analytics servers deployed, Firmware/Electronics v0.1 (pj) - 5250‬ ARK
 - demonstration of basic opertaion of hardware peripherals (GPS, timer, TFT display, QR code generation)
 - custom transaction interface not complete
 #### Firmware/Electronics V0.2 (pj) - 3500‬ ARK
@@ -179,29 +207,29 @@ We both agreed to split the amount of funding, each contributor will have 12.5k 
 #### Analytics Dashboard (pj) - 1250‬ ARK
 ---
 #### Final Detailed Technical Specification + project preparation (emsy + pj) - 750 ARK(pj). 500 ARK(emsy)
-#### Custom Transaction Structure Defined (emsy + pj) - 1000 ARK(pj). 1000 ARK(emsy)
+#### Custom Transaction Structure & Flow Defined (emsy + pj) - 1000 ARK(pj). 1000 ARK(emsy)
 #### Working Demo(final milestone) (Electronics not integrated into scooter) (pj + emsy) - 750 ARK(pj). 750 ARK(emsy)
 - Video of working product. Performance could be verified by Simon.
 ---
-#### V2.6 Ark relay node Deployed (emsy) - 750 ARK
+#### V2.6 Ark Bridgechain Deployed (emsy) - 750 ARK
 #### Custom Transactions Created (emsy) - 1500 ARK
-#### Custom Core Plugins(app / IoT communication) Implemented (emsy) - 1500 ARK
+#### Custom Core Plugins(app communication) Implemented (emsy) - 1500 ARK
 #### App UI Mockup (emsy) - 500 ARK
 #### App v0.1 (emsy) - 3000 ARK
 - scan QR code containing scooter public key
-- Process payments in ARK (Ѧ) to unlock the device
+- Process payments in BridgeChain Token to unlock the device
 
 #### App v0.2 (emsy) - 3000 ARK
-- Manage and track time and distance of rental (from pick-up to drop-off)
-- Process deposit and fees on drop-off at a designated location
-- Make the scooter available for rental after proper drop-off is completed
+- Manage and track time of rental (from pick-up to drop-off)
+- Display ride stats when rental is complete
+- Make the scooter available for rental after drop-off is completed
 
 ## Project Costs
 Applications could be optimized to operate on 1 or 2 VPS. Using separate services at the beginning will reduce implementation time.
 - MQTT server - $19 USD/Month (pj)
 - Node Red - Free Monthly Plan (pj)
 - Thingsboard - $20 USD/Month (pj)
-- Ark relay node 1 VPS with 2 CPU, 4GB RAM, 150GB SSD, 5TB pooled traffic +- $30 USD/Month (emsy)
+- Ark bridgechain 1 VPS with 2 CPU, 4GB RAM, 150GB SSD, 5TB pooled traffic +- $30 USD/Month (emsy)
     - Might need more RAM, this can be added at any time at a cost of +- 10$ / Month per 1GB.
 - 1 sets of Prototype Electronics (pj): 
     - ESP32, TFT screen, GPS module, Antenna, Battery
@@ -472,6 +500,29 @@ This is a special topic that the server can use to broadcast messages to all dev
 scooters/$broadcast
 
 ## IOT Hardware / Firmware
+
+### QR code Specification
+The scooter will generate and display a QR code when it is available for rent. The code embedds the following parameters:
+- Scooter Public Key(64 characters)
+- pseudorandom Hash (xx characters)
+- Latitude (maximum 10 characters)
+- Longitude (maximum 10 characters)
+- Rental Rate (maxiumum 6 characters)
+
+Maxiumum number of characters required to be encoded is XX.
+
+
+**NOTE:** GPS coordinates would need to be rounded as the value is not static even if the device is stationary. Rounding to the third decimal place is about 110m of precision. Accuracy of the readings is also a concern as you could get erroneous readings. QR code needs to be static.
+Does the app actually require the GPS coordinates to be received at the start of the rental? Perhaps the coordinates could be removed.  
+The pseudorandom hash could be derived from full precision GPS coordinates + locally generated random value.
+
+#### Example
+03e063f436ccfa3dfa9e9e6ee5e08a65a82a5ce2b2daf58a9be235753a971411e2,76364375, 48.972,-114.868,3.7
+
+![](https://i.imgur.com/qm5fuNw.png)
+
+
+---
 
 ### Scooter
 - xiaomi m365 is a common scooter that rideshare companies rebranded for their
