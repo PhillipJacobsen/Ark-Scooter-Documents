@@ -145,10 +145,11 @@ app->app:Display ride stats(GPS,time,etc)
 - Fee: Rental
 - Asset: 
   - hash(pseudorandom data)
+  - start rental GPS (full precision)
 
 **Comments:**
 - I don't think we need to expicitly include the rental time as an asset. Scooter can calculate rental duration by the amount received and its own rental rate
-- Is there any other info that the app should include as an asset?
+- Is there any other info that the app should include as an asset? emsy: I think GPS start coords should be in this transaction intstead of the `Rental Finish` transaction. 
 
 ---
 
@@ -162,12 +163,13 @@ app->app:Display ride stats(GPS,time,etc)
   - original payment
   - rate (RAD/min)
   - start rental GPS (full precision)
-  - start rental timestamp
+  - start rental timestamp - emsy: we can use the timestamp of the rental start tx.
   - finish rental GPS (full precision)
   - finish rental timestamp
+  - Rental Start tx id
 
 The rental dropoff transaction has the full details of the entire ride.
-If you wanted to analyze all of the ride data then you would only need to look at the rental finish transaction. 
+If you wanted to analyze all of the ride data then you would only need to look at the rental finish transaction. emsy: sounds good, this eliminates the need to execute multiple API calls. On the other end this does add duplicate data in the blockchain (timestamp rental start, GPS data rental start).
 
 
 ---
@@ -503,10 +505,8 @@ scooters/$broadcast
 
 ### QR code Specification
 The scooter will generate and display a QR code when it is available for rent. The code embedds the following parameters:
-- Scooter Public Key(64 characters)
+- Scooter Address (34 characters)
 - pseudorandom Hash (xx characters)
-- Latitude (maximum 10 characters)
-- Longitude (maximum 10 characters)
 - Rental Rate (maxiumum 6 characters)
 
 Maxiumum number of characters required to be encoded is XX.
@@ -517,9 +517,9 @@ Does the app actually require the GPS coordinates to be received at the start of
 The pseudorandom hash could be derived from full precision GPS coordinates + locally generated random value.
 
 #### Example
-03e063f436ccfa3dfa9e9e6ee5e08a65a82a5ce2b2daf58a9be235753a971411e2,76364375, 48.972,-114.868,3.7
+rad:TRXA2NUACckkYwWnS9JRkATQA453ukAcD1?hash=4897212321343433&rate=370000000
 
-![](https://i.imgur.com/qm5fuNw.png)
+
 
 
 ---
