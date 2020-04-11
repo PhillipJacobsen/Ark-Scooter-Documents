@@ -18,14 +18,17 @@ This project will create a foundation and template for future projects.
 
 # Team
 
-- **@emsy - Community member**  
+- **@emsy - Community Member**  
 -- Custom Transaction Plugins  
 -- Bridgechain Deployment  
 -- IOS/ Andriod Client App
-- **@pj (Phillip) - Community member**  
+- **@pj (Phillip) - Community Member**  
 -- Embedded Hardware/Firmware Development  
--- Off chain data IOT dashboard
-- **@sleepdeficit - Ark Team technical coordinator**
+-- Off Chain Data IOT Dashboard
+- **@sleepdeficit - Ark Team Technical Coordinator**
+- **@Matthew DC - Ark Team Project Specs**   
+- Thanks to @console [deadlock] for developing MQTT core plugin
+
 
 # Functional Requirements 
 Create an electric scooter rental solution utilizing a mobile app and an associated Ark custom bridgechain to manage locking, unlocking, deposits, locations, and management of  Scooter rentals. All communication between the App and the IOT device will be on chain through the use of custom transactions.
@@ -81,35 +84,120 @@ All information related to the rental will be stored on the blockchain. This wil
 - Rider Identification Verification
 - Social media integration -->
 
-## System Block Diagram
-![](https://i.imgur.com/TAmaPfE.jpg)
 
+
+## Milestones
+
+We both agreed to split the amount of funding, each contributor will have 12.5k to diversify over the assigned milestones. After completed approved by the Ark team the contributer is egible to request a payment.
+
+
+#### IOT Hardware procurred, detailed hardware block diagram, IOT communication protocol defined, IOT analytics servers deployed, Firmware/Electronics v0.1 (pj) - 5250‬ ARK
+- demonstration of basic opertaion of hardware peripherals (GPS, timer, TFT display, QR code generation)
+- custom transaction interface not complete
+#### Firmware/Electronics V0.2 (pj) - 3500‬ ARK
+- final feature set to support App v0.2
+#### Analytics Dashboard (pj) - 1250‬ ARK
+---
+#### Final Detailed Technical Specification + project preparation (emsy + pj) - 750 ARK(pj). 500 ARK(emsy)
+#### Custom Transaction Structure & Flow Defined (emsy + pj) - 1000 ARK(pj). 1000 ARK(emsy)
+#### Working Demo(final milestone) (Electronics not integrated into scooter) (pj + emsy) - 750 ARK(pj). 750 ARK(emsy)
+- Video of working product. Performance could be verified by Simon.
+---
+#### V2.6 Ark Bridgechain Deployed (emsy) - 750 ARK
+#### Custom Transactions Created (emsy) - 1500 ARK
+#### Custom Core Plugins(app communication) Implemented (emsy) - 1500 ARK
+#### App UI Mockup (emsy) - 500 ARK
+#### App v0.1 (emsy) - 3000 ARK
+- scan QR code containing scooter public key
+- Process payments in BridgeChain Token to unlock the device
+
+#### App v0.2 (emsy) - 3000 ARK
+- Manage and track time of rental (from pick-up to drop-off)
+- Display ride stats when rental is complete
+- Make the scooter available for rental after drop-off is completed
+
+## Project Costs
+Applications could be optimized to operate on 1 or 2 VPS. Using separate services at the beginning will reduce implementation time.
+- MQTT server - $19 USD/Month (pj)
+- Node Red - Free Monthly Plan (pj)
+- Thingsboard - $20 USD/Month (pj)
+- Ark bridgechain 1 VPS with 2 CPU, 4GB RAM, 150GB SSD, 5TB pooled traffic +- $30 USD/Month (emsy)
+    - Might need more RAM, this can be added at any time at a cost of +- 10$ / Month per 1GB.
+- 1 sets of Prototype Electronics (pj): 
+    - ESP32, TFT screen, GPS module, Antenna, Battery
+    - ~$125->$175 USD per set
+
+## Github Repositories 
+**Project Documentation**  
+https://github.com/PhillipJacobsen/Ark-Scooter-Documents
+
+**Scooter Firmware**  
+https://github.com/PhillipJacobsen/Ark_Scooter
+
+**iOS/Android DApp**  
+https://github.com/e-m-s-y/scooter-app
+
+**Radians Bridgechain**  
+https://github.com/e-m-s-y/radians
+
+**Custom Transaction Utility**  
+https://github.com/e-m-s-y/scooter-transactions
+
+**Socket Event Forwarder Core Plugin**  
+https://github.com/e-m-s-y/socket-event-forwarder
+
+**MQTT Event Forwarder Core Plugin**  
+https://github.com/deadlock-delegate/mqtt
+
+**Node-Red Flow Backup**  
+https://github.com/PhillipJacobsen/Ark_Scooter/tree/master/NodeRed
+
+**ThingsBoard Dashboard Backup**  
+https://github.com/deadlock-delegate/mqtt
 
 
 
 
 ---
 
-<!---
+
+# Technical Specification
+
+## System Block Diagram
+![](https://i.imgur.com/TAmaPfE.jpg)
+
+
+---
+
+
+
+
+## Communication Protocol Sequence Diagrams
+
+
 ### Manually generate private keys for app & scooter
-App and Scooter will store hardcoded bridgechain private keys in memory. Every rider app and scooter would need a unique build with its own hardcoded bridgechain wallet.  
-There is no automatic IOT device registration feature.
+DApp and Scooter private keys are manually generated in desktop wallet.  
+
+Scooter stores hardcoded bridgechain private keys in memory. Current firmware requires every scooter to use a unique build with its own hardcoded bridgechain wallet.  
+
+DApp allows rider to type in private keys
+
 
 ```sequence
-Title: Device / App Wallet Init. (hack)
+Title: Scooter / DApp Wallet Init.
 
-Note left of Desktop Wallet: generate wallets for scooter,app
+Note left of Desktop Wallet: generate wallets for scooter,DApp
 Note left of scooter: keys hardcoded in flash
-Note left of app: keys hardcoded in application
+Note left of DApp: keys typed into DApp
 Desktop Wallet->scooter: send tokens
-Desktop Wallet->app: send tokens
+Desktop Wallet->DApp: send tokens
 
 ```
--->
 
 
-## Message Sequence Diagrams
 ### Scooter Device Registration Sequence
+There is no automatic IOT device registration feature. Devices are registered using custom Javascript utility
+
 ```sequence
 Title: Scooter Device Registration
 
@@ -225,7 +313,7 @@ Length of Ride(minutes) = Amount / Rate
   - Rental Start tx id
 
 The rental dropoff transaction has the full details of the entire ride.
-If you wanted to analyze all of the ride data then you would only need to look at the rental finish transaction. emsy: sounds good, this eliminates the need to execute multiple API calls. On the other end this does add duplicate data in the blockchain (timestamp rental start, GPS data rental start).
+If you wanted to analyze all of the ride data then you only need to look at the rental finish transaction.
 
 
 ---
@@ -241,115 +329,64 @@ If you wanted to analyze all of the ride data then you would only need to look a
 - Thingsboard Dashboard will subscribe via MQTT to bridgechain transaction events and display them in log
 ![](https://i.imgur.com/8mLIbhs.jpg)
 
-## Team Members
-### Community Members
-- @emsy
-- @pj
 
 
-### Ark Crew (Main Contacts and Tech Support)
-- @sleepdeficit - IOT - Coordinator
-- @Matthew DC - Project Specs 
-- Oleg - UI
-
-## Milestones
-
-We both agreed to split the amount of funding, each contributor will have 12.5k to diversify over the assigned milestones. After completed approved by the Ark team the contributer is egible to request a payment.
 
 
-#### IOT Hardware procurred, detailed hardware block diagram, IOT communication protocol defined, IOT analytics servers deployed, Firmware/Electronics v0.1 (pj) - 5250‬ ARK
-- demonstration of basic opertaion of hardware peripherals (GPS, timer, TFT display, QR code generation)
-- custom transaction interface not complete
-#### Firmware/Electronics V0.2 (pj) - 3500‬ ARK
-- final feature set to support App v0.2
-#### Analytics Dashboard (pj) - 1250‬ ARK
----
-#### Final Detailed Technical Specification + project preparation (emsy + pj) - 750 ARK(pj). 500 ARK(emsy)
-#### Custom Transaction Structure & Flow Defined (emsy + pj) - 1000 ARK(pj). 1000 ARK(emsy)
-#### Working Demo(final milestone) (Electronics not integrated into scooter) (pj + emsy) - 750 ARK(pj). 750 ARK(emsy)
-- Video of working product. Performance could be verified by Simon.
----
-#### V2.6 Ark Bridgechain Deployed (emsy) - 750 ARK
-#### Custom Transactions Created (emsy) - 1500 ARK
-#### Custom Core Plugins(app communication) Implemented (emsy) - 1500 ARK
-#### App UI Mockup (emsy) - 500 ARK
-#### App v0.1 (emsy) - 3000 ARK
-- scan QR code containing scooter public key
-- Process payments in BridgeChain Token to unlock the device
-
-#### App v0.2 (emsy) - 3000 ARK
-- Manage and track time of rental (from pick-up to drop-off)
-- Display ride stats when rental is complete
-- Make the scooter available for rental after drop-off is completed
-
-## Project Costs
-Applications could be optimized to operate on 1 or 2 VPS. Using separate services at the beginning will reduce implementation time.
-- MQTT server - $19 USD/Month (pj)
-- Node Red - Free Monthly Plan (pj)
-- Thingsboard - $20 USD/Month (pj)
-- Ark bridgechain 1 VPS with 2 CPU, 4GB RAM, 150GB SSD, 5TB pooled traffic +- $30 USD/Month (emsy)
-    - Might need more RAM, this can be added at any time at a cost of +- 10$ / Month per 1GB.
-- 1 sets of Prototype Electronics (pj): 
-    - ESP32, TFT screen, GPS module, Antenna, Battery
-    - ~$125->$175 USD per set
-
----
-
-## Main Project Tasks
-
-#### Write Technical Specification
-- **@pj, @emsy**
-
-#### Bridge Chain Deployment & Node Management
-- **@emsy** 
-
-#### Custom Transaction Design
-- **@emsy, @pj**
-
-#### Custom Transaction Implementation
-- **@emsy**
 
 
-#### Custom Core Module: App Communication
-- NodeJS + Express + SocketCluster 
-- **@emsy**
-
-#### IOT Protocol Design
-- **@pj**
-
-#### Analytics/Admin Cloud Platform/MQTT broker
-- **@pj**
-
-#### IOS/ Andriod Client App
-- Appcelerator using JavaScript
-- **@emsy with UI guidance from Oleg**
-
-#### IOT device simulator / emulator
-- Simulator of additional Scooters on Map. 
-- This would be used to aid in development of the logic controller and app. It may just be some simple scripts to produce artificial MQTT data to emulate additional scooters. 
-- For demo purposes it could also just be used to show additional devices on the map.
-- **@pj**
-
-
-#### Hardware Electronics
-- **@pj**
-
-#### Firmware
-- **@pj**
 
 
 
 ---
 
-# Technical Specification
+
+
+
+
+## Bridgechain Specifications
+- Core V2.6 Testnet
+- 8 seconds blocktime with 53 forgers.
+- Bridge chain was launched prior to the launch of the updated V2.6 Push Button Deployer tools
+
+
 
 ---
-### Technical specification is currently a scratchpad for brainstorming.
+
+
+## Embedded Electronics
+
+The highlighted section in the following diagram shows the implemented components of the embedded electronics. The dotted line section shows how the current project could be integrated into an existing of the shelf electrical scooter for a completely functional demonstration.
+
+![](https://i.imgur.com/8kIXYTd.jpg)
+
+![](https://i.imgur.com/MN1TPzu.jpg)
+
+
+### Bill of Materials 
+
+| Component                     | Adafruit Part# | Digi-Key Part#|
+| ---------------------------- | -------------- | -------------- |
+| HUZZAH32 ESP32 FEATHER       | 3619           | 1528-2515-ND   |
+| ULTIMATE GPS FEATHERWING     | 3133           | 1528-1695-ND   |
+| FEATHERWING 2.4" 320X240 LCD | 3315           | 1528-1802-ND   |
+| FEATHERWING DOUBLER          | 2890           | 1528-1535-ND   |
+| RF ANT - SMA (optional)      | 960            | 1528-1170-ND   |
+| SMA to uFL Adapter (optional)| 851            | 1528-2053-ND   |
+| Lithium Ion Battery - JST-PH | 2011           |                |
+
+
+
+
+---
+
+## Embedded Firmware
+
+
+
 ---
 
 
-
---- 
 
 ## dApp Block Diagram
 ![](https://i.imgur.com/VohsPuC.jpg)
@@ -358,12 +395,7 @@ Applications could be optimized to operate on 1 or 2 VPS. Using separate service
 
 
 
-## Bridgechain Requirements
-- Core V2.6 Testnet
-- 8 seconds blocktime with 53 forgers.
-- We will likely be a bit ahead of the Push Button Deployer Tools and desktop/mobile wallets that support V2.6 core. We likely will need to use some early beta releases of the wallets.
-- This will take more work than the standard push button blockchain flow. 
-- @emsy has setup a bridgechain without the deployer before and has documented setup process. 
+
 
 ## Data Stored on the Bridgechain
 * Device Registration Transaction
@@ -467,36 +499,35 @@ Q: Distance tracking requires GPS data of the user which means the app needs to 
 
 
 
+## Off Chain IOT Analytics Dashboard
 
+### MQTT Broker
 
-## Admin App (optional upgrade)
-I think this could all be done with IOT platform tools.
-Requirements
-- View device status
-- Configure Devices
-- View usage stats
-- Create/View various reports
-- Generate Alerts
-
-## IOT Platforms for Analytics, Device Monitoring, and some data processing
-
+---
 ### Node-Red
 - Open source browser-based programming tool for wiring together hardware devices, APIs and online services
 - Runs on Raspberry Pi.
 - IBM Cloud has free tier with 250MB storage
 
+---
 ### Thingsboard
-Thingsboard would be a great tool for visualizing all of the data from the nodes and providing a very nice admin dashboard. This would Not be used for creating the Mobile user application.
+
+#### Public Dashboard
+http://165.22.237.171:8080/dashboard/f88894b0-d519-11e9-b281-0bd830c6c87f?publicId=f62146f0-cb7c-11e9-b281-0bd830c6c87f  
+
+![](https://i.imgur.com/aGJLUlq.jpg)
+
+<!---  this is the dashboard without annotation
+![](https://i.imgur.com/tjSKfO7.jpg)
+-->
+
+
+Thingsboard is a great tool for visualizing all of the data from the nodes and providing a very nice admin dashboard. This would Not be used for creating the Mobile user application.
 - Device management, data collection, processing and visualization for your IoT solution
 - Open Source. 
 - Runs on Raspberry Pi
 - Runs on Digital Ocean VPS
 - Free license likely provides what we need. Paid license also available. Free license would be installed on VPS
-
-#### Admin Analytics Dashboard ####
-![](https://i.imgur.com/8mLIbhs.jpg)
-
-
 
 
 ## IOT Communication
@@ -606,36 +637,6 @@ The ESP32 will not communicate with the Ark Mainnet.
 
 MQTT protocol will be used for bidirectional communication with the cloud server. ESP32 will periodically publish sensor data(Location, Battery level).  ESP32 will subscribe to command topics and publish command acknowledgments.
 
-### Additional Firmware Details
-The firmware/hardware will not be optimized for low power extended battery operation.
 
-
-# Interesting Links 
-
-#### Ark
-- [Tier 0 project details](https://github.com/ArkEcosystem/tier-0-program/issues/12)
-- [Transaction Fixtures](https://github.com/sleepdefic1t/ledger/tree/feat/implement-v2/docs/fixtures)
-
-#### Bike Share Data
-- [General Bikeshare Feed Specification](https://github.com/NABSA/gbfs/blob/master/gbfs.md)
-- [how cities can ask for data from micromobility providers](https://blog.remix.com/mds-gbfs-and-how-cities-can-ask-for-data-from-micromobility-providers-7957ca639f16)
-- [How long do scooters last](https://qz.com/1561654/how-long-does-a-scooter-last-less-than-a-month-louisville-data-suggests/amp/)
-- [better manage sharing bikes by tapping into blockchain](https://dailyfintech.com/2018/05/19/can-ofo-better-manages-their-sharing-bikes-by-tapping-into-blockchain/)
-
-#### Bike Share Apps
-- [Bitlock Bike Lock + Bike Share Platform](https://bitlock.co/bikeshare.html)
-- [Joyride Bike/Scooter Share Platform](https://www.joyride.city/plans.html)
-- [How to build a Scooter Sharing App](https://www.mobindustry.net/building-a-scooter-sharing-app-like-lime-nextbike-and-mobike/)
-
-#### Scooter Hardware Reverse Engineering
-- [decoding serial bus data on a Xiaomi M365 Scooter](https://gitlab.com/esp32m365/esp32_xiaomi_m365_display)
-- [BLE controller replacement](https://github.com/camcamfresh/Xiaomi-M365-BLE-Controller-Replacement)
-
-#### Custom transaction / application development
-- [Introduction to development part 1](https://blog.ark.io/an-introduction-to-blockchain-application-development-part-1-7bb2082e5e44)
-- [Introduction to development part 2](https://blog.ark.io/an-introduction-to-blockchain-application-development-part-2-2-909b4984bae)
-- [Cryptocurrency Checkout](https://cryptocurrencycheckout.com/guides/individual_item)
-
-[IOT Data Simulator](https://github.com/IBA-Group-IT/IoT-data-simulator)
 
 ###### tags: `ark.io` `Documentation` `IOT`
