@@ -1,11 +1,31 @@
 
-Ark Scooters Tier 0 Project
+Proof of Concept Ark Scooter Rental DApp
 ===
-[Tier 0 Program](https://github.com/ArkEcosystem/tier-0-program/issues/12)
+[Tier 0 Program](https://ark.io/projects/ark-scooters)
 
 ## Table of Contents
 
 [TOC]
+
+# Project Overview
+This project is a proof of concept of an electric scooter rental solution utilizing a mobile app and an associated Ark custom bridgechain was created. 
+This project is a great illustration on how to code and interact with custom Ark transactions. It will demonstrate C++ SDK running on "small" embedded processor.
+
+This project will not integrate the electronics inside of an actual scooter however this integration could easily be accomplished as a future project if desired. 
+
+This project will create a foundation and template for future projects.
+
+
+# Team
+
+- **@emsy - Community member**  
+-- Custom Transaction Plugins  
+-- Bridgechain Deployment  
+-- IOS/ Andriod Client App
+- **@pj (Phillip) - Community member**  
+-- Embedded Hardware/Firmware Development  
+-- Off chain data IOT dashboard
+- **@sleepdeficit - Ark Team technical coordinator**
 
 # Functional Requirements 
 Create an electric scooter rental solution utilizing a mobile app and an associated Ark custom bridgechain to manage locking, unlocking, deposits, locations, and management of  Scooter rentals. All communication between the App and the IOT device will be on chain through the use of custom transactions.
@@ -62,7 +82,8 @@ All information related to the rental will be stored on the blockchain. This wil
 - Social media integration -->
 
 ## System Block Diagram
-![](https://i.imgur.com/2Uha6kw.jpg)
+![](https://i.imgur.com/TAmaPfE.jpg)
+
 
 
 
