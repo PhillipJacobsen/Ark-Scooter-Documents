@@ -462,7 +462,6 @@ The scooter will generate and display a QR code when it is available for rent. T
 
 Maximum number of characters required to be encoded is XX.
 
-
 **NOTE:** GPS coordinates would need to be rounded as the value is not static even if the device is stationary. Rounding to the third decimal place is about 110m of precision. Accuracy of the readings is also a concern as you could get erroneous readings. QR code needs to be static.
 Does the app actually require the GPS coordinates to be received at the start of the rental? Perhaps the coordinates could be removed.  
 
@@ -472,6 +471,20 @@ rad:TRXA2NUACckkYwWnS9JRkATQA453ukAcD1?hash=e4c18e33a25a1b8eec69c61fcc171e3503b2
 ![](https://i.imgur.com/iA4B1S3.jpg =225x)
 
 ---
+
+### Status Panel on Scooter Display
+The bottom portion of the scooter display provides status of all the network connections and system parameters.
+
+#### Top Row of Status Panel
+"Speed(kmh) via GPS"  "Time(via NTP server)" "WiFi Signal Strength"
+
+#### Middle Row of Status Panel
+"WiFi Connection" "MQTT Broker Connection" "Battery Voltage"
+
+#### Bottom Row of Status Panel
+"GPS Signal Lock" "Ark Node Connection" "# of GPS satellites"
+
+
 ### Communication with Radians Bridgechain
 The ESP32 is assigned a unique Bridgechain address and stores its private key in Flash memory. This is certainly a terrible idea for real production product but is fine for prototyping. Secure storage methods will be an optional enhanced feature.  
 
@@ -479,6 +492,9 @@ The ESP32 is assigned a unique Bridgechain address and stores its private key in
 The ESP32 will be able to send device registration transactions and optionally use its private key to sign / encrypt messages sent offchain. Transactions will use the public Bridgechain API.
 
 ### Communication with Analytics platform
+
+
+
 
 
 ### Detailed Firmware Description
@@ -502,7 +518,7 @@ TBD
 - Analytics/Debug platform will be used to aid debugging and development of the hardware and the entire system. This tool will allow for realtime monitoring of the embedded hardware/firmware to verify correct operation during mobile testing.  
 - The Event log will be used to vaudit all the transactions on the chain and correlate with resulting actions of the IOT device. 
 - Operation of the rental platform does not depend on the analytics platform in any way.
-- Scooter IOT will publish realtime GPS & battery level to MQTT broker
+- Scooter publishes realtime GPS, Speed, Battery level, to MQTT broker.
 - Scooter IOT will also publish via MQTT its current operating mode(parked, in use, low battery, broken, etc).
 - Thingsboard Dashboard will subscribe via MQTT to GPS, battery, and operating mode and display on realtime map. 
 - Thingsboard Dashboard will subscribe via MQTT to bridgechain transaction events and display them in log
