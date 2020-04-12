@@ -8,12 +8,12 @@ Proof of Concept Ark Scooter Rental DApp
 [TOC]
 
 # Project Overview
-This project is a proof of concept of an electric scooter rental solution utilizing a mobile app and an associated Ark custom bridgechain was created. 
+This project is a proof of concept of an electric scooter rental solution utilizing a mobile app and an associated Ark custom bridgechain to record the rental contract created. 
 This project is a great illustration on how to code and interact with custom Ark transactions. It will demonstrate C++ SDK running on "small" embedded processor.
 
 This project will not integrate the electronics inside of an actual scooter however this integration could easily be accomplished as a future project if desired. 
 
-This project will create a foundation and template for future projects.
+This POC is a great foundation and template for future projects.
 
 
 # Team
@@ -25,12 +25,13 @@ This project will create a foundation and template for future projects.
 - **@pj (Phillip) - Community Member**  
 -- Embedded Hardware/Firmware Development  
 -- Off Chain Data IOT Dashboard
-- **@sleepdeficit - Ark Team Technical Coordinator**
+- **@sleepdeficit - Ark Team Technical Coordinator**   
+-- C++ library support for custom transactions   
 - **@Matthew DC - Ark Team Project Specs**   
 - Thanks to @console [deadlock] for developing MQTT core plugin
 
 
-# Functional Requirements 
+# Functional Requirements Defined Prior to Start of Project 
 Create an electric scooter rental solution utilizing a mobile app and an associated Ark custom bridgechain to manage locking, unlocking, deposits, locations, and management of  Scooter rentals. All communication between the App and the IOT device will be on chain through the use of custom transactions.
 
 ## Components
@@ -58,36 +59,24 @@ Battery powered embedded hardware device that contains WiFi, GPS, display, and e
 
 ### Custom ARK Bridgechain
 All information related to the rental will be stored on the blockchain. This will be accomplished through several potentially new custom transaction types as follows:
-<!--- Device Registration Transaction (to register a new lock or device)
-- Location Registration Transaction (pick-up/drop-off GPS coordinates) -->
+- Device Registration Transaction (to register a new scooter)
 - Rental Pick-up / Drop-off Transaction  
 
-<!---Administration functions to handle the registration of scooters and locations will not be implemented in the demo app. The transactions could be demonstrated by some script/tool(Not sure if the Ark Team has some utility for this) -->
+Administration functions to handle the registration of scooters and locations will not be implemented in the demo app. The transactions could be demonstrated by some script/tool
 
 ### Provided by the ARK.io Team
 - The custom mobile app UI design
 - Additional guidance and support as necessary
 
-### Requirements for completion
+### Requirements for Completion
 - Provide a mobile application that meets the above minimum criteria.
 - Provide a functioning custom ARK Bridgchain blockchain with the above custom transactions and functionality
 - Demonstrate the application working as described
 - Provide a Bill of Materials (BOM) for the required IoT hardware.
 - Project will not include final integration of electronics into scooter hardware. 
 
-<!---### Optional Upgrades:
-- Support multiple types of the rental by allowing the owner to take a picture of an object and upload it to the app with a category and price of their choosing
-- Allow additional currencies and payment methods
-- Allow a web interface for managing rentals
-- Loyality Program
-- Publish data according to General Bikeshare Feed Specification(GBFS)
-- Rider Identification Verification
-- Social media integration -->
-
-
 
 ## Milestones
-
 We both agreed to split the amount of funding, each contributor will have 12.5k to diversify over the assigned milestones. After completed approved by the Ark team the contributer is egible to request a payment.
 
 
@@ -127,6 +116,13 @@ Applications could be optimized to operate on 1 or 2 VPS. Using separate service
     - ESP32, TFT screen, GPS module, Antenna, Battery
     - ~$125->$175 USD per set
 
+
+---
+
+
+# Technical Specification
+
+
 ## Github Repositories 
 **Project Documentation**  
 https://github.com/PhillipJacobsen/Ark-Scooter-Documents
@@ -134,13 +130,16 @@ https://github.com/PhillipJacobsen/Ark-Scooter-Documents
 **Scooter Firmware**  
 https://github.com/PhillipJacobsen/Ark_Scooter
 
-**iOS/Android DApp**  
+**iOS/Android DApp Source**  
 https://github.com/e-m-s-y/scooter-app
 
 **Radians Bridgechain**  
 https://github.com/e-m-s-y/radians
 
-**Custom Transaction Utility**  
+**Custom Transaction Plugin**  
+https://github.com/e-m-s-y/scooter-transactions
+
+**Testing Utility for Sending Test Transactions**  
 https://github.com/e-m-s-y/scooter-transactions
 
 **Socket Event Forwarder Core Plugin**  
@@ -155,13 +154,14 @@ https://github.com/PhillipJacobsen/Ark_Scooter/tree/master/NodeRed
 **ThingsBoard Dashboard Backup**  
 https://github.com/deadlock-delegate/mqtt
 
+**Ark-CPP-crypto v1.0.0**  
+(fork of Standard Ark Crypto library with support for Radians Custom Transactions)  
+https://github.com/sleepdefic1t/cpp-crypto/tree/chains/radians
 
-
+**Ark-CPP-client v1.4.0-arduino**  
+https://github.com/ArkEcosystem/cpp-client/pull/159
 
 ---
-
-
-# Technical Specification
 
 ## System Block Diagram
 ![](https://i.imgur.com/TAmaPfE.jpg)
@@ -169,19 +169,32 @@ https://github.com/deadlock-delegate/mqtt
 
 ---
 
+## Bridgechain Specifications
+
+Bridgechain Name: Radians  
+Ark core V2.6xx Testnet  
+Token: RAD  
+Delegates: 53  
+Blocktime: 8 seconds  
+Explorer: [radians.nl](https://radians.nl/)  
+Peer / Seed server: http://37.34.60.90:4040  
+Epoch: 2019-10-25T09:05:40.856Z
+
+**VPS Specifications**  
+-xxxxxxxxx
 
 
 
-## Communication Protocol Sequence Diagrams
+---
 
+## Scooter - DApp Communication Sequence Diagrams
 
 ### Manually generate private keys for app & scooter
 DApp and Scooter private keys are manually generated in desktop wallet.  
 
 Scooter stores hardcoded bridgechain private keys in memory. Current firmware requires every scooter to use a unique build with its own hardcoded bridgechain wallet.  
 
-DApp allows rider to type in private keys
-
+DApp allows rider to type in private keys.
 
 ```sequence
 Title: Scooter / DApp Wallet Init.
@@ -212,13 +225,13 @@ Note right of bridgechain:  emit registration complete
 ```sequence
 Title: Rental Session   
 app->app: start app
-scooter->scooter:Display QR code:Public Key,Pseudorandom,Rate
+scooter->scooter:Display QR code:Public Key,random hash,Rate, GPS coordinates
 scooter->app: scan QR code
 app->app: Select Rental Duration
 app->app: Finalize Payment
 app->bridgechain:custom tx:(Rental start) to scooter address
 
-Note right of app: Rental Start TX \n To: Scooter Address\n Amount: Rental Amount  \n Fee: Rental \n Asset: hash(Pseudorandom)
+Note right of app: Rental Start TX \n To: Scooter Address\n Amount: Rental Amount  \n Fee: Rental \n Asset: hash(random SHA256), GPS
 
 app->app: wait for tx confirmation
 app->app: display message in app
@@ -245,9 +258,66 @@ bridgechain->app:custom tx: rental finish
 app->app:Display ride stats(GPS,time,etc)
 
 ```
+---
+
+## Rental Session Screenshots
+The following screenshots of the app and scooter illustrates the sequence of a rental transaction.
+
+**Step 1: Scooter Bootup**  
+![](https://i.imgur.com/Uv2taZn.jpg =200x)
+
+**Step 2 Scooter Ready for Rental**   
+Once all of the networks are connected then QR code is displayed  
+![](https://i.imgur.com/c9PhRlZ.jpg =200x)
+
+**Step 3 App Bootup**  
+Press the '+' on the top right to open camera for QR code scanning  
+![](https://i.imgur.com/bWRdbfK.png =200x)
+
+**Step 4 App Ready for QR Scanning**  
+![](https://i.imgur.com/y5SrxYy.png =200x)
+
+**Step 5 App Scanning QR code**  
+You would need to zoom in more to scan QR code  
+![](https://i.imgur.com/j4Fs3fF.jpg =200x)
+
+**Step 6 App Configure Ride Length**  
+Use slider to configure the length of the ride  
+![](https://i.imgur.com/fN8whde.png =200x)
+
+**Step 7 App Send Rental Start**  
+Rental Start Transaction is sent along with payment to Scooter  
+![](https://i.imgur.com/3wytmbB.png =200x)
+
+**Step 8 Scooter Rental in Progress**  
+Once Rental Start transaction is received the scooter unlocks and starts ride timer.  
+Speed and rental countdown timer are displayed.  
+Rental Finish transaction is sent once timer expires.  
+![](https://i.imgur.com/C8IiTgU.jpg =200x)
+
+**Step 9 App Rental in Progress**  
+
+![](https://i.imgur.com/M46OIDw.png =200x)
+
+**Step 10 App Received Rental Finish**  
+App receives Rental Finish transaction from scooter.  
+![](https://i.imgur.com/855lBDf.png =200x)
+
+---
+## Rental Session Video Screenshots
+
+### Rental Session using App and Test Utility to Emulate Scooter
+https://www.youtube.com/watch?v=Jxn2BhQjYgY
 
 
-## Details of Custom TXs
+
+
+### Analytics Dashboard During Rental Session
+https://youtu.be/QSazY9Nj_Pc
+
+---
+
+## Custom Transaction Design
 
 ### Transaction Types
 TYPE_GROUP: 4000  
@@ -255,8 +325,18 @@ SCOOTER_REGISTRATION_TYPE: 401
 RENTAL_START_TYPE: 500  
 RENTAL_FINISH_TYPE: 600  
 
+### Scooter Registration
+
+**NOT FINISHED** 
+
+**From:** Scooter  
+* type = SCOOTER_REGISTRATION_TYPE  
+* typeGroup = TYPE_GROUP  
 
 ### Rental Start
+
+**NOT FINISHED** 
+
 **From:** App  
 **To:** Scooter  
 * type = RENTAL_START_TYPE  
@@ -266,24 +346,27 @@ RENTAL_FINISH_TYPE: 600
 * amount = number  
 * vendorField = optional
 * asset = {hash, gps: {[timestamp, lat, long]}, rate}  
-    * hash = string(1->64 characters)  
+    * sessionID = SHA256  
     * timestamp = {epoch: integer}, {human: string}  
     * lat = GPS latitude; String(1->16 characters)  
     * long = GPS longitude; String(1->16 characters)  
     * rate = integer
 
 **Note:**  
-Hash, GPS coordinates, and rate are values that are generated by scooter and embedded in the QR code that the app scans.
-Hash is a random number.  
-Rate is the cost of the ride per minute measured in RAD/minute.  
+SessionID, GPS coordinates, and rate are values that are generated by scooter and embedded in the QR code that the app scans.
+Hash SHA256 of random number.  
+Rate is the cost of the ride measured in RAD/seconds.  
 The amount transferred determines the length of ride.  
-Length of Ride(minutes) = Amount / Rate
+Length of Ride(seconds) = Amount / Rate
 
 ---
 
 
 
 ### Rental Finish
+
+**NOT FINISHED** 
+
 **From:** Scooter  
 **To:** App  
 
@@ -293,7 +376,7 @@ Length of Ride(minutes) = Amount / Rate
 * fee = defaultStaticFee = 10000000  
 * amount = number  
 * vendorField = optional
-* asset = {gps: {[timestamp, lat, long],[timestamp, lat, long] }, rentalStartTransactionId, rideDuration}  
+* asset = {SessionID, gps: {[start timestamp, lat, long],[finish timestamp, lat, long] }, rideDuration}  
     * timestamp = {epoch: integer}, {human: string}  
     * lat = GPS latitude; String(1->16 characters)  
     * long = GPS longitude; String(1->16 characters)  
@@ -319,40 +402,8 @@ If you wanted to analyze all of the ride data then you only need to look at the 
 ---
 
 
-## Other details
-- Analytics/Debug platform will be used to aid debugging and development of the hardware and the entire system. This tool will allow for realtime monitoring of the embedded hardware/firmware to verify correct operation during mobile testing.  
-- The Event log will be used to vaudit all the transactions on the chain and correlate with resulting actions of the IOT device. 
-- Operation of the rental platform does not depend on the analytics platform in any way.
-- Scooter IOT will publish realtime GPS & battery level to MQTT broker
-- Scooter IOT will also publish via MQTT its current operating mode(parked, in use, low battery, broken, etc).
-- Thingsboard Dashboard will subscribe via MQTT to GPS, battery, and operating mode and display on realtime map. 
-- Thingsboard Dashboard will subscribe via MQTT to bridgechain transaction events and display them in log
-![](https://i.imgur.com/8mLIbhs.jpg)
-
-
-
-
-
-
-
-
-
 
 ---
-
-
-
-
-
-## Bridgechain Specifications
-- Core V2.6 Testnet
-- 8 seconds blocktime with 53 forgers.
-- Bridge chain was launched prior to the launch of the updated V2.6 Push Button Deployer tools
-
-
-
----
-
 
 ## Embedded Electronics
 
@@ -360,12 +411,26 @@ The highlighted section in the following diagram shows the implemented component
 
 ![](https://i.imgur.com/8kIXYTd.jpg)
 
-![](https://i.imgur.com/MN1TPzu.jpg)
+![](https://i.imgur.com/MN1TPzu.jpg =500x)
+
+
+
+**Embedded Processor**  
+The ESP32 Feather module is a 32bit highly integrated System on Chip(SoC) processor. The module integrates a 240MHz dual-core Tensilica LX6 microcontroller with 520KB SRAM, 4MB Flash, 802.11b/g/n HT40 Wi-Fi, and power supply.
+
+Several peripheral devices are interfaced to the ESP32 module to provide the necessary I/O. 
+
+**Peripheral devices:**
+- A GPS module is used to provide location data for the scooter. The module includes an onboard antenna however an external antenna was used for significant gain especially when testing indoors  
+- A small 2.4" TFT display is used for the user interface. It generates dynamic QRcodes as well as displaying ride statistics.
+- A wifi hotspot provides the internet connection for communicating to Ark bridgechain and analytics dashboard. A GSM module could be integrated as a future upgrade.
+- The lock/unlock security mechanism is a relay to control lock or power system of physical scooter
+
 
 
 ### Bill of Materials 
 
-| Component                     | Adafruit Part# | Digi-Key Part#|
+| Component                     | Adafruit Part # | Digi-Key Part #|
 | ---------------------------- | -------------- | -------------- |
 | HUZZAH32 ESP32 FEATHER       | 3619           | 1528-2515-ND   |
 | ULTIMATE GPS FEATHERWING     | 3133           | 1528-1695-ND   |
@@ -375,133 +440,80 @@ The highlighted section in the following diagram shows the implemented component
 | SMA to uFL Adapter (optional)| 851            | 1528-2053-ND   |
 | Lithium Ion Battery - JST-PH | 2011           |                |
 
-
+#### Future/Optional (Integration into physical scooter)
+- xiaomi m365 is a common scooter that rideshare companies rebranded for their service launch in 2018/2019
+- The large rideshare companies are now starting to create modified electronics and upgraded scooters.
+- There seems to be an easily accessible serial interface available for reading out data from the m365 scooter.
 
 
 ---
 
 ## Embedded Firmware
+Firmware is developed using Arduino / PlatformIO environment and Ark C++ SDK.  
+
+
+### QR code Specification
+The scooter will generate and display a QR code when it is available for rent. The code embedds the following parameters:
+- Scooter Wallet Address (34 characters)
+- SHA256 Hash of Unique/Random number
+- Rental Rate
+- GPS Latitude
+- GPS longitude
+
+Maximum number of characters required to be encoded is XX.
+
+
+**NOTE:** GPS coordinates would need to be rounded as the value is not static even if the device is stationary. Rounding to the third decimal place is about 110m of precision. Accuracy of the readings is also a concern as you could get erroneous readings. QR code needs to be static.
+Does the app actually require the GPS coordinates to be received at the start of the rental? Perhaps the coordinates could be removed.  
+
+#### Example of String Encoded in QRcode
+rad:TRXA2NUACckkYwWnS9JRkATQA453ukAcD1?hash=e4c18e33a25a1b8eec69c61fcc171e3503b21a80cada4d5bc78c037bd239c3b1&rate=61667&lat=53.535500&lon=-113.278236  
+
+![](https://i.imgur.com/iA4B1S3.jpg =225x)
+
+---
+### Communication with Radians Bridgechain
+The ESP32 is assigned a unique Bridgechain address and stores its private key in Flash memory. This is certainly a terrible idea for real production product but is fine for prototyping. Secure storage methods will be an optional enhanced feature.  
+
+
+The ESP32 will be able to send device registration transactions and optionally use its private key to sign / encrypt messages sent offchain. Transactions will use the public Bridgechain API.
+
+### Communication with Analytics platform
+
+
+### Detailed Firmware Description
+TBD
+
+---
+
+
+## Client Mobile Application
+
+### High level details on development environment used
+
+
 
 
 
 ---
 
+## Off Chain IOT Analytics & Dashboard
 
+- Analytics/Debug platform will be used to aid debugging and development of the hardware and the entire system. This tool will allow for realtime monitoring of the embedded hardware/firmware to verify correct operation during mobile testing.  
+- The Event log will be used to vaudit all the transactions on the chain and correlate with resulting actions of the IOT device. 
+- Operation of the rental platform does not depend on the analytics platform in any way.
+- Scooter IOT will publish realtime GPS & battery level to MQTT broker
+- Scooter IOT will also publish via MQTT its current operating mode(parked, in use, low battery, broken, etc).
+- Thingsboard Dashboard will subscribe via MQTT to GPS, battery, and operating mode and display on realtime map. 
+- Thingsboard Dashboard will subscribe via MQTT to bridgechain transaction events and display them in log
 
-## dApp Block Diagram
-![](https://i.imgur.com/VohsPuC.jpg)
-
-
-
-
-
-
-
-## Data Stored on the Bridgechain
-* Device Registration Transaction
-    * Custom transaction used to register a new lock or device
-    * This will be sent directly by lock/device
-* Location Registration Transaction
-    * Custom transaction used to register a specific pick-up / drop-off depot location.
-* Rental Pickup/Drop-off Transaction.
-    * **I think this should be sent by logic controller/server.** - I think that the customer picks-up an available scooter(server sends this custom tx to bridgechain). Customer scoots along and requests a deposit after a while(may the customer decide this location by himself?). Server accepts deposit and instructs customer to make the payment. Customer pays with Ark and server locks the scooter and stores the drop-of transaction on the bridgechain. (emsy)
-
-
-    
-
-## Custom Transactions
-Structure of the custom transactions goes here.
-
-
-## Logic platform
-I am still thinking about how much of the logic should be implemented in the core plugin and how much in a cloud IOT service. Using a common/simple IOT tool such as Node Red for much of the logic would be a good approach for a POC. It is a very accesible tool to a wide range of people. It is a great tool for rapid prototyping. 
-
-
-## Client Mobile Application
-
-#### Show and track the location of available scooters
-1. Mobile App requests location data from server.
-2. Server queries bridgechain for location data.
-3. Server received data from bridgechain and emits this data through a socket back to the
-Mobile App. The server also emits the same data to all other connected clients.
-4. Clients update their views according to data.
-
-#### Lock and unlock an IoT physical device (lock) to manage the security of the scooters
-1. Mobile App scans QR code on the smart lock.
-2. Mobile App reads data from QR and initiate lock or unlock transaction by sending a
-request to the server.
-3. Server accepts request (in case of unlock the server emits a reservation to all connected
-clients) and passes data back to the Mobile App.
-4. Mobile App creates intent / URL scheme and opens Ark Mobile app.
-5. User sends the custom transaction.
-6. Transaction gets forged and bridgechain plugin emits this event to the server.
-7. Server emits update to all connected clients.
-8. Clients update their views according to data.
-9. Server locks / unlocks the smart lock.
-10. Optional: in case of a timeout the server will cancel the reservation and update all clients.  
-
-Q: Does the Ark Mobile app support custom transactions?  
-
-(simon): Not currently. When the Tx spec is hammered out, we can get you help with this though.
-
-Q: Is anyone familiar with smart locks? Is there a smart lock on the market with a display which is able to show QR codes?
-(simon): Not that I'm aware of. We could probably just use a screen and a relay to cut power for an MVP.
-
-
-#### Process payments in ARK (Ѧ) to unlock the device
-1. Every transaction will be requested via the server.
-2. The server sends data to the Mobile App.
-3. The Mobile App interprets the data and opens the Ark Mobile App.
-4. User sends tokens.
-5. Server waits for bridgechain event.
-6. Server sends update to client.
-7. Client update view according to data.
-
-#### Show and track drop-off locations once a scooter has been rented
-1. Server determines drop-off location.
-2. Server sends custom transaction to bridgechain with location data.
-3. Server waits for bridgechain event.
-4. Server sends update to client.
-5. Client update view according to data.
-
-Q: Are the drop-off locations fixed? Is the drop-off location the same as the rental start location?  
-(simon): I'd say there should probably not be a designated drop-off location. 
-
-Q: Is the smart lock attached to the scooter? Or is the smart lock attached to a stand?
-(simon): I think for the MVP, maybe just a relay to cut power as mentioned above should work well enough.
-
-#### Manage and track time and distance of rental (from pick-up to drop-off)
-1. Mobile App requests track times.
-2. Server determines track time (during rental: timestamp now - timestamp pick-up or total
-rental time: timestamp drop-off - timestamp pick-up).
-3. Server sends update to client.
-4. Client update view according to data.  
-
-Q: Distance tracking requires GPS data of the user which means the app needs to be open all time which is not a good combination riding a scooter. What if the user closes the app in the meantime? This might need some refinement.
-(simon): We could probably just use a simple time-based calculation. X ARK == X minutes
-
-#### Process deposit and fees on drop-off at a designated location.
-1. Scan QR of lock and initiate drop-off transaction.
-2. Server instructs Mobile App to send custom transaction to the bridgechain.
-3. Intent / URL scheme opens Ark Mobile App and fills the form with data.
-4. User sends the transaction.
-5. Server waits for bridgechain event.
-6. Server sends update to client.
-7. Client update view according to data.
-8. Smart lock will start rental process, see below.
-
-#### Make the scooter available for rental after proper drop-off is completed
-1. Smart lock sends location to server and requests availability for rental.
-2. Server sends custom pick-up transaction to bridgechain with location data.
-3. Server waits for bridgechain event.
-4. Server sends update to all connected clients (scooter is now available for rental).
-5. Clients update their views according to the data.
-
-
-
-## Off Chain IOT Analytics Dashboard
 
 ### MQTT Broker
+A low cost cloud service offering a dedicated MQTT message broker called [CloudMQTT](https://www.cloudmqtt.com/) is used. The current subscription allows for 100 simultaneous connections.  
+
+Alternatively an open source broker such as [Mosquito](https://mosquitto.org/) could be run on a VPS with other services. Mosquito broker could also likely run on the same server as a bridgechain relay node.
+
+
 
 ---
 ### Node-Red
@@ -509,8 +521,34 @@ Q: Distance tracking requires GPS data of the user which means the app needs to 
 - Runs on Raspberry Pi.
 - IBM Cloud has free tier with 250MB storage
 
+#### Radians Blockchain Event Handler
+Thingsboard is not able to handle complex JSON messages with more than 1 level of hierarchy.  Node-Red is used to do some refomatting of the Blockchain messages emitted by the MQTT Core plugin.  
+The various events types are split into separate packets and then routed to the corresponding display panel in Thingsboard.
+
+Sceen
+![](https://i.imgur.com/jfVFznt.jpg)
+
+
+#### Realtime Scooter Data Routing
+- Node-Red is used to route MQTT messages originating from the Scooter to Thingsboard.  
+Currently the messages are just routed without any modifications to the data.  
+The data received from the scooter is signed using it's private key. We are currently not verifying this data however we could add this feature using Node-Red.
+
+#### Scooter Device Simulator
+- Node-Red is used to create some simple scripts that simulate data for 3 scooters.  This is for demo purposes only so there is data displayed on the Thingsboard dashboard even if a real life scooter device is not power on.  
+
+![](https://i.imgur.com/qNZwGEI.jpg)
+
+
+
 ---
 ### Thingsboard
+Thingsboard is a great tool for visualizing all of the data from the nodes and providing a very nice admin dashboard. This would Not be used for creating the Mobile user application.
+- Device management, data collection, processing and visualization for your IoT solution
+- Open Source. 
+- Runs on Raspberry Pi
+- Runs on Digital Ocean VPS
+- Free license likely provides what we need. Paid license also available. Free license would be installed on VPS
 
 #### Public Dashboard
 http://165.22.237.171:8080/dashboard/f88894b0-d519-11e9-b281-0bd830c6c87f?publicId=f62146f0-cb7c-11e9-b281-0bd830c6c87f  
@@ -522,28 +560,21 @@ http://165.22.237.171:8080/dashboard/f88894b0-d519-11e9-b281-0bd830c6c87f?public
 -->
 
 
-Thingsboard is a great tool for visualizing all of the data from the nodes and providing a very nice admin dashboard. This would Not be used for creating the Mobile user application.
-- Device management, data collection, processing and visualization for your IoT solution
-- Open Source. 
-- Runs on Raspberry Pi
-- Runs on Digital Ocean VPS
-- Free license likely provides what we need. Paid license also available. Free license would be installed on VPS
+
 
 
 ## IOT Communication
 
-The Scooter electronics will use MQTT protocol for all bidirectional communication with the cloud server.  The server application will subscribe to the topics to retrieve data and publish to send commands.
+The Scooter electronics uses MQTT protocol as the basis for sending all of the off chain data to the analytics dashboard.  The server application will subscribe to the topics to retrieve data and publish to send commands.
 
 ### MQTT Overview
 MQTT is a lightweight publish/subscribe system that allows devices to publish information about a given topic to a server that functions as a message broker. The broker then pushes the information out to those clients that have previously subscribed to the topic. MQTT is very popular for hobby home automation projects however it is also popular in commercial applications. Facebook Messenger uses MQTT on mobile devices due to its low power consumption and fast transport with easy support for private or group chats.
-- Mosquito MQTT Broker is open source and requires a low end VPS or Raspberry Pi
-- Low cost cloud service is also available to minimize setup time [CloudMQTT](https://www.cloudmqtt.com/)
-- Extensive library support for any language you would like to develop with.
+There is extensive library support for development with many languages.
 - MQTT Clients to aid development
     - MQTT Box - good client for PC / chrome extension
     - MQTT Explorer - Awesome tool for exploring all the available topics on Broker
     - Many MQTT Android / iOS apps are available
-- library used by @roks0n: https://www.npmjs.com/package/mqtt
+- library used by for MQTT event emitter core plugin: https://www.npmjs.com/package/mqtt
 
 ### MQTT Packet Structure
 Supports MQTT Protocol V3.1.1
@@ -588,54 +619,11 @@ Scooter devices will Subscribe to these topics. This is used by the server logic
 This is a special topic that the server can use to broadcast messages to all devices.  
 scooters/$broadcast
 
-## IOT Hardware / Firmware
-
-### QR code Specification
-The scooter will generate and display a QR code when it is available for rent. The code embedds the following parameters:
-- Scooter Address (34 characters)
-- Unique/Random ID (between 1 and 64 characters)
-- GPS Latitude
-- GPS longitude
-- Rental Rate (maximum 6 characters)
-
-Maximum number of characters required to be encoded is XX.
-
-
-**NOTE:** GPS coordinates would need to be rounded as the value is not static even if the device is stationary. Rounding to the third decimal place is about 110m of precision. Accuracy of the readings is also a concern as you could get erroneous readings. QR code needs to be static.
-Does the app actually require the GPS coordinates to be received at the start of the rental? Perhaps the coordinates could be removed.  
-The pseudorandom hash could be derived from full precision GPS coordinates + locally generated random value.
-
-#### Example
-rad:TRXA2NUACckkYwWnS9JRkATQA453ukAcD1?hash=4897212321343433&rate=370000000
-
-
-
-
 ---
 
-### Scooter
-- xiaomi m365 is a common scooter that rideshare companies rebranded for their
-- launch in the last couple of years. The large rideshare companies are now starting to create modified electronics and upgraded scooters.
-- There seems to be an easily accessible serial interface available for reading out data from the m365 scooter.
-
-### Custom Electronics
-The ESP32 processor is a 32bit highly integrated SoC with Wifi. Firmware will be developed using Arduino / PlatformIO environment and Ark C++ SDK.  
-A GPS module with active external antenna will be used.  
-The lock/unlock security mechanism will be a relay enabling the power to the stock scooter controller.  
-Initially a cellphone wifi hotspot will provide the internet connection to the ESP32. A GSM module can be integrated as an optional feature.
-A small 2.4" or 3.5" TFT could provided if it provides functionality to the user interface. It could be used to dynamically generate a QR code instead of a static printed code.  
-The custom electronics may not be able to be integrated inside of the scooter due to space constraints. In this case a small enclosure will be used that can be attached to the base or handle of the scooter.
-
- ![](https://i.imgur.com/BSaLcJf.jpg)
 
 
 
-### Communication with Bridgechain and Cloud Server
-The ESP32 will be assigned a unique Bridgechain address and store its private key in Flash memory. Secure storage methods will be an optional enhanced feature. The ESP32 will be able to send device registration transactions and optionally use its private key to sign / encrypt messages sent offchain. Transactions will use the public Bridgechain API.
-
-The ESP32 will not communicate with the Ark Mainnet.
-
-MQTT protocol will be used for bidirectional communication with the cloud server. ESP32 will periodically publish sensor data(Location, Battery level).  ESP32 will subscribe to command topics and publish command acknowledgments.
 
 
 
