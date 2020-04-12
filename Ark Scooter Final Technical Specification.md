@@ -8,12 +8,12 @@ Proof of Concept Ark Scooter Rental DApp
 [TOC]
 
 # Project Overview
-This project is a proof of concept of an electric scooter rental solution utilizing a mobile app and an associated Ark custom bridgechain was created. 
+This project is a proof of concept of an electric scooter rental solution utilizing a mobile app and an associated Ark custom bridgechain to record the rental contract created. 
 This project is a great illustration on how to code and interact with custom Ark transactions. It will demonstrate C++ SDK running on "small" embedded processor.
 
 This project will not integrate the electronics inside of an actual scooter however this integration could easily be accomplished as a future project if desired. 
 
-This project will create a foundation and template for future projects.
+This POC is a great foundation and template for future projects.
 
 
 # Team
@@ -30,7 +30,7 @@ This project will create a foundation and template for future projects.
 - Thanks to @console [deadlock] for developing MQTT core plugin
 
 
-# Functional Requirements 
+# Functional Requirements Defined Prior to Start of Project 
 Create an electric scooter rental solution utilizing a mobile app and an associated Ark custom bridgechain to manage locking, unlocking, deposits, locations, and management of  Scooter rentals. All communication between the App and the IOT device will be on chain through the use of custom transactions.
 
 ## Components
@@ -58,36 +58,24 @@ Battery powered embedded hardware device that contains WiFi, GPS, display, and e
 
 ### Custom ARK Bridgechain
 All information related to the rental will be stored on the blockchain. This will be accomplished through several potentially new custom transaction types as follows:
-<!--- Device Registration Transaction (to register a new lock or device)
-- Location Registration Transaction (pick-up/drop-off GPS coordinates) -->
+- Device Registration Transaction (to register a new scooter)
 - Rental Pick-up / Drop-off Transaction  
 
-<!---Administration functions to handle the registration of scooters and locations will not be implemented in the demo app. The transactions could be demonstrated by some script/tool(Not sure if the Ark Team has some utility for this) -->
+Administration functions to handle the registration of scooters and locations will not be implemented in the demo app. The transactions could be demonstrated by some script/tool
 
 ### Provided by the ARK.io Team
 - The custom mobile app UI design
 - Additional guidance and support as necessary
 
-### Requirements for completion
+### Requirements for Completion
 - Provide a mobile application that meets the above minimum criteria.
 - Provide a functioning custom ARK Bridgchain blockchain with the above custom transactions and functionality
 - Demonstrate the application working as described
 - Provide a Bill of Materials (BOM) for the required IoT hardware.
 - Project will not include final integration of electronics into scooter hardware. 
 
-<!---### Optional Upgrades:
-- Support multiple types of the rental by allowing the owner to take a picture of an object and upload it to the app with a category and price of their choosing
-- Allow additional currencies and payment methods
-- Allow a web interface for managing rentals
-- Loyality Program
-- Publish data according to General Bikeshare Feed Specification(GBFS)
-- Rider Identification Verification
-- Social media integration -->
-
-
 
 ## Milestones
-
 We both agreed to split the amount of funding, each contributor will have 12.5k to diversify over the assigned milestones. After completed approved by the Ark team the contributer is egible to request a payment.
 
 
@@ -127,6 +115,13 @@ Applications could be optimized to operate on 1 or 2 VPS. Using separate service
     - ESP32, TFT screen, GPS module, Antenna, Battery
     - ~$125->$175 USD per set
 
+
+---
+
+
+# Technical Specification
+
+
 ## Github Repositories 
 **Project Documentation**  
 https://github.com/PhillipJacobsen/Ark-Scooter-Documents
@@ -134,7 +129,7 @@ https://github.com/PhillipJacobsen/Ark-Scooter-Documents
 **Scooter Firmware**  
 https://github.com/PhillipJacobsen/Ark_Scooter
 
-**iOS/Android DApp**  
+**iOS/Android DApp Source**  
 https://github.com/e-m-s-y/scooter-app
 
 **Radians Bridgechain**  
@@ -155,13 +150,7 @@ https://github.com/PhillipJacobsen/Ark_Scooter/tree/master/NodeRed
 **ThingsBoard Dashboard Backup**  
 https://github.com/deadlock-delegate/mqtt
 
-
-
-
 ---
-
-
-# Technical Specification
 
 ## System Block Diagram
 ![](https://i.imgur.com/TAmaPfE.jpg)
@@ -169,19 +158,28 @@ https://github.com/deadlock-delegate/mqtt
 
 ---
 
+## Bridgechain Specifications
+Bridge chain was launched prior to the completion of the updated V2.6 Deployer tools
 
+Bridgechain Name: Radians  
+Ark core V2.6xx Testnet  
+Token: RAD  
+Delegates: 53  
+Blocktime: 8 seconds  
+Explorer: [radians.nl](https://radians.nl/)  
+Peer / Seed server: http://37.34.60.90:4040  
+Epoch: 2019-10-25T09:05:40.856Z
 
+---
 
-## Communication Protocol Sequence Diagrams
-
+## Scooter - DApp Communication Sequence Diagrams
 
 ### Manually generate private keys for app & scooter
 DApp and Scooter private keys are manually generated in desktop wallet.  
 
 Scooter stores hardcoded bridgechain private keys in memory. Current firmware requires every scooter to use a unique build with its own hardcoded bridgechain wallet.  
 
-DApp allows rider to type in private keys
-
+DApp allows rider to type in private keys.
 
 ```sequence
 Title: Scooter / DApp Wallet Init.
@@ -247,7 +245,7 @@ app->app:Display ride stats(GPS,time,etc)
 ```
 
 
-## Details of Custom TXs
+## Details of Custom Transactions
 
 ### Transaction Types
 TYPE_GROUP: 4000  
@@ -319,35 +317,8 @@ If you wanted to analyze all of the ride data then you only need to look at the 
 ---
 
 
-## Other details
-- Analytics/Debug platform will be used to aid debugging and development of the hardware and the entire system. This tool will allow for realtime monitoring of the embedded hardware/firmware to verify correct operation during mobile testing.  
-- The Event log will be used to vaudit all the transactions on the chain and correlate with resulting actions of the IOT device. 
-- Operation of the rental platform does not depend on the analytics platform in any way.
-- Scooter IOT will publish realtime GPS & battery level to MQTT broker
-- Scooter IOT will also publish via MQTT its current operating mode(parked, in use, low battery, broken, etc).
-- Thingsboard Dashboard will subscribe via MQTT to GPS, battery, and operating mode and display on realtime map. 
-- Thingsboard Dashboard will subscribe via MQTT to bridgechain transaction events and display them in log
-![](https://i.imgur.com/8mLIbhs.jpg)
 
 
-
-
-
-
-
-
-
-
----
-
-
-
-
-
-## Bridgechain Specifications
-- Core V2.6 Testnet
-- 8 seconds blocktime with 53 forgers.
-- Bridge chain was launched prior to the launch of the updated V2.6 Push Button Deployer tools
 
 
 
@@ -409,12 +380,8 @@ The highlighted section in the following diagram shows the implemented component
 
     
 
-## Custom Transactions
-Structure of the custom transactions goes here.
 
 
-## Logic platform
-I am still thinking about how much of the logic should be implemented in the core plugin and how much in a cloud IOT service. Using a common/simple IOT tool such as Node Red for much of the logic would be a good approach for a POC. It is a very accesible tool to a wide range of people. It is a great tool for rapid prototyping. 
 
 
 ## Client Mobile Application
@@ -499,15 +466,50 @@ Q: Distance tracking requires GPS data of the user which means the app needs to 
 
 
 
-## Off Chain IOT Analytics Dashboard
+
+## Off Chain IOT Analytics & Dashboard
+
+- Analytics/Debug platform will be used to aid debugging and development of the hardware and the entire system. This tool will allow for realtime monitoring of the embedded hardware/firmware to verify correct operation during mobile testing.  
+- The Event log will be used to vaudit all the transactions on the chain and correlate with resulting actions of the IOT device. 
+- Operation of the rental platform does not depend on the analytics platform in any way.
+- Scooter IOT will publish realtime GPS & battery level to MQTT broker
+- Scooter IOT will also publish via MQTT its current operating mode(parked, in use, low battery, broken, etc).
+- Thingsboard Dashboard will subscribe via MQTT to GPS, battery, and operating mode and display on realtime map. 
+- Thingsboard Dashboard will subscribe via MQTT to bridgechain transaction events and display them in log
+
 
 ### MQTT Broker
+A low cost cloud service offering a dedicated MQTT message broker called [CloudMQTT](https://www.cloudmqtt.com/) is used. The current subscription allows for 100 simultaneous connections.  
+
+Alternatively an open source broker such as [Mosquito](https://mosquitto.org/) could be run on a VPS with other services. Mosquito broker could also likely run on the same server as a bridgechain relay node.
+
+
 
 ---
 ### Node-Red
 - Open source browser-based programming tool for wiring together hardware devices, APIs and online services
 - Runs on Raspberry Pi.
 - IBM Cloud has free tier with 250MB storage
+
+#### Radians Blockchain Event Handler
+Thingsboard is not able to handle complex JSON messages with more than 1 level of hierarchy.  Node-Red is used to do some refomatting of the Blockchain messages emitted by the MQTT Core plugin.  
+The various events types are split into separate packets and then routed to the corresponding display panel in Thingsboard.
+
+Sceen
+![](https://i.imgur.com/jfVFznt.jpg)
+
+
+#### Realtime Scooter Data Routing
+- Node-Red is used to route MQTT messages originating from the Scooter to Thingsboard.  
+Currently the messages are just routed without any modifications to the data.  
+The data received from the scooter is signed using it's private key. We are currently not verifying this data however we could add this feature using Node-Red.
+
+#### Scooter Device Simulator
+- Node-Red is used to create some simple scripts that simulate data for 3 scooters.  This is for demo purposes only so there is data displayed on the Thingsboard dashboard even if a real life scooter device is not power on.  
+
+![](https://i.imgur.com/qNZwGEI.jpg)
+
+
 
 ---
 ### Thingsboard
