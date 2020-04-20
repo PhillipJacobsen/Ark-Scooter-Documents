@@ -125,6 +125,7 @@ Applications could be optimized to operate on 1 or 2 VPS. Using separate service
 
 ## Github Repositories 
 **Project Documentation**  
+https://hackmd.io/OuQMzbK6TaClVLTHu97fSg  
 https://github.com/PhillipJacobsen/Ark-Scooter-Documents
 
 **Scooter Firmware**  
@@ -135,13 +136,13 @@ https://github.com/e-m-s-y/scooter-app
 
 **Radians Bridgechain**  
 https://github.com/e-m-s-y/radians  
-Explorer: https://radians.nl
+**Explorer:** https://radians.nl
 
 **Custom Transaction Plugin**  
 https://github.com/e-m-s-y/scooter-transactions
 
-**Testing Utility for Sending Test Transactions**  
-https://github.com/e-m-s-y/scooter-transactions
+**Utility for Sending Test Transactions**  
+https://github.com/e-m-s-y/scooter-transactions/blob/master/src/test.js
 
 **Socket Event Forwarder Core Plugin**  
 https://github.com/e-m-s-y/socket-event-forwarder
@@ -165,10 +166,26 @@ https://github.com/sleepdefic1t/cpp-crypto/tree/chains/radians
 **Ark-CPP-client v1.4.0-arduino**  
 https://github.com/ArkEcosystem/cpp-client/pull/159
 
+**arkcrypto-browserified**  
+Enables you to use the @arkecosystem/crypto package in the browser  
+https://github.com/e-m-s-y/arkcrypto-browserified
 
 ---
 
 ## System Block Diagram
+
+The core functions of the rental process and the communication between the DApp and embedded hardware in the scooter are done through on chain custom bridgechain transactions.  
+
+A secondary feature is the offchain communication between the bridgechain and embedded hardware with an IoT analytics dashboard.  
+
+The rental DApp(iOS/Android) receives blockchain transactions via a custom Socket.io communication plugin running on a relay node. DApp sends blockchain transactions via RESTful API.
+
+The scooter firmware sends and receives blockchain transactions via the RESTful API.
+
+All data received by analytics dashboard is via MQTT messaging protocol.
+
+The blockchain is a custom ARK.io bridgechain called Radians.
+
 ![](https://i.imgur.com/rTUXbkW.jpg)
 
 
@@ -300,7 +317,7 @@ The following screenshots of the app, scooter, and analytics dashboard illustrat
 **Use slider to configure the length of the ride**  
 ![](https://i.imgur.com/fN8whde.png =200x)
 
-### Step 7 App Send Rental Start  
+### Step 7 App Sends Rental Start  
 **Rental Start Transaction is sent along with payment to Scooter**  
 ![](https://i.imgur.com/3wytmbB.png =200x)
 
@@ -317,12 +334,11 @@ Radians Scooter.Rental.Start panel shows the latest transaction event received v
 
 
 ### Step 9 App Rental in Progress  
-**Scooter will send Rental Finish transaction when rider finishes**
 
 ![](https://i.imgur.com/M46OIDw.png =200x)
 
 ### Step 10 App Received Rental Finish  
-**App receives Rental Finish transaction from scooter.**  
+**App receives Rental Finish transaction from scooter when ride timer elapses.**  
 ![](https://i.imgur.com/855lBDf.png =200x)  
 
 **Scooter A status is now available.**  
@@ -523,8 +539,6 @@ The ESP32 will be able to send device registration transactions and optionally u
 
 
 
-
-
 ### Detailed Firmware Description
 TBD
 
@@ -539,6 +553,28 @@ Cross-platform tool called Appcelerator (https://appcelerator.com) was used to d
 Webpack(https://webpack.js.org/) was used in order to get the @arkecosystem/crypto (https://www.npmjs.com/package/@arkecosystem/crypto/v/2.6.0-next.7) package working in the app.  
 
 PhpStorm IDE was used.
+
+---
+
+## Custom Transaction Test Tool
+
+**A custom javascript utility was created to send custom transactions.**  
+https://github.com/e-m-s-y/scooter-transactions/blob/master/src/test.js
+
+**Steps to install**  
+TBD
+
+**How to Send standard transaction**  
+npm run t -- --nonce 22
+
+**How to Send Rental Start transaction**  
+npm run rs -- --nonce 22
+
+**How to Send Rental Finish transaction**  
+npm run rf -- --nonce 22
+
+**How to Send Register Scooter transaction**  
+npm run sr -- --nonce 22
 
 ---
 
