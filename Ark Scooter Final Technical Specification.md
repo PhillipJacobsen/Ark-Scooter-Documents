@@ -164,7 +164,8 @@ https://github.com/ArkEcosystem/cpp-client/pull/159
 ---
 
 ## System Block Diagram
-![](https://i.imgur.com/TAmaPfE.jpg)
+![](https://i.imgur.com/rTUXbkW.jpg)
+
 
 
 ---
@@ -172,18 +173,20 @@ https://github.com/ArkEcosystem/cpp-client/pull/159
 ## Bridgechain Specifications
 
 Bridgechain Name: Radians  
-Ark core V2.6xx Testnet  
+Ark core V2.6.0-next.7 Testnet (as of April 14, 2020)  
+https://radians.nl/api/node/configuration for more node details.  
 Token: RAD  
 Delegates: 53  
 Blocktime: 8 seconds  
 Explorer: [radians.nl](https://radians.nl/)  
 Peer / Seed server: http://37.34.60.90:4040  
-Epoch: 2019-10-25T09:05:40.856Z
+Epoch: 2019-10-25T09:05:40.856Z  
 
 **VPS Specifications**  
--xxxxxxxxx
-
-
+- 2 CPU
+- 4GB RAM
+- 150GB SSD
+- 5TB pooled traffic running on CentOS 7.7.1908
 
 ---
 
@@ -261,47 +264,66 @@ app->app:Display ride stats(GPS,time,etc)
 ---
 
 ## Rental Session Screenshots
-The following screenshots of the app and scooter illustrates the sequence of a rental transaction.
+The following screenshots of the app, scooter, and analytics dashboard illustrates the sequence of a rental transaction.
 
-**Step 1: Scooter Bootup**  
-![](https://i.imgur.com/Uv2taZn.jpg =200x)
+### Step 1: Scooter Bootup  
+**Scooter displays boot screen while waiting for waiting for WiFi connection**  
+![](https://i.imgur.com/Uv2taZn.jpg =200x)  
 
-**Step 2 Scooter Ready for Rental**   
-Once all of the networks are connected then QR code is displayed  
+**Scooter A status is broken while it waits for GPS sync**
+![](https://i.imgur.com/qfOYwE8.png)
+
+
+### Step 2 Scooter Ready for Rental   
+**Once all of the networks are connected then QR code is displayed**  
 ![](https://i.imgur.com/c9PhRlZ.jpg =200x)
 
-**Step 3 App Bootup**  
-Press the '+' on the top right to open camera for QR code scanning  
+
+### Step 3 App Bootup  
+**Press the '+' on the top right to open camera for QR code scanning**  
 ![](https://i.imgur.com/bWRdbfK.png =200x)
 
-**Step 4 App Ready for QR Scanning**  
+### Step 4 App Ready for QR Scanning  
+**You can scan QR code via camera or via file for testing**  
 ![](https://i.imgur.com/y5SrxYy.png =200x)
 
-**Step 5 App Scanning QR code**  
-You would need to zoom in more to scan QR code  
+### Step 5 App Scanning QR code  
+**You would need to zoom in more to scan QR code**  
 ![](https://i.imgur.com/j4Fs3fF.jpg =200x)
 
-**Step 6 App Configure Ride Length**  
-Use slider to configure the length of the ride  
+### Step 6 App Configure Ride Length  
+**Use slider to configure the length of the ride**  
 ![](https://i.imgur.com/fN8whde.png =200x)
 
-**Step 7 App Send Rental Start**  
-Rental Start Transaction is sent along with payment to Scooter  
+### Step 7 App Send Rental Start  
+**Rental Start Transaction is sent along with payment to Scooter**  
 ![](https://i.imgur.com/3wytmbB.png =200x)
 
-**Step 8 Scooter Rental in Progress**  
-Once Rental Start transaction is received the scooter unlocks and starts ride timer.  
+### Step 8 Scooter Rental in Progress  
+**Once Rental Start transaction is received the scooter unlocks and starts ride timer.**  
 Speed and rental countdown timer are displayed.  
 Rental Finish transaction is sent once timer expires.  
-![](https://i.imgur.com/C8IiTgU.jpg =200x)
+![](https://i.imgur.com/C8IiTgU.jpg =200x)  
 
-**Step 9 App Rental in Progress**  
+**Scooter A status is now Rented.**  
+GPS, Battery, Speed are updated in realtime via MQTT  
+Radians Scooter.Rental.Start panel shows the latest transaction event received via blockchain
+![](https://i.imgur.com/41xEkH0.png)
+
+
+### Step 9 App Rental in Progress  
+**Scooter will send Rental Finish transaction when rider finishes**
 
 ![](https://i.imgur.com/M46OIDw.png =200x)
 
-**Step 10 App Received Rental Finish**  
-App receives Rental Finish transaction from scooter.  
-![](https://i.imgur.com/855lBDf.png =200x)
+### Step 10 App Received Rental Finish  
+**App receives Rental Finish transaction from scooter.**  
+![](https://i.imgur.com/855lBDf.png =200x)  
+
+**Scooter A status is now available.**  
+Radians Scooter.Rental.Finish panel shows the latest transaction event received via blockchain  
+![](https://i.imgur.com/Sh36GnX.png)
+
 
 ---
 ## Rental Session Video Screenshots
@@ -462,7 +484,6 @@ The scooter will generate and display a QR code when it is available for rent. T
 
 Maximum number of characters required to be encoded is XX.
 
-
 **NOTE:** GPS coordinates would need to be rounded as the value is not static even if the device is stationary. Rounding to the third decimal place is about 110m of precision. Accuracy of the readings is also a concern as you could get erroneous readings. QR code needs to be static.
 Does the app actually require the GPS coordinates to be received at the start of the rental? Perhaps the coordinates could be removed.  
 
@@ -472,6 +493,20 @@ rad:TRXA2NUACckkYwWnS9JRkATQA453ukAcD1?hash=e4c18e33a25a1b8eec69c61fcc171e3503b2
 ![](https://i.imgur.com/iA4B1S3.jpg =225x)
 
 ---
+
+### Status Panel on Scooter Display
+The bottom portion of the scooter display provides status of all the network connections and system parameters.
+
+#### Top Row of Status Panel
+"Speed(kmh) via GPS"  "Time(via NTP server)" "WiFi Signal Strength"
+
+#### Middle Row of Status Panel
+"WiFi Connection" "MQTT Broker Connection" "Battery Voltage"
+
+#### Bottom Row of Status Panel
+"GPS Signal Lock" "Ark Node Connection" "# of GPS satellites"
+
+
 ### Communication with Radians Bridgechain
 The ESP32 is assigned a unique Bridgechain address and stores its private key in Flash memory. This is certainly a terrible idea for real production product but is fine for prototyping. Secure storage methods will be an optional enhanced feature.  
 
@@ -479,6 +514,9 @@ The ESP32 is assigned a unique Bridgechain address and stores its private key in
 The ESP32 will be able to send device registration transactions and optionally use its private key to sign / encrypt messages sent offchain. Transactions will use the public Bridgechain API.
 
 ### Communication with Analytics platform
+
+
+
 
 
 ### Detailed Firmware Description
@@ -489,11 +527,12 @@ TBD
 
 ## Client Mobile Application
 
-### High level details on development environment used
+### Development Environment
+Cross-platform tool called Appcelerator (https://appcelerator.com) was used to develop the app. This tool allows you to develop mobile apps in JavaScript and compile them to native code(Java for Android or Objective C for iOS). The Appcelerator SDK used is Ti 8.3.0.  
 
+Webpack(https://webpack.js.org/) was used in order to get the @arkecosystem/crypto (https://www.npmjs.com/package/@arkecosystem/crypto/v/2.6.0-next.7) package working in the app.  
 
-
-
+PhpStorm IDE was used.
 
 ---
 
@@ -502,7 +541,7 @@ TBD
 - Analytics/Debug platform will be used to aid debugging and development of the hardware and the entire system. This tool will allow for realtime monitoring of the embedded hardware/firmware to verify correct operation during mobile testing.  
 - The Event log will be used to vaudit all the transactions on the chain and correlate with resulting actions of the IOT device. 
 - Operation of the rental platform does not depend on the analytics platform in any way.
-- Scooter IOT will publish realtime GPS & battery level to MQTT broker
+- Scooter publishes realtime GPS, Speed, Battery level, to MQTT broker.
 - Scooter IOT will also publish via MQTT its current operating mode(parked, in use, low battery, broken, etc).
 - Thingsboard Dashboard will subscribe via MQTT to GPS, battery, and operating mode and display on realtime map. 
 - Thingsboard Dashboard will subscribe via MQTT to bridgechain transaction events and display them in log
