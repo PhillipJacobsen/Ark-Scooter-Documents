@@ -3,6 +3,8 @@ Proof of Concept Ark Scooter Rental DApp
 ===
 [Tier 0 Program](https://ark.io/projects/ark-scooters)
 
+https://hackmd.io/OuQMzbK6TaClVLTHu97fSg
+
 ## Table of Contents
 
 [TOC]
@@ -494,6 +496,15 @@ Several peripheral devices are interfaced to the ESP32 module to provide the nec
 
 ## Embedded Firmware
 Firmware is developed using Arduino / PlatformIO environment and Ark C++ SDK.  
+
+### Arduino Develoment Environment Setup
+The following is detailed steps on setting up Arduino programming environment and the library dependencies.   
+The following process is testing on Windows 10 environment but should be similar on other operating systems.
+1. Download Arduino  
+    * https://www.arduino.cc/en/Main/Software
+3. asdfasdf
+
+
 
 
 ### QR code Specification
