@@ -532,7 +532,7 @@ You can then search and add each of the following libraries and versions indicat
 * Ark-Cpp-Client by Ark Ecosystem V 1.4.0-arduino
 
 ### Installing Ark SDK Crypto C++ Library with support for custom Radians bridgechain transactions
-The standard Ark-Cpp-Crypto (Ver 1.0.0) by Ark.io was forked to include custom Radians transaction support.(thank you to @sleepdeficit for support)  
+The standard Ark-Cpp-Crypto (Ver 1.0.0) by Ark.io was forked to include custom Radians transaction support.(thanks to @sleepdeficit for support)  
 
 1. Download the chains\Radians branch(not the main branch) from:
     * https://github.com\sleepdefic1t\cpp-crypto\tree\chains\radians
@@ -556,6 +556,25 @@ Change this line: #define MQTT_MAX_PACKET_SIZE 128
 to:   #define MQTT_MAX_PACKET_SIZE 512
 
 
+### Configure WiFi credentials in Firmware
+open firmware file secrets.h
+Configure the WiFi credentials with your network details.  
+```
+  #define WIFI_SSID         "*****"
+  #define WIFI_PASS         "*****"
+```
+
+### Configure Wallet Credentials in Firmware
+The project code includes Radians blockchain private keys embedded in source code. This is of course a terrible idea for a real project but convenient for development.  The included wallet has already been registered on the Radians chain via custom Register Scooter transaction.
+
+Another address can be configured by editing the following lines in secrets.h 
+Note: ToDo: Link to instructions on how to send Register Scooter transaction.
+```
+const char* ArkAddress = "TRXA2NUACckkYwWnS9JRkATQA453ukAcD1";  
+static const auto PASSPHRASE = "afford thumb forward wall salad diet title patch holiday metal cement wisdom";  
+```
+
+
 ### Compiling Scooter Firmware
 1. Download Scooter firmware: 
 https://github.com/PhillipJacobsen/Ark_Scooter
@@ -569,8 +588,9 @@ https://github.com/PhillipJacobsen/Ark_Scooter
     * Sketch->Verify/Compile
 
 ### Download Firmware
-TBD
-
+1. Connect the ESP32 Feather module to PC via USB cable.  Serial -> usb device drivers should have been installed during the installation of the Arduino software.  
+2. Select COM port: Tools->port
+3. Compile and upload: Sketch->Upload
 
 
 
