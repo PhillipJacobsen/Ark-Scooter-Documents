@@ -212,7 +212,101 @@ Epoch: 2019-10-25T09:05:40.856Z
 - 150GB SSD
 - 5TB pooled traffic running on CentOS 7.7.1908
 
+### Detailed Bridgechain Configuration
+https://radians.nl/api/node/configuration
+```
+{
+   "data":{
+      "core":{
+         "version":"2.6.0-next.7"
+      },
+      "nethash":"f39a61f04d6136a690a0b675ef6eedbd053665bd343b4e4f03311f12065fb875",
+      "slip44":1,
+      "wif":206,
+      "token":"RAD",
+      "symbol":"R",
+      "explorer":"http://0.0.0.0:4200",
+      "version":65,
+      "ports":{
+         "@arkecosystem/core-p2p":null,
+         "@arkecosystem/core-api":4103
+      },
+      "constants":{
+         "height":1850,
+         "reward":200000000,
+         "activeDelegates":53,
+         "blocktime":8,
+         "block":{
+            "version":0,
+            "maxTransactions":150,
+            "maxPayload":6291456
+         },
+         "epoch":"2019-10-25T09:05:40.856Z",
+         "fees":{
+            "staticFees":{
+               "transfer":10000000,
+               "secondSignature":500000000,
+               "delegateRegistration":2500000000,
+               "vote":100000000,
+               "multiSignature":500000000,
+               "ipfs":500000000,
+               "multiPayment":100000000,
+               "delegateResignation":2500000000,
+               "htlcLock":10000000,
+               "htlcClaim":0,
+               "htlcRefund":0
+            }
+         },
+         "vendorFieldLength":512,
+         "multiPaymentLimit":256,
+         "aip11":true,
+         "htlcEnabled":true
+      },
+      "transactionPool":{
+         "dynamicFees":{
+            "enabled":true,
+            "minFeePool":3000,
+            "minFeeBroadcast":3000,
+            "addonBytes":{
+               "transfer":100,
+               "secondSignature":250,
+               "delegateRegistration":400000,
+               "vote":100,
+               "multiSignature":500,
+               "ipfs":250,
+               "multiPayment":500,
+               "delegateResignation":400000,
+               "htlcLock":100,
+               "htlcClaim":0,
+               "htlcRefund":0
+            }
+         }
+      }
+   }
+}
+```
+
 ---
+
+## Adding Radians Bridgechain to Ark Desktop
+The following instructions can be used to add Radians chain to the standard Ark desktop wallet. The following instructions were tested on Windows 10 and version 2.9.1 of the wallet.
+1. Download and install Ark.io desktop wallet from one of the following locations.
+    * https://ark.io/wallet 
+    * https://github.com/ArkEcosystem/desktop-wallet/releases
+2. Run ARK Desktop Wallet
+3. Go to Network(the cloud icon on the bottom left)->Manage networks 
+4. Add a new network and fill in the following info:
+    * Name: Radians
+    * Description: Radians Testnet
+    * Seed Server: http://37.34.60.90:4040
+5. Press Fetch
+6. Finish this Part.....
+7. Go to Profile(bottom icon on the left) -> Add profile
+8. Fill in Profile information
+    * Profile Name: whatever you want to call it
+    * Network: Radians
+
+Need to finish these steps!!!!!!!!
 
 ## Scooter - DApp Communication Sequence Diagrams
 
@@ -379,6 +473,37 @@ RENTAL_FINISH_TYPE: 600
 * typeGroup = TYPE_GROUP  
 * fee = Register = xxxxx  
 
+**Scooter Register Example:**
+https://radians.nl/api/v2/transactions/444b5172476a7f86b38392eaeffcd1bf35123cdd83b44c96aaa597e24c05006e
+```
+{
+   "data":{
+      "id":"444b5172476a7f86b38392eaeffcd1bf35123cdd83b44c96aaa597e24c05006e",
+      "blockId":"7142238589308015273",
+      "version":2,
+      "type":401,
+      "typeGroup":4000,
+      "amount":"0",
+      "fee":"3000000000",
+      "sender":"TRXA2NUACckkYwWnS9JRkATQA453ukAcD1",
+      "senderPublicKey":"03e063f436ccfa3dfa9e9e6ee5e08a65a82a5ce2b2daf58a9be235753a971411e2",
+      "recipient":"TRXA2NUACckkYwWnS9JRkATQA453ukAcD1",
+      "signature":"2ad52e6d3c927c66b7f0760f05311d48cb22ec124315745d4c842170c869e31c73f16fe53f1ad3d8c5eb2a61076a776d0a759c4029cbb31c1aa9dedb97028898",
+      "asset":{
+         "scooterId":"1234567890"
+      },
+      "confirmations":846380,
+      "timestamp":{
+         "epoch":9109608,
+         "unix":1581103948,
+         "human":"2020-02-07T19:32:28.856Z"
+      },
+      "nonce":"41"
+   }
+}
+```
+
+
 ### Rental Start
 ***Note: data types and length needed to be updated***
 
@@ -404,11 +529,52 @@ Rate is the cost of the ride measured in RAD/seconds.
 The amount transferred determines the length of ride.  
 Length of Ride(seconds) = Amount / Rate
 
+**Rental Start Example:**
+https://radians.nl/api/v2/transactions/c9dbbede340926fab174e56fd3cea75b3b99a1cc9eb594f18e7250fbd11392e7
+
+```
+{
+   "data":{
+      "id":"c9dbbede340926fab174e56fd3cea75b3b99a1cc9eb594f18e7250fbd11392e7",
+      "blockId":"2072591193193033951",
+      "version":2,
+      "type":500,
+      "typeGroup":4000,
+      "amount":"3700020",
+      "fee":"10000000",
+      "sender":"TLdYHTKRSD3rG66zsytqpAgJDX75qbcvgT",
+      "senderPublicKey":"02cbe4667ab08693cbb3c248b96635f84b5412a99b49237f059a724f2cfe2b733f",
+      "recipient":"TRXA2NUACckkYwWnS9JRkATQA453ukAcD1",
+      "signature":"84315ff2c7382a0986c326daac84fe076e4a963a31d87ef710904f37c28d4657e9c3a3696d3b2ae33c557f13b727a188c440f23387040cd2657c1b01b8ab9c7b",
+      "asset":{
+         "gps":{
+            "timestamp":1585720792,
+            "latitude":"53.534603",
+            "longitude":"-113.329002",
+            "human":"2020-04-01T05:59:52.000Z"
+         },
+         "sessionId":"bc9583e4c8094c7a84fc6dc0ec916d7e1a8fdac3dcaf2dcbec8073babaa00165",
+         "rate":"61667",
+         "gpsCount":1
+      },
+      "confirmations":269412,
+      "timestamp":{
+         "epoch":13726456,
+         "unix":1585720796,
+         "human":"2020-04-01T05:59:56.856Z"
+      },
+      "nonce":"104"
+   }
+}
+```
+
+
 ---
 
 
 
 ### Rental Finish
+https://radians.nl/api/v2/wallets/TGGUtM6KPdWn7LSpNcWj1y5ngGa8xJqxHf/scooter-transactions
 
 ***Note: data types and length needed to be updated***
 
@@ -427,6 +593,54 @@ Length of Ride(seconds) = Amount / Rate
     * lat = GPS latitude; String(1->16 characters)  
     * long = GPS longitude; String(1->16 characters)  
     * rideDuration = RIDE_DURATION_IN_SECONDS
+
+**Rental Finish Example:**
+https://radians.nl/api/v2/transactions/6ad85654597fe9fab5f61930f0eccfb02cbb892fbfc78b91d723797d82408c6d
+```
+{
+   "data":{
+      "id":"6ad85654597fe9fab5f61930f0eccfb02cbb892fbfc78b91d723797d82408c6d",
+      "blockId":"18274364918586419922",
+      "version":2,
+      "type":600,
+      "typeGroup":4000,
+      "amount":"1",
+      "fee":"10000000",
+      "sender":"TRXA2NUACckkYwWnS9JRkATQA453ukAcD1",
+      "senderPublicKey":"03e063f436ccfa3dfa9e9e6ee5e08a65a82a5ce2b2daf58a9be235753a971411e2",
+      "recipient":"TLdYHTKRSD3rG66zsytqpAgJDX75qbcvgT",
+      "signature":"30440220295d8140f99bf8a9b3a2c576f94f6e93ce44060f38d3c927e1301166525eb15602201a4be28023b3c3d50fc639f699c13340acb984aab01824667c861e3463b500a2",
+      "asset":{
+         "gps":[
+            {
+               "timestamp":1585720806,
+               "latitude":"53.534560",
+               "longitude":"-113.329120",
+               "human":"2020-04-01T06:00:06.000Z"
+            },
+            {
+               "timestamp":1585720866,
+               "latitude":"53.534724",
+               "longitude":"-113.328960",
+               "human":"2020-04-01T06:01:06.000Z"
+            }
+         ],
+         "sessionId":"bc9583e4c8094c7a84fc6dc0ec916d7e1a8fdac3dcaf2dcbec8073babaa00165",
+         "containsRefund":false,
+         "gpsCount":2,
+         "rideDuration":60
+      },
+      "confirmations":269413,
+      "timestamp":{
+         "epoch":13726528,
+         "unix":1585720868,
+         "human":"2020-04-01T06:01:08.856Z"
+      },
+      "nonce":"131"
+   }
+}
+```
+
 
 ---
 
@@ -570,12 +784,15 @@ Configure the WiFi credentials with your network details.
 ### Configure Wallet Credentials in Firmware
 The project code includes Radians blockchain private keys embedded in source code. This is of course a terrible idea for a real project but convenient for development.  The included wallet has already been registered on the Radians chain via custom Register Scooter transaction.
 
-Another address can be configured by editing the following lines in secrets.h 
-Note: ToDo: Link to instructions on how to send Register Scooter transaction.
+Another address can be configured by editing the following lines in secrets.h  
 ```
 const char* ArkAddress = "TRXA2NUACckkYwWnS9JRkATQA453ukAcD1";  
 static const auto PASSPHRASE = "afford thumb forward wall salad diet title patch holiday metal cement wisdom";  
 ```
+
+**Instructions for sending Register Scooter transaction:**  
+Scooter wallet must be registered before being able to send or received Rental Transactions.
+https://hackmd.io/OuQMzbK6TaClVLTHu97fSg?view#Custom-Transaction-Test-Tool
 
 
 ### Compiling Scooter Firmware
@@ -601,13 +818,20 @@ https://github.com/PhillipJacobsen/Ark_Scooter
 
 ### QR code Specification
 The scooter will generate and display a QR code when it is available for rent. The code embedds the following parameters:
-- Scooter Wallet Address (34 characters)
-- SessionID SHA256 Hash of Unique/Random number
-- Rental Rate
-- GPS Latitude
-- GPS longitude
+- Scooter Wallet Address: (34 characters)
+- SessionID: SHA256 Hash of Unique/Random number. 256 bits
+- Rental Rate: Cost per second of ride time
+- GPS Latitude: Current location of scooter
+- GPS longitude: Current location of scooter
 
-Maximum number of characters required to be encoded is XX.
+#### SessionID
+The sessionID is a random identifier that is unique to a Rental transaction. The QR code, Rental Start, and Rental Finish transactions all embed this unique identifier.  
+1. Scooter generates random 32 bit integer. SHA256 hash fuction is performed generating 256 bit result. This is used as the SessionID.  
+2. App scans QR code which includes the SessionID. Apps sends Rental Start transaction with SessionID embedded.
+3. Scooter receives Rental Start and verifies received SessionID matches the value encoded in the QRcode
+4. Scooter sends Rental Finish and embedds SessionID
+5. App receives Rental Finish and confirms SessionID matches what it sent in Rental Start
+
 
 **NOTE:** GPS coordinates would need to be rounded as the value is not static even if the device is stationary. Rounding to the third decimal place is about 110m of precision. Accuracy of the readings is also a concern as you could get erroneous readings. QR code needs to be static.
 Does the app actually require the GPS coordinates to be received at the start of the rental? Perhaps the coordinates could be removed.  
@@ -662,7 +886,8 @@ PhpStorm IDE was used.
 ## Custom Transaction Test Tool
 
 **A custom javascript utility was created to send custom transactions.**  
-This is a nice simple utility for development. 
+This is a nice simple utility for development.  
+This tool is currently the only method for sending Register Scooter transaction.
 
 **Steps to run on Windows 10**
 1. Download and install Node.js and NPM 
@@ -835,6 +1060,8 @@ Scooter devices will Subscribe to these topics. This is used by the server logic
 #### Broadcast Channel
 This is a special topic that the server can use to broadcast messages to all devices.  
 scooters/$broadcast
+
+### Message Signing using Private Keys
 
 ---
 
