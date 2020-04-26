@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>
+        Proof of Concept Ark Scooter Rental DApp - HackMD
+    </title>
+    <link rel="icon" type="image/png" href="https://hackmd.io/favicon.png">
+    <link rel="apple-touch-icon" href="https://hackmd.io/apple-touch-icon.png">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" integrity="sha256-3iu9jgsy9TpTwXKb7bNQzqWekRX7pPK+2OLj3R922fo=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/octicons/3.5.0/octicons.min.css" integrity="sha256-QiWfLIsCT02Sdwkogf6YMiQlj4NE84MKkzEMkZnMGdg=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/themes/prism.min.css" integrity="sha256-vtR0hSWRc3Tb26iuN2oZHt3KRUomwTufNIf5/4oeCyg=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@hackmd/emojify.js@2.1.0/dist/css/basic/emojify.min.css" integrity="sha256-UOrvMOsSDSrW6szVLe8ZDZezBxh5IoIfgTwdNDgTjiU=" crossorigin="anonymous" />
+    <style>
+        @charset "UTF-8";@import url(https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i|Source+Code+Pro:300,400,500|Source+Sans+Pro:300,300i,400,400i,600,600i|Source+Serif+Pro&subset=latin-ext);.hljs{display:block;background:#fff;padding:.5em;color:#333;overflow-x:auto}.hljs-comment,.hljs-meta{color:#969896}.hljs-emphasis,.hljs-quote,.hljs-string,.hljs-strong,.hljs-template-variable,.hljs-variable{color:#df5000}.hljs-keyword,.hljs-selector-tag,.hljs-type{color:#a71d5d}.hljs-attribute,.hljs-bullet,.hljs-literal,.hljs-number,.hljs-symbol{color:#0086b3}.hljs-built_in,.hljs-builtin-name{color:#005cc5}.hljs-name,.hljs-section{color:#63a35c}.hljs-tag{color:#333}.hljs-attr,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-id,.hljs-selector-pseudo,.hljs-title{color:#795da3}.hljs-addition{color:#55a532;background-color:#eaffea}.hljs-deletion{color:#bd2c00;background-color:#ffecec}.hljs-link{text-decoration:underline}.markdown-body{font-size:16px;line-height:1.5;word-wrap:break-word}.markdown-body:after,.markdown-body:before{display:table;content:""}.markdown-body:after{clear:both}.markdown-body>:first-child{margin-top:0!important}.markdown-body>:last-child{margin-bottom:0!important}.markdown-body a:not([href]){color:inherit;text-decoration:none}.markdown-body .absent{color:#c00}.markdown-body .anchor{float:left;padding-right:4px;margin-left:-20px;line-height:1}.markdown-body .anchor:focus{outline:none}.markdown-body blockquote,.markdown-body dl,.markdown-body ol,.markdown-body p,.markdown-body pre,.markdown-body table,.markdown-body ul{margin-top:0;margin-bottom:16px}.markdown-body hr{height:.25em;padding:0;margin:24px 0;background-color:#e7e7e7;border:0}.markdown-body blockquote{font-size:16px;padding:0 1em;color:#777;border-left:.25em solid #ddd}.markdown-body blockquote>:first-child{margin-top:0}.markdown-body blockquote>:last-child{margin-bottom:0}.markdown-body kbd,.popover kbd{display:inline-block;padding:3px 5px;font-size:11px;line-height:10px;color:#555;vertical-align:middle;background-color:#fcfcfc;border:1px solid #ccc;border-bottom-color:#bbb;border-radius:3px;box-shadow:inset 0 -1px 0 #bbb}.markdown-body .loweralpha{list-style-type:lower-alpha}.markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4,.markdown-body h5,.markdown-body h6{margin-top:24px;margin-bottom:16px;font-weight:600;line-height:1.25}.markdown-body h1 .octicon-link,.markdown-body h2 .octicon-link,.markdown-body h3 .octicon-link,.markdown-body h4 .octicon-link,.markdown-body h5 .octicon-link,.markdown-body h6 .octicon-link{color:#000;vertical-align:middle;visibility:hidden}.markdown-body h1:hover .anchor,.markdown-body h2:hover .anchor,.markdown-body h3:hover .anchor,.markdown-body h4:hover .anchor,.markdown-body h5:hover .anchor,.markdown-body h6:hover .anchor{text-decoration:none}.markdown-body h1:hover .anchor .octicon-link,.markdown-body h2:hover .anchor .octicon-link,.markdown-body h3:hover .anchor .octicon-link,.markdown-body h4:hover .anchor .octicon-link,.markdown-body h5:hover .anchor .octicon-link,.markdown-body h6:hover .anchor .octicon-link{visibility:visible}.markdown-body h1 code,.markdown-body h1 tt,.markdown-body h2 code,.markdown-body h2 tt,.markdown-body h3 code,.markdown-body h3 tt,.markdown-body h4 code,.markdown-body h4 tt,.markdown-body h5 code,.markdown-body h5 tt,.markdown-body h6 code,.markdown-body h6 tt{font-size:inherit}.markdown-body h1{font-size:2em}.markdown-body h1,.markdown-body h2{padding-bottom:.3em;border-bottom:1px solid #eee}.markdown-body h2{font-size:1.5em}.markdown-body h3{font-size:1.25em}.markdown-body h4{font-size:1em}.markdown-body h5{font-size:.875em}.markdown-body h6{font-size:.85em;color:#777}.markdown-body ol,.markdown-body ul{padding-left:2em}.markdown-body ol.no-list,.markdown-body ul.no-list{padding:0;list-style-type:none}.markdown-body ol ol,.markdown-body ol ul,.markdown-body ul ol,.markdown-body ul ul{margin-top:0;margin-bottom:0}.markdown-body li>p{margin-top:16px}.markdown-body li+li{padding-top:.25em}.markdown-body dl{padding:0}.markdown-body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}.markdown-body dl dd{padding:0 16px;margin-bottom:16px}.markdown-body table{display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}.markdown-body table th{font-weight:700}.markdown-body table td,.markdown-body table th{padding:6px 13px;border:1px solid #ddd}.markdown-body table tr{background-color:#fff;border-top:1px solid #ccc}.markdown-body table tr:nth-child(2n){background-color:#f8f8f8}.markdown-body img{max-width:100%;box-sizing:content-box;background-color:#fff}.markdown-body img[align=right]{padding-left:20px}.markdown-body img[align=left]{padding-right:20px}.markdown-body .emoji{max-width:none;vertical-align:text-top;background-color:transparent}.markdown-body span.frame{display:block;overflow:hidden}.markdown-body span.frame>span{display:block;float:left;width:auto;padding:7px;margin:13px 0 0;overflow:hidden;border:1px solid #ddd}.markdown-body span.frame span img{display:block;float:left}.markdown-body span.frame span span{display:block;padding:5px 0 0;clear:both;color:#333}.markdown-body span.align-center{display:block;overflow:hidden;clear:both}.markdown-body span.align-center>span{display:block;margin:13px auto 0;overflow:hidden;text-align:center}.markdown-body span.align-center span img{margin:0 auto;text-align:center}.markdown-body span.align-right{display:block;overflow:hidden;clear:both}.markdown-body span.align-right>span{display:block;margin:13px 0 0;overflow:hidden;text-align:right}.markdown-body span.align-right span img{margin:0;text-align:right}.markdown-body span.float-left{display:block;float:left;margin-right:13px;overflow:hidden}.markdown-body span.float-left span{margin:13px 0 0}.markdown-body span.float-right{display:block;float:right;margin-left:13px;overflow:hidden}.markdown-body span.float-right>span{display:block;margin:13px auto 0;overflow:hidden;text-align:right}.markdown-body code,.markdown-body tt{padding:0;padding-top:.2em;padding-bottom:.2em;margin:0;font-size:85%;background-color:rgba(0,0,0,.04);border-radius:3px}.markdown-body code:after,.markdown-body code:before,.markdown-body tt:after,.markdown-body tt:before{letter-spacing:-.2em;content:"\00a0"}.markdown-body code br,.markdown-body tt br{display:none}.markdown-body del code{text-decoration:inherit}.markdown-body pre{word-wrap:normal}.markdown-body pre>code{padding:0;margin:0;font-size:100%;word-break:normal;white-space:pre;background:transparent;border:0}.markdown-body .highlight{margin-bottom:16px}.markdown-body .highlight pre{margin-bottom:0;word-break:normal}.markdown-body .highlight pre,.markdown-body pre{padding:16px;overflow:auto;font-size:85%;line-height:1.45;background-color:#f7f7f7;border-radius:3px}.markdown-body pre code,.markdown-body pre tt{display:inline;max-width:auto;padding:0;margin:0;overflow:visible;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}.markdown-body pre code:after,.markdown-body pre code:before,.markdown-body pre tt:after,.markdown-body pre tt:before{content:normal}.markdown-body .csv-data td,.markdown-body .csv-data th{padding:5px;overflow:hidden;font-size:12px;line-height:1;text-align:left;white-space:nowrap}.markdown-body .csv-data .blob-line-num{padding:10px 8px 9px;text-align:right;background:#fff;border:0}.markdown-body .csv-data tr{border-top:0}.markdown-body .csv-data th{font-weight:700;background:#f8f8f8;border-top:0}.news .alert .markdown-body blockquote{padding:0 0 0 40px;border:0 none}.activity-tab .news .alert .commits,.activity-tab .news .markdown-body blockquote{padding-left:0}.task-list-item{list-style-type:none}.task-list-item label{font-weight:400}.task-list-item.enabled label{cursor:pointer}.task-list-item+.task-list-item{margin-top:3px}.task-list-item-checkbox{float:left;margin:.31em 0 .2em -1.3em!important;vertical-align:middle;cursor:default!important}.markdown-body{padding-top:40px;padding-bottom:40px;max-width:758px;overflow:visible!important}.markdown-body .emoji{vertical-align:top}.markdown-body pre{border:inherit!important}.markdown-body code{color:inherit!important}.markdown-body pre code .wrapper{display:-moz-inline-flex;display:-ms-inline-flex;display:-o-inline-flex;display:inline-flex}.markdown-body pre code .gutter{float:left;overflow:hidden;-webkit-user-select:none;user-select:none}.markdown-body pre code .gutter.linenumber{text-align:right;position:relative;display:inline-block;cursor:default;z-index:4;padding:0 8px 0 0;min-width:20px;box-sizing:content-box;color:#afafaf!important;border-right:3px solid #6ce26c!important}.markdown-body pre code .gutter.linenumber>span:before{content:attr(data-linenumber)}.markdown-body pre code .code{float:left;margin:0 0 0 16px}.markdown-body .gist .line-numbers{border-left:none;border-top:none;border-bottom:none}.markdown-body .gist .line-data{border:none}.markdown-body .gist table{border-spacing:0;border-collapse:inherit!important}.markdown-body code[data-gist-id]{background:none;padding:0}.markdown-body code[data-gist-id]:after,.markdown-body code[data-gist-id]:before{content:""}.markdown-body code[data-gist-id] .blob-num{border:unset}.markdown-body code[data-gist-id] table{overflow:unset;margin-bottom:unset}.markdown-body code[data-gist-id] table tr{background:unset}.markdown-body[dir=rtl] pre{direction:ltr}.markdown-body[dir=rtl] code{direction:ltr;unicode-bidi:embed}.markdown-body .alert>p{margin-bottom:0}.markdown-body pre.abc,.markdown-body pre.flow-chart,.markdown-body pre.graphviz,.markdown-body pre.mermaid,.markdown-body pre.sequence-diagram,.markdown-body pre.vega{text-align:center;background-color:inherit;border-radius:0;white-space:inherit}.markdown-body pre.abc>code,.markdown-body pre.flow-chart>code,.markdown-body pre.graphviz>code,.markdown-body pre.mermaid>code,.markdown-body pre.sequence-diagram>code,.markdown-body pre.vega>code{text-align:left}.markdown-body pre.abc>svg,.markdown-body pre.flow-chart>svg,.markdown-body pre.graphviz>svg,.markdown-body pre.mermaid>svg,.markdown-body pre.sequence-diagram>svg,.markdown-body pre.vega>svg{max-width:100%;height:100%}.markdown-body pre>code.wrap{white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word}.markdown-body .alert>p,.markdown-body .alert>ul{margin-bottom:0}.markdown-body summary{display:list-item}.markdown-body summary:focus{outline:none}.markdown-body details summary{cursor:pointer}.markdown-body details:not([open])>:not(summary){display:none}.markdown-body figure{margin:1em 40px}.markdown-body .mark,.markdown-body mark{background-color:#fff1a7}.vimeo,.youtube{cursor:pointer;display:table;text-align:center;background-position:50%;background-repeat:no-repeat;background-size:contain;background-color:#000;overflow:hidden}.vimeo,.youtube{position:relative;width:100%}.youtube{padding-bottom:56.25%}.vimeo img{width:100%;object-fit:contain;z-index:0}.youtube img{object-fit:cover;z-index:0}.vimeo iframe,.youtube iframe,.youtube img{width:100%;height:100%;position:absolute;top:0;left:0}.vimeo iframe,.youtube iframe{vertical-align:middle;z-index:1}.vimeo .icon,.youtube .icon{position:absolute;height:auto;width:auto;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;opacity:.3;transition:opacity .2s;z-index:0}.vimeo:hover .icon,.youtube:hover .icon{opacity:.6;transition:opacity .2s}.slideshare .inner,.speakerdeck .inner{position:relative;width:100%}.slideshare .inner iframe,.speakerdeck .inner iframe{position:absolute;top:0;bottom:0;left:0;right:0;width:100%;height:100%}.MJX_Assistive_MathML{display:none}.ui-infobar{position:relative;z-index:2;max-width:760px;margin:25px auto -25px;padding:0 15px;color:#777}.toc .invisable-node{list-style-type:none}.ui-toc{position:fixed;bottom:20px;z-index:998}.ui-toc-label{opacity:.3;background-color:#ccc;border:none;transition:opacity .2s}.ui-toc .open .ui-toc-label{opacity:1;color:#fff;transition:opacity .2s}.ui-toc-label:focus{opacity:.3;background-color:#ccc;color:#000}.ui-toc-label:hover{opacity:1;background-color:#ccc;transition:opacity .2s}.ui-toc-dropdown{margin-top:23px;margin-bottom:20px;padding-left:10px;padding-right:10px;max-width:45vw;width:25vw;max-height:70vh;overflow:auto;text-align:inherit}.ui-toc-dropdown>.toc{max-height:calc(70vh - 100px);overflow:auto}.ui-toc-dropdown[dir=rtl] .nav{padding-right:0;letter-spacing:.0029em}.ui-toc-dropdown a{overflow:hidden;text-overflow:ellipsis;white-space:pre}.ui-toc-dropdown .nav>li>a{display:block;padding:4px 20px;font-size:13px;font-weight:500;color:#767676}.ui-toc-dropdown .nav>li:first-child:last-child > ul,.ui-toc-dropdown .toc.expand ul{display:block}.ui-toc-dropdown .nav>li>a:focus,.ui-toc-dropdown .nav>li>a:hover{padding-left:19px;color:#000;text-decoration:none;background-color:transparent;border-left:1px solid #000}.ui-toc-dropdown[dir=rtl] .nav>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav>li>a:hover{padding-right:19px;border-left:none;border-right:1px solid #000}.ui-toc-dropdown .nav>.active:focus>a,.ui-toc-dropdown .nav>.active:hover>a,.ui-toc-dropdown .nav>.active>a{padding-left:18px;font-weight:700;color:#000;background-color:transparent;border-left:2px solid #000}.ui-toc-dropdown[dir=rtl] .nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav>.active>a{padding-right:18px;border-left:none;border-right:2px solid #000}.ui-toc-dropdown .nav .nav{display:none;padding-bottom:10px}.ui-toc-dropdown .nav>.active>ul{display:block}.ui-toc-dropdown .nav .nav>li>a{padding-top:1px;padding-bottom:1px;padding-left:30px;font-size:12px;font-weight:400}.ui-toc-dropdown[dir=rtl] .nav .nav>li>a{padding-right:30px}.ui-toc-dropdown .nav .nav>li>ul>li>a{padding-top:1px;padding-bottom:1px;padding-left:40px;font-size:12px;font-weight:400}.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a{padding-right:40px}.ui-toc-dropdown .nav .nav>li>a:focus,.ui-toc-dropdown .nav .nav>li>a:hover{padding-left:29px}.ui-toc-dropdown[dir=rtl] .nav .nav>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav .nav>li>a:hover{padding-right:29px}.ui-toc-dropdown .nav .nav>li>ul>li>a:focus,.ui-toc-dropdown .nav .nav>li>ul>li>a:hover{padding-left:39px}.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a:hover{padding-right:39px}.ui-toc-dropdown .nav .nav>.active:focus>a,.ui-toc-dropdown .nav .nav>.active:hover>a,.ui-toc-dropdown .nav .nav>.active>a{padding-left:28px;font-weight:500}.ui-toc-dropdown[dir=rtl] .nav .nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>a{padding-right:28px}.ui-toc-dropdown .nav .nav>.active>.nav>.active:focus>a,.ui-toc-dropdown .nav .nav>.active>.nav>.active:hover>a,.ui-toc-dropdown .nav .nav>.active>.nav>.active>a{padding-left:38px;font-weight:500}.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active>a{padding-right:38px}.markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,sans-serif}html[lang^=ja] .markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,Hiragino Kaku Gothic Pro,ヒラギノ角ゴ Pro W3,Osaka,Meiryo,メイリオ,MS Gothic,ＭＳ\ ゴシック,sans-serif}html[lang=zh-tw] .markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang TC,Microsoft JhengHei,微軟正黑,sans-serif}html[lang=zh-cn] .markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang SC,Microsoft YaHei,微软雅黑,sans-serif}html .markdown-body[lang^=ja]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,Hiragino Kaku Gothic Pro,ヒラギノ角ゴ Pro W3,Osaka,Meiryo,メイリオ,MS Gothic,ＭＳ\ ゴシック,sans-serif}html .markdown-body[lang=zh-tw]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang TC,Microsoft JhengHei,微軟正黑,sans-serif}html .markdown-body[lang=zh-cn]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang SC,Microsoft YaHei,微软雅黑,sans-serif}html[lang^=ja] .ui-toc-dropdown{font-family:Source Sans Pro,Helvetica,Arial,Meiryo UI,MS PGothic,ＭＳ\ Ｐゴシック,sans-serif}html[lang=zh-tw] .ui-toc-dropdown{font-family:Source Sans Pro,Helvetica,Arial,Microsoft JhengHei UI,微軟正黑UI,sans-serif}html[lang=zh-cn] .ui-toc-dropdown{font-family:Source Sans Pro,Helvetica,Arial,Microsoft YaHei UI,微软雅黑UI,sans-serif}html .ui-toc-dropdown[lang^=ja]{font-family:Source Sans Pro,Helvetica,Arial,Meiryo UI,MS PGothic,ＭＳ\ Ｐゴシック,sans-serif}html .ui-toc-dropdown[lang=zh-tw]{font-family:Source Sans Pro,Helvetica,Arial,Microsoft JhengHei UI,微軟正黑UI,sans-serif}html .ui-toc-dropdown[lang=zh-cn]{font-family:Source Sans Pro,Helvetica,Arial,Microsoft YaHei UI,微软雅黑UI,sans-serif}.ui-affix-toc{position:fixed;top:0;max-width:15vw;max-height:70vh;overflow:auto}.back-to-top,.expand-toggle,.go-to-bottom{display:block;padding:4px 10px;margin-top:10px;margin-left:10px;font-size:12px;font-weight:500;color:#999}.back-to-top:focus,.back-to-top:hover,.expand-toggle:focus,.expand-toggle:hover,.go-to-bottom:focus,.go-to-bottom:hover{color:#563d7c;text-decoration:none}.back-to-top,.go-to-bottom{margin-top:0}.ui-user-icon{width:20px;height:20px;display:block;border-radius:3px;margin-top:2px;margin-bottom:2px;margin-right:5px;background-position:50%;background-repeat:no-repeat;background-size:cover}.ui-user-icon.small{width:18px;height:18px;display:inline-block;vertical-align:middle;margin:0 0 .2em}.ui-infobar>small>span{line-height:22px}.ui-infobar>small .dropdown{display:inline-block}.ui-infobar>small .dropdown a:focus,.ui-infobar>small .dropdown a:hover{text-decoration:none}.ui-published-note{color:#337ab7}.ui-published-note .fa{font-size:20px;vertical-align:top}.unselectable{-webkit-user-select:none;-o-user-select:none;user-select:none}@media print{blockquote,div,img,pre,table{page-break-inside:avoid!important}a[href]:after{font-size:12px!important}}.markdown-body.slides{position:relative;z-index:1;color:#222}.markdown-body.slides:before{content:"";display:block;position:absolute;top:0;left:0;right:0;bottom:0;z-index:-1;background-color:currentColor;box-shadow:0 0 0 50vw}.markdown-body.slides section[data-markdown]{position:relative;margin-bottom:1.5em;background-color:#fff;text-align:center}.markdown-body.slides section[data-markdown] code{text-align:left}.markdown-body.slides section[data-markdown]:before{content:"";display:block;padding-bottom:56.23%}.markdown-body.slides section[data-markdown]>div:first-child{position:absolute;top:50%;left:1em;right:1em;transform:translateY(-50%);max-height:100%;overflow:hidden}.markdown-body.slides section[data-markdown]>ul{display:inline-block}.markdown-body.slides>section>section+section:after{content:"";position:absolute;top:-1.5em;right:1em;height:1.5em;border:3px solid #777}body{font-smoothing:subpixel-antialiased!important;-webkit-font-smoothing:subpixel-antialiased!important;-moz-osx-font-smoothing:auto!important;text-shadow:0 0 1em transparent,1px 1px 1.2px rgba(0,0,0,.004);-webkit-overflow-scrolling:touch;letter-spacing:.025em}.focus,:focus{outline:none!important}::-moz-focus-inner{border:0!important}body{font-family:Source Sans Pro,Helvetica,Arial,sans-serif}html[lang^=ja] body{font-family:Source Sans Pro,Helvetica,Arial,Hiragino Kaku Gothic Pro,ヒラギノ角ゴ Pro W3,Osaka,Meiryo,メイリオ,MS Gothic,ＭＳ\ ゴシック,sans-serif}html[lang=zh-tw] body{font-family:Source Sans Pro,Helvetica,Arial,PingFang TC,Microsoft JhengHei,微軟正黑,sans-serif}html[lang=zh-cn] body{font-family:Source Sans Pro,Helvetica,Arial,PingFang SC,Microsoft YaHei,微软雅黑,sans-serif}abbr[title]{border-bottom:none;text-decoration:underline;-webkit-text-decoration:underline dotted;text-decoration:underline dotted}abbr[data-original-title],abbr[title]{cursor:help}body.modal-open{overflow-y:auto;padding-right:0!important}
+    </style>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" integrity="sha256-3Jy/GbSLrg0o9y5Z5n1uw0qxZECH7C6OQpVBgNFYa0g=" crossorigin="anonymous"></script>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js" integrity="sha256-g6iAfvZp+nDQ2TdTR/VVKJf3bGro4ub5fvWSWVRi2NE=" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js" integrity="sha256-8E4Is26QH0bD52WoQpcB+R/tcWQtpzlCojrybUd7Mxo=" crossorigin="anonymous"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div id="doc" class="markdown-body container-fluid comment-enabled" data-hard-breaks="false" style="position: relative;"><h1 id="Proof-of-Concept-Ark-Scooter-Rental-DApp"><a class="anchor hidden-xs" href="#Proof-of-Concept-Ark-Scooter-Rental-DApp" title="Proof-of-Concept-Ark-Scooter-Rental-DApp"><span class="octicon octicon-link"></span></a>Proof of Concept Ark Scooter Rental DApp</h1><p><a href="https://ark.io/projects/ark-scooters" target="_blank" rel="noopener">Tier 0 Program</a></p><p><a href="https://hackmd.io/OuQMzbK6TaClVLTHu97fSg" target="_blank" rel="noopener">https://hackmd.io/OuQMzbK6TaClVLTHu97fSg</a></p><h2 id="Table-of-Contents"><a class="anchor hidden-xs" href="#Table-of-Contents" title="Table-of-Contents"><span class="octicon octicon-link"></span></a>Table of Contents</h2><p><span class="toc"><ul>
+<li><a href="#Proof-of-Concept-Ark-Scooter-Rental-DApp" title="Proof of Concept Ark Scooter Rental DApp">Proof of Concept Ark Scooter Rental DApp</a><ul>
+<li><a href="#Table-of-Contents" title="Table of Contents">Table of Contents</a></li>
+</ul>
+</li>
+<li><a href="#Project-Overview" title="Project Overview">Project Overview</a></li>
+<li><a href="#Team" title="Team">Team</a></li>
+<li><a href="#Functional-Requirements-Defined-Prior-to-Start-of-Project" title="Functional Requirements Defined Prior to Start of Project">Functional Requirements Defined Prior to Start of Project</a><ul>
+<li><a href="#Components" title="Components">Components</a><ul>
+<li><a href="#Mobile-App" title="Mobile App">Mobile App</a></li>
+<li><a href="#IOT-device" title="IOT device">IOT device</a></li>
+<li><a href="#Custom-ARK-Bridgechain" title="Custom ARK Bridgechain">Custom ARK Bridgechain</a></li>
+<li><a href="#Provided-by-the-ARKio-Team" title="Provided by the ARK.io Team">Provided by the ARK.io Team</a></li>
+<li><a href="#Requirements-for-Completion" title="Requirements for Completion">Requirements for Completion</a></li>
+</ul>
+</li>
+<li><a href="#Milestones" title="Milestones">Milestones</a></li>
+<li><a href="#Project-Costs" title="Project Costs">Project Costs</a></li>
+</ul>
+</li>
+<li><a href="#Technical-Specification" title="Technical Specification">Technical Specification</a><ul>
+<li><a href="#Github-Repositories" title="Github Repositories">Github Repositories</a></li>
+<li><a href="#System-Block-Diagram" title="System Block Diagram">System Block Diagram</a></li>
+<li><a href="#Bridgechain-Specifications" title="Bridgechain Specifications">Bridgechain Specifications</a><ul>
+<li><a href="#Detailed-Bridgechain-Configuration" title="Detailed Bridgechain Configuration">Detailed Bridgechain Configuration</a></li>
+</ul>
+</li>
+<li><a href="#Adding-Radians-Bridgechain-to-Ark-Desktop" title="Adding Radians Bridgechain to Ark Desktop">Adding Radians Bridgechain to Ark Desktop</a></li>
+<li><a href="#Scooter---DApp-Communication-Sequence-Diagrams" title="Scooter - DApp Communication Sequence Diagrams">Scooter - DApp Communication Sequence Diagrams</a><ul>
+<li><a href="#Manually-generate-private-keys-for-app-amp-scooter" title="Manually generate private keys for app &amp; scooter">Manually generate private keys for app &amp; scooter</a></li>
+<li><a href="#Scooter-Device-Registration-Sequence" title="Scooter Device Registration Sequence">Scooter Device Registration Sequence</a></li>
+<li><a href="#Rental-Session-Sequence" title="Rental Session Sequence">Rental Session Sequence</a></li>
+</ul>
+</li>
+<li><a href="#Rental-Session-Screenshots" title="Rental Session Screenshots">Rental Session Screenshots</a><ul>
+<li><a href="#Step-1-Scooter-Bootup" title="Step 1: Scooter Bootup">Step 1: Scooter Bootup</a></li>
+<li><a href="#Step-2-Scooter-Ready-for-Rental" title="Step 2 Scooter Ready for Rental">Step 2 Scooter Ready for Rental</a></li>
+<li><a href="#Step-3-App-Bootup" title="Step 3 App Bootup">Step 3 App Bootup</a></li>
+<li><a href="#Step-4-App-Ready-for-QR-Scanning" title="Step 4 App Ready for QR Scanning">Step 4 App Ready for QR Scanning</a></li>
+<li><a href="#Step-5-App-Scanning-QR-code" title="Step 5 App Scanning QR code">Step 5 App Scanning QR code</a></li>
+<li><a href="#Step-6-App-Configure-Ride-Length" title="Step 6 App Configure Ride Length">Step 6 App Configure Ride Length</a></li>
+<li><a href="#Step-7-App-Sends-Rental-Start" title="Step 7 App Sends Rental Start">Step 7 App Sends Rental Start</a></li>
+<li><a href="#Step-8-Scooter-Rental-in-Progress" title="Step 8 Scooter Rental in Progress">Step 8 Scooter Rental in Progress</a></li>
+<li><a href="#Step-9-App-Rental-in-Progress" title="Step 9 App Rental in Progress">Step 9 App Rental in Progress</a></li>
+<li><a href="#Step-10-App-Received-Rental-Finish" title="Step 10 App Received Rental Finish">Step 10 App Received Rental Finish</a></li>
+</ul>
+</li>
+<li><a href="#Rental-Session-Video-Screenshots" title="Rental Session Video Screenshots">Rental Session Video Screenshots</a><ul>
+<li><a href="#Rental-Session-using-App-and-Test-Utility-to-Emulate-Scooter" title="Rental Session using App and Test Utility to Emulate Scooter">Rental Session using App and Test Utility to Emulate Scooter</a></li>
+<li><a href="#Analytics-Dashboard-During-Rental-Session" title="Analytics Dashboard During Rental Session">Analytics Dashboard During Rental Session</a></li>
+</ul>
+</li>
+<li><a href="#Custom-Transaction-and-Wallet-Attributes-Design" title="Custom Transaction and Wallet Attributes Design">Custom Transaction and Wallet Attributes Design</a><ul>
+<li><a href="#Transaction-Types" title="Transaction Types">Transaction Types</a></li>
+<li><a href="#Scooter-Registration" title="Scooter Registration">Scooter Registration</a></li>
+<li><a href="#Rental-Start" title="Rental Start">Rental Start</a></li>
+<li><a href="#Rental-Finish" title="Rental Finish">Rental Finish</a></li>
+<li><a href="#Custom-Wallet-Attributes" title="Custom Wallet Attributes">Custom Wallet Attributes</a></li>
+</ul>
+</li>
+<li><a href="#Embedded-Electronics" title="Embedded Electronics">Embedded Electronics</a><ul>
+<li><a href="#Bill-of-Materials" title="Bill of Materials">Bill of Materials</a></li>
+</ul>
+</li>
+<li><a href="#Embedded-Firmware" title="Embedded Firmware">Embedded Firmware</a><ul>
+<li><a href="#Arduino-Development-Environment-Setup" title="Arduino Development Environment Setup">Arduino Development Environment Setup</a></li>
+<li><a href="#Install-Firmware-Library-Dependencies" title="Install Firmware Library Dependencies">Install Firmware Library Dependencies</a></li>
+<li><a href="#Installing-Ark-SDK-Crypto-C-Library-with-support-for-custom-Radians-bridgechain-transactions" title="Installing Ark SDK Crypto C++ Library with support for custom Radians bridgechain transactions">Installing Ark SDK Crypto C++ Library with support for custom Radians bridgechain transactions</a></li>
+<li><a href="#Library-Modification" title="Library Modification">Library Modification</a></li>
+<li><a href="#Configure-WiFi-credentials-in-Firmware" title="Configure WiFi credentials in Firmware">Configure WiFi credentials in Firmware</a></li>
+<li><a href="#Configure-Wallet-Credentials-in-Firmware" title="Configure Wallet Credentials in Firmware">Configure Wallet Credentials in Firmware</a></li>
+<li><a href="#Compiling-Scooter-Firmware" title="Compiling Scooter Firmware">Compiling Scooter Firmware</a></li>
+<li><a href="#Download-Firmware" title="Download Firmware">Download Firmware</a></li>
+<li><a href="#QR-code-Specification" title="QR code Specification">QR code Specification</a></li>
+<li><a href="#Status-Panel-on-Scooter-Display" title="Status Panel on Scooter Display">Status Panel on Scooter Display</a></li>
+<li><a href="#Communication-with-Radians-Bridgechain" title="Communication with Radians Bridgechain">Communication with Radians Bridgechain</a></li>
+<li><a href="#Communication-with-Analytics-platform" title="Communication with Analytics platform">Communication with Analytics platform</a></li>
+<li><a href="#Detailed-Firmware-Description" title="Detailed Firmware Description">Detailed Firmware Description</a></li>
+</ul>
+</li>
+<li><a href="#DApp---Rider-Mobile-Application" title="DApp - Rider Mobile Application">DApp - Rider Mobile Application</a><ul>
+<li><a href="#Development-Environment" title="Development Environment">Development Environment</a></li>
+</ul>
+</li>
+<li><a href="#Custom-Transaction-Test-Tool" title="Custom Transaction Test Tool">Custom Transaction Test Tool</a><ul>
+<li><a href="#Easy-way-to-retrieve-current-nonce-of-wallet" title="Easy way to retrieve current nonce of wallet">Easy way to retrieve current nonce of wallet</a></li>
+<li><a href="#How-to-Send-test-transactions" title="How to Send test transactions">How to Send test transactions</a></li>
+</ul>
+</li>
+<li><a href="#Off-Chain-IoT-Analytics-amp-Dashboard" title="Off Chain IoT Analytics &amp; Dashboard">Off Chain IoT Analytics &amp; Dashboard</a><ul>
+<li><a href="#Purpose-of-IoT-Dashboard" title="Purpose of IoT Dashboard">Purpose of IoT Dashboard</a></li>
+<li><a href="#Features-of-IoT-Dashboard" title="Features of IoT Dashboard">Features of IoT Dashboard</a></li>
+<li><a href="#Cloud-Services" title="Cloud Services">Cloud Services</a></li>
+<li><a href="#MQTT-Broker" title="MQTT Broker">MQTT Broker</a></li>
+<li><a href="#Node-Red" title="Node-Red">Node-Red</a></li>
+<li><a href="#Thingsboard" title="Thingsboard">Thingsboard</a></li>
+</ul>
+</li>
+<li><a href="#IoT-Off-Chain-Communication" title="IoT Off Chain Communication">IoT Off Chain Communication</a><ul>
+<li><a href="#MQTT-Overview" title="MQTT Overview">MQTT Overview</a></li>
+<li><a href="#MQTT-Packet-Structure" title="MQTT Packet Structure">MQTT Packet Structure</a></li>
+<li><a href="#Message-Signing-using-Private-Keys" title="Message Signing using Private Keys">Message Signing using Private Keys</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</span></p><h1 id="Project-Overview"><a class="anchor hidden-xs" href="#Project-Overview" title="Project-Overview"><span class="octicon octicon-link"></span></a>Project Overview</h1><p>This project is a proof of concept of an electric scooter rental solution utilizing a mobile app and an associated Ark custom bridgechain to record the rental contract created.
+This project is a great illustration on how to code and interact with custom Ark transactions. It will demonstrate C++ SDK running on “small” embedded processor.</p><p>This project will not integrate the electronics inside of an actual scooter however this integration could easily be accomplished as a future project if desired.</p><p>This POC is a great foundation and template for future projects.</p><h1 id="Team"><a class="anchor hidden-xs" href="#Team" title="Team"><span class="octicon octicon-link"></span></a>Team</h1><ul>
+<li><strong>@emsy - Community Member</strong><br>
+– Custom Transaction Plugins<br>
+– Bridgechain Deployment<br>
+– IOS/ Andriod Client App</li>
+<li><strong>@pj (Phillip) - Community Member</strong><br>
+– Embedded Hardware/Firmware Development<br>
+– Off Chain Data IOT Dashboard</li>
+<li><strong>@sleepdeficit - Ark Team Technical Coordinator</strong><br>
+– C++ library support for custom transactions</li>
+<li><strong>@Matthew DC - Ark Team Project Specs</strong></li>
+<li>Thanks to @console [deadlock] for developing MQTT core plugin</li>
+</ul><h1 id="Functional-Requirements-Defined-Prior-to-Start-of-Project"><a class="anchor hidden-xs" href="#Functional-Requirements-Defined-Prior-to-Start-of-Project" title="Functional-Requirements-Defined-Prior-to-Start-of-Project"><span class="octicon octicon-link"></span></a>Functional Requirements Defined Prior to Start of Project</h1><p>Create an electric scooter rental solution utilizing a mobile app and an associated Ark custom bridgechain to manage locking, unlocking, deposits, locations, and management of  Scooter rentals. All communication between the App and the IOT device will be on chain through the use of custom transactions.</p><h2 id="Components"><a class="anchor hidden-xs" href="#Components" title="Components"><span class="octicon octicon-link"></span></a>Components</h2><h3 id="Mobile-App"><a class="anchor hidden-xs" href="#Mobile-App" title="Mobile-App"><span class="octicon octicon-link"></span></a>Mobile App</h3><p>The core user interface of the project will be a mobile app for both iOS and Android. This mobile app will manage the following:</p><ul>
+<li>QR code / ID scanner integration</li>
+<li>Send rental pickup transaction to the IoT physical device (lock) to manage the security of the scooter.</li>
+<li>In-app payments in the Bridgechain Token</li>
+<li>Display statistics once ride has been completed</li>
+</ul><h3 id="IOT-device"><a class="anchor hidden-xs" href="#IOT-device" title="IOT-device"><span class="octicon octicon-link"></span></a>IOT device</h3><p>Battery powered embedded hardware device that contains WiFi, GPS, display, and electronic switch to control lock.</p><ul>
+<li>Generates QR code</li>
+<li>unlocks scooter when rental pickup message is received and sends rental dropoff message when time elapses.</li>
+<li>streams realtime GPS data to analytics server</li>
+</ul><h3 id="Custom-ARK-Bridgechain"><a class="anchor hidden-xs" href="#Custom-ARK-Bridgechain" title="Custom-ARK-Bridgechain"><span class="octicon octicon-link"></span></a>Custom ARK Bridgechain</h3><p>All information related to the rental will be stored on the blockchain. This will be accomplished through several potentially new custom transaction types as follows:</p><ul>
+<li>Device Registration Transaction (to register a new scooter)</li>
+<li>Rental Pick-up / Drop-off Transaction</li>
+</ul><p>Administration functions to handle the registration of scooters and locations will not be implemented in the demo app. The transactions could be demonstrated by some script/tool</p><h3 id="Provided-by-the-ARKio-Team"><a class="anchor hidden-xs" href="#Provided-by-the-ARKio-Team" title="Provided-by-the-ARKio-Team"><span class="octicon octicon-link"></span></a>Provided by the <a href="http://ARK.io" target="_blank" rel="noopener">ARK.io</a> Team</h3><ul>
+<li>The custom mobile app UI design</li>
+<li>Additional guidance and support as necessary</li>
+</ul><h3 id="Requirements-for-Completion"><a class="anchor hidden-xs" href="#Requirements-for-Completion" title="Requirements-for-Completion"><span class="octicon octicon-link"></span></a>Requirements for Completion</h3><ul>
+<li>Provide a mobile application that meets the above minimum criteria.</li>
+<li>Provide a functioning custom ARK Bridgchain blockchain with the above custom transactions and functionality</li>
+<li>Demonstrate the application working as described</li>
+<li>Provide a Bill of Materials (BOM) for the required IoT hardware.</li>
+<li>Project will not include final integration of electronics into scooter hardware.</li>
+</ul><h2 id="Milestones"><a class="anchor hidden-xs" href="#Milestones" title="Milestones"><span class="octicon octicon-link"></span></a>Milestones</h2><p>We both agreed to split the amount of funding, each contributor will have 12.5k to diversify over the assigned milestones. After completed approved by the Ark team the contributer is egible to request a payment.</p><h4 id="IOT-Hardware-procurred-detailed-hardware-block-diagram-IOT-communication-protocol-defined-IOT-analytics-servers-deployed-FirmwareElectronics-v01-pj---5250‬-ARK"><a class="anchor hidden-xs" href="#IOT-Hardware-procurred-detailed-hardware-block-diagram-IOT-communication-protocol-defined-IOT-analytics-servers-deployed-FirmwareElectronics-v01-pj---5250‬-ARK" title="IOT-Hardware-procurred-detailed-hardware-block-diagram-IOT-communication-protocol-defined-IOT-analytics-servers-deployed-FirmwareElectronics-v01-pj---5250‬-ARK"><span class="octicon octicon-link"></span></a>IOT Hardware procurred, detailed hardware block diagram, IOT communication protocol defined, IOT analytics servers deployed, Firmware/Electronics v0.1 (pj) - 5250‬ ARK</h4><ul>
+<li>demonstration of basic opertaion of hardware peripherals (GPS, timer, TFT display, QR code generation)</li>
+<li>custom transaction interface not complete</li>
+</ul><h4 id="FirmwareElectronics-V02-pj---3500‬-ARK"><a class="anchor hidden-xs" href="#FirmwareElectronics-V02-pj---3500‬-ARK" title="FirmwareElectronics-V02-pj---3500‬-ARK"><span class="octicon octicon-link"></span></a>Firmware/Electronics V0.2 (pj) - 3500‬ ARK</h4><ul>
+<li>final feature set to support App v0.2</li>
+</ul><h4 id="Analytics-Dashboard-pj---1250‬-ARK"><a class="anchor hidden-xs" href="#Analytics-Dashboard-pj---1250‬-ARK" title="Analytics-Dashboard-pj---1250‬-ARK"><span class="octicon octicon-link"></span></a>Analytics Dashboard (pj) - 1250‬ ARK</h4><hr><h4 id="Final-Detailed-Technical-Specification--project-preparation-emsy--pj---750-ARKpj-500-ARKemsy"><a class="anchor hidden-xs" href="#Final-Detailed-Technical-Specification--project-preparation-emsy--pj---750-ARKpj-500-ARKemsy" title="Final-Detailed-Technical-Specification--project-preparation-emsy--pj---750-ARKpj-500-ARKemsy"><span class="octicon octicon-link"></span></a>Final Detailed Technical Specification + project preparation (emsy + pj) - 750 ARK(pj). 500 ARK(emsy)</h4><h4 id="Custom-Transaction-Structure-amp-Flow-Defined-emsy--pj---1000-ARKpj-1000-ARKemsy"><a class="anchor hidden-xs" href="#Custom-Transaction-Structure-amp-Flow-Defined-emsy--pj---1000-ARKpj-1000-ARKemsy" title="Custom-Transaction-Structure-amp-Flow-Defined-emsy--pj---1000-ARKpj-1000-ARKemsy"><span class="octicon octicon-link"></span></a>Custom Transaction Structure &amp; Flow Defined (emsy + pj) - 1000 ARK(pj). 1000 ARK(emsy)</h4><h4 id="Working-Demofinal-milestone-Electronics-not-integrated-into-scooter-pj--emsy---750-ARKpj-750-ARKemsy"><a class="anchor hidden-xs" href="#Working-Demofinal-milestone-Electronics-not-integrated-into-scooter-pj--emsy---750-ARKpj-750-ARKemsy" title="Working-Demofinal-milestone-Electronics-not-integrated-into-scooter-pj--emsy---750-ARKpj-750-ARKemsy"><span class="octicon octicon-link"></span></a>Working Demo(final milestone) (Electronics not integrated into scooter) (pj + emsy) - 750 ARK(pj). 750 ARK(emsy)</h4><ul>
+<li>Video of working product. Performance could be verified by Simon.</li>
+</ul><hr><h4 id="V26-Ark-Bridgechain-Deployed-emsy---750-ARK"><a class="anchor hidden-xs" href="#V26-Ark-Bridgechain-Deployed-emsy---750-ARK" title="V26-Ark-Bridgechain-Deployed-emsy---750-ARK"><span class="octicon octicon-link"></span></a>V2.6 Ark Bridgechain Deployed (emsy) - 750 ARK</h4><h4 id="Custom-Transactions-Created-emsy---1500-ARK"><a class="anchor hidden-xs" href="#Custom-Transactions-Created-emsy---1500-ARK" title="Custom-Transactions-Created-emsy---1500-ARK"><span class="octicon octicon-link"></span></a>Custom Transactions Created (emsy) - 1500 ARK</h4><h4 id="Custom-Core-Pluginsapp-communication-Implemented-emsy---1500-ARK"><a class="anchor hidden-xs" href="#Custom-Core-Pluginsapp-communication-Implemented-emsy---1500-ARK" title="Custom-Core-Pluginsapp-communication-Implemented-emsy---1500-ARK"><span class="octicon octicon-link"></span></a>Custom Core Plugins(app communication) Implemented (emsy) - 1500 ARK</h4><h4 id="App-UI-Mockup-emsy---500-ARK"><a class="anchor hidden-xs" href="#App-UI-Mockup-emsy---500-ARK" title="App-UI-Mockup-emsy---500-ARK"><span class="octicon octicon-link"></span></a>App UI Mockup (emsy) - 500 ARK</h4><h4 id="App-v01-emsy---3000-ARK"><a class="anchor hidden-xs" href="#App-v01-emsy---3000-ARK" title="App-v01-emsy---3000-ARK"><span class="octicon octicon-link"></span></a>App v0.1 (emsy) - 3000 ARK</h4><ul>
+<li>scan QR code containing scooter public key</li>
+<li>Process payments in BridgeChain Token to unlock the device</li>
+</ul><h4 id="App-v02-emsy---3000-ARK"><a class="anchor hidden-xs" href="#App-v02-emsy---3000-ARK" title="App-v02-emsy---3000-ARK"><span class="octicon octicon-link"></span></a>App v0.2 (emsy) - 3000 ARK</h4><ul>
+<li>Manage and track time of rental (from pick-up to drop-off)</li>
+<li>Display ride stats when rental is complete</li>
+<li>Make the scooter available for rental after drop-off is completed</li>
+</ul><h2 id="Project-Costs"><a class="anchor hidden-xs" href="#Project-Costs" title="Project-Costs"><span class="octicon octicon-link"></span></a>Project Costs</h2><p>Applications could be optimized to operate on 1 or 2 VPS. Using separate services at the beginning will reduce implementation time.</p><ul>
+<li>MQTT server - $19 USD/Month (pj)</li>
+<li>Node Red - Free Monthly Plan (pj)</li>
+<li>Thingsboard - $20 USD/Month (pj)</li>
+<li>Ark bridgechain 1 VPS with 2 CPU, 4GB RAM, 150GB SSD, 5TB pooled traffic ± $30 USD/Month (emsy)
+<ul>
+<li>Might need more RAM, this can be added at any time at a cost of ± 10$ / Month per 1GB.</li>
+</ul>
+</li>
+<li>1 sets of Prototype Electronics (pj):
+<ul>
+<li>ESP32, TFT screen, GPS module, Antenna, Battery</li>
+<li>~$125-&gt;$175 USD per set</li>
+</ul>
+</li>
+</ul><hr><h1 id="Technical-Specification"><a class="anchor hidden-xs" href="#Technical-Specification" title="Technical-Specification"><span class="octicon octicon-link"></span></a>Technical Specification</h1><h2 id="Github-Repositories"><a class="anchor hidden-xs" href="#Github-Repositories" title="Github-Repositories"><span class="octicon octicon-link"></span></a>Github Repositories</h2><p><strong>Project Documentation</strong><br>
+<a href="https://hackmd.io/OuQMzbK6TaClVLTHu97fSg" target="_blank" rel="noopener">https://hackmd.io/OuQMzbK6TaClVLTHu97fSg</a><br>
+<a href="https://github.com/PhillipJacobsen/Ark-Scooter-Documents" target="_blank" rel="noopener">https://github.com/PhillipJacobsen/Ark-Scooter-Documents</a></p><p><strong>Scooter Firmware</strong><br>
+<a href="https://github.com/PhillipJacobsen/Ark_Scooter" target="_blank" rel="noopener">https://github.com/PhillipJacobsen/Ark_Scooter</a></p><p><strong>iOS/Android DApp Source</strong><br>
+<a href="https://github.com/e-m-s-y/scooter-app" target="_blank" rel="noopener">https://github.com/e-m-s-y/scooter-app</a></p><p><strong>Radians Bridgechain</strong><br>
+<a href="https://github.com/e-m-s-y/radians" target="_blank" rel="noopener">https://github.com/e-m-s-y/radians</a><br>
+<strong>Explorer:</strong> <a href="https://radians.nl" target="_blank" rel="noopener">https://radians.nl</a></p><p><strong>Custom Transaction Plugin</strong><br>
+<a href="https://github.com/e-m-s-y/scooter-transactions" target="_blank" rel="noopener">https://github.com/e-m-s-y/scooter-transactions</a></p><p><strong>Utility for Sending Test Transactions</strong><br>
+<a href="https://github.com/e-m-s-y/scooter-transactions/blob/master/src/test.js" target="_blank" rel="noopener">https://github.com/e-m-s-y/scooter-transactions/blob/master/src/test.js</a></p><p><strong>Socket Event Forwarder Core Plugin</strong><br>
+<a href="https://github.com/e-m-s-y/socket-event-forwarder" target="_blank" rel="noopener">https://github.com/e-m-s-y/socket-event-forwarder</a></p><p><strong>MQTT Event Forwarder Core Plugin</strong><br>
+<a href="https://github.com/deadlock-delegate/mqtt" target="_blank" rel="noopener">https://github.com/deadlock-delegate/mqtt</a></p><p><strong>Node-Red Flow Backup</strong><br>
+<a href="https://github.com/PhillipJacobsen/Ark_Scooter/tree/master/NodeRed" target="_blank" rel="noopener">https://github.com/PhillipJacobsen/Ark_Scooter/tree/master/NodeRed</a></p><p><strong>ThingsBoard Dashboard Backup</strong><br>
+<a href="https://github.com/PhillipJacobsen/Ark_Scooter/tree/master/ThingsBoard" target="_blank" rel="noopener">https://github.com/PhillipJacobsen/Ark_Scooter/tree/master/ThingsBoard</a></p><p><strong>Public IoT Dashboard</strong><br>
+<a href="http://165.22.237.171:8080/dashboard/f88894b0-d519-11e9-b281-0bd830c6c87f?publicId=f62146f0-cb7c-11e9-b281-0bd830c6c87f" target="_blank" rel="noopener">http://165.22.237.171:8080/dashboard/f88894b0-d519-11e9-b281-0bd830c6c87f?publicId=f62146f0-cb7c-11e9-b281-0bd830c6c87f</a></p><p><strong>Ark-CPP-crypto v1.0.0</strong><br>
+(fork of Standard Ark Crypto library with support for Radians Custom Transactions)<br>
+<a href="https://github.com/sleepdefic1t/cpp-crypto/tree/chains/radians" target="_blank" rel="noopener">https://github.com/sleepdefic1t/cpp-crypto/tree/chains/radians</a></p><p><strong>Ark-CPP-client v1.4.0-arduino</strong><br>
+<a href="https://github.com/ArkEcosystem/cpp-client/pull/159" target="_blank" rel="noopener">https://github.com/ArkEcosystem/cpp-client/pull/159</a></p><p><strong>arkcrypto-browserified</strong><br>
+Enables you to use the @arkecosystem/crypto package in the browser<br>
+<a href="https://github.com/e-m-s-y/arkcrypto-browserified" target="_blank" rel="noopener">https://github.com/e-m-s-y/arkcrypto-browserified</a></p><hr><h2 id="System-Block-Diagram"><a class="anchor hidden-xs" href="#System-Block-Diagram" title="System-Block-Diagram"><span class="octicon octicon-link"></span></a>System Block Diagram</h2><p>The core functions of the rental process and the communication between the DApp and embedded hardware in the scooter are done through on chain custom bridgechain transactions.</p><p>A secondary feature is the offchain communication between the bridgechain and embedded hardware with an IoT analytics dashboard.</p><p>The rental DApp(iOS/Android) receives blockchain transactions via a custom <a href="http://Socket.io" target="_blank" rel="noopener">Socket.io</a> communication plugin running on a relay node. DApp sends blockchain transactions via RESTful API.</p><p>The scooter firmware sends and receives blockchain transactions via the RESTful API.</p><p>All data received by analytics dashboard is via MQTT messaging protocol.</p><p>The blockchain is a custom <a href="http://ARK.io" target="_blank" rel="noopener">ARK.io</a> bridgechain called Radians.</p><p><img src="https://i.imgur.com/rTUXbkW.jpg" alt=""></p><hr><h2 id="Bridgechain-Specifications"><a class="anchor hidden-xs" href="#Bridgechain-Specifications" title="Bridgechain-Specifications"><span class="octicon octicon-link"></span></a>Bridgechain Specifications</h2><p>Bridgechain Name: Radians<br>
+Ark core V2.6.0-next.7 Testnet (as of April 14, 2020)<br>
+<a href="https://radians.nl/api/node/configuration" target="_blank" rel="noopener">https://radians.nl/api/node/configuration</a> for more node details.<br>
+Token: RAD<br>
+Delegates: 53<br>
+Blocktime: 8 seconds<br>
+Explorer: <a href="https://radians.nl/" target="_blank" rel="noopener">radians.nl</a><br>
+Peer / Seed server: <a href="http://37.34.60.90:4040" target="_blank" rel="noopener">http://37.34.60.90:4040</a><br>
+Epoch: 2019-10-25T09:05:40.856Z</p><p><strong>VPS Specifications</strong></p><ul>
+<li>2 CPU</li>
+<li>4GB RAM</li>
+<li>150GB SSD</li>
+<li>5TB pooled traffic running on CentOS 7.7.1908</li>
+</ul><h3 id="Detailed-Bridgechain-Configuration"><a class="anchor hidden-xs" href="#Detailed-Bridgechain-Configuration" title="Detailed-Bridgechain-Configuration"><span class="octicon octicon-link"></span></a>Detailed Bridgechain Configuration</h3><p><a href="https://radians.nl/api/node/configuration" target="_blank" rel="noopener">https://radians.nl/api/node/configuration</a></p><pre><code>{
+   "data":{
+      "core":{
+         "version":"2.6.0-next.7"
+      },
+      "nethash":"f39a61f04d6136a690a0b675ef6eedbd053665bd343b4e4f03311f12065fb875",
+      "slip44":1,
+      "wif":206,
+      "token":"RAD",
+      "symbol":"R",
+      "explorer":"http://0.0.0.0:4200",
+      "version":65,
+      "ports":{
+         "@arkecosystem/core-p2p":null,
+         "@arkecosystem/core-api":4103
+      },
+      "constants":{
+         "height":1850,
+         "reward":200000000,
+         "activeDelegates":53,
+         "blocktime":8,
+         "block":{
+            "version":0,
+            "maxTransactions":150,
+            "maxPayload":6291456
+         },
+         "epoch":"2019-10-25T09:05:40.856Z",
+         "fees":{
+            "staticFees":{
+               "transfer":10000000,
+               "secondSignature":500000000,
+               "delegateRegistration":2500000000,
+               "vote":100000000,
+               "multiSignature":500000000,
+               "ipfs":500000000,
+               "multiPayment":100000000,
+               "delegateResignation":2500000000,
+               "htlcLock":10000000,
+               "htlcClaim":0,
+               "htlcRefund":0
+            }
+         },
+         "vendorFieldLength":512,
+         "multiPaymentLimit":256,
+         "aip11":true,
+         "htlcEnabled":true
+      },
+      "transactionPool":{
+         "dynamicFees":{
+            "enabled":true,
+            "minFeePool":3000,
+            "minFeeBroadcast":3000,
+            "addonBytes":{
+               "transfer":100,
+               "secondSignature":250,
+               "delegateRegistration":400000,
+               "vote":100,
+               "multiSignature":500,
+               "ipfs":250,
+               "multiPayment":500,
+               "delegateResignation":400000,
+               "htlcLock":100,
+               "htlcClaim":0,
+               "htlcRefund":0
+            }
+         }
+      }
+   }
+}
+</code></pre><hr><h2 id="Adding-Radians-Bridgechain-to-Ark-Desktop"><a class="anchor hidden-xs" href="#Adding-Radians-Bridgechain-to-Ark-Desktop" title="Adding-Radians-Bridgechain-to-Ark-Desktop"><span class="octicon octicon-link"></span></a>Adding Radians Bridgechain to Ark Desktop</h2><p>The following instructions can be used to add Radians chain to the standard Ark desktop wallet. The following instructions were tested on Windows 10 and version 2.9.1 of the wallet.</p><ol>
+<li>Download and install <a href="http://Ark.io" target="_blank" rel="noopener">Ark.io</a> desktop wallet from one of the following locations.
+<ul>
+<li><a href="https://ark.io/wallet" target="_blank" rel="noopener">https://ark.io/wallet</a></li>
+<li><a href="https://github.com/ArkEcosystem/desktop-wallet/releases" target="_blank" rel="noopener">https://github.com/ArkEcosystem/desktop-wallet/releases</a></li>
+</ul>
+</li>
+<li>Run ARK Desktop Wallet</li>
+<li>Go to Network(the cloud icon on the bottom left)-&gt;Manage networks</li>
+<li>Add a new network and fill in the following info:
+<ul>
+<li>Name: Radians</li>
+<li>Description: Radians Testnet</li>
+<li>Seed Server: <a href="http://37.34.60.90:4040" target="_blank" rel="noopener">http://37.34.60.90:4040</a></li>
+</ul>
+</li>
+<li>Press Fetch</li>
+<li>Finish this Part…</li>
+<li>Go to Profile(bottom icon on the left) -&gt; Add profile</li>
+<li>Fill in Profile information
+<ul>
+<li>Profile Name: whatever you want to call it</li>
+<li>Network: Radians</li>
+</ul>
+</li>
+</ol><p>Need to finish these steps!!!</p><h2 id="Scooter---DApp-Communication-Sequence-Diagrams"><a class="anchor hidden-xs" href="#Scooter---DApp-Communication-Sequence-Diagrams" title="Scooter---DApp-Communication-Sequence-Diagrams"><span class="octicon octicon-link"></span></a>Scooter - DApp Communication Sequence Diagrams</h2><h3 id="Manually-generate-private-keys-for-app-amp-scooter"><a class="anchor hidden-xs" href="#Manually-generate-private-keys-for-app-amp-scooter" title="Manually-generate-private-keys-for-app-amp-scooter"><span class="octicon octicon-link"></span></a>Manually generate private keys for app &amp; scooter</h3><p>DApp and Scooter private keys are manually generated in desktop wallet.</p><p>Scooter stores hardcoded bridgechain private keys in memory. Current firmware requires every scooter to use a unique build with its own hardcoded bridgechain wallet.</p><p>DApp allows rider to type in private keys.</p><pre class="sequence-diagram"><svg height="387.25" version="1.1" width="902.28125" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="overflow: hidden; position: relative; left: -0.6px; top: -0.1px;" viewBox="0 0 902.28125 387.25" preserveAspectRatio="xMidYMid meet"><desc style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Created with Raphaël 2.2.0</desc><defs style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><path stroke-linecap="round" d="M5,0 0,2.5 5,5z" id="raphael-marker-block" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><marker id="raphael-marker-endblock55-obj492cn" markerHeight="5" markerWidth="5" orient="auto" refX="2.5" refY="2.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><use xlink:href="#raphael-marker-block" transform="rotate(180 2.5 2.5) scale(1,1)" stroke-width="1.0000" fill="#000" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></use></marker><marker id="raphael-marker-endblock55-objkbr1l" markerHeight="5" markerWidth="5" orient="auto" refX="2.5" refY="2.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><use xlink:href="#raphael-marker-block" transform="rotate(180 2.5 2.5) scale(1,1)" stroke-width="1.0000" fill="#000" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></use></marker></defs><rect x="10" y="10" width="256.625" height="28.40625" rx="0" ry="0" fill="none" stroke="#000000" stroke-width="2" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><rect x="15" y="15" width="246.625" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="138.3125" y="24.203125" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Scooter / DApp Wallet Init.</tspan></text><rect x="277.65625" y="48.40625" width="147.71875" height="38.40625" rx="0" ry="0" fill="none" stroke="#000000" stroke-width="2" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><rect x="287.65625" y="58.40625" width="127.71875" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="351.515625" y="67.609375" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Desktop Wallet</tspan></text><rect x="277.65625" y="328.84375" width="147.71875" height="38.40625" rx="0" ry="0" fill="none" stroke="#000000" stroke-width="2" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><rect x="287.65625" y="338.84375" width="127.71875" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="351.515625" y="348.046875" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Desktop Wallet</tspan></text><path fill="none" stroke="#000000" d="M351.515625,86.8125L351.515625,328.84375" stroke-width="2" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><rect x="569.703125" y="48.40625" width="83.6875" height="38.40625" rx="0" ry="0" fill="none" stroke="#000000" stroke-width="2" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><rect x="579.703125" y="58.40625" width="63.6875" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="611.546875" y="67.609375" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">scooter</tspan></text><rect x="569.703125" y="328.84375" width="83.6875" height="38.40625" rx="0" ry="0" fill="none" stroke="#000000" stroke-width="2" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><rect x="579.703125" y="338.84375" width="63.6875" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="611.546875" y="348.046875" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">scooter</tspan></text><path fill="none" stroke="#000000" d="M611.546875,86.8125L611.546875,328.84375" stroke-width="2" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><rect x="816.03125" y="48.40625" width="56.25" height="38.40625" rx="0" ry="0" fill="none" stroke="#000000" stroke-width="2" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><rect x="826.03125" y="58.40625" width="36.25" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="844.15625" y="67.609375" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">DApp</tspan></text><rect x="816.03125" y="328.84375" width="56.25" height="38.40625" rx="0" ry="0" fill="none" stroke="#000000" stroke-width="2" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><rect x="826.03125" y="338.84375" width="36.25" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="844.15625" y="348.046875" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">DApp</tspan></text><path fill="none" stroke="#000000" d="M844.15625,86.8125L844.15625,328.84375" stroke-width="2" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><rect x="20" y="106.8125" width="311.515625" height="28.40625" rx="0" ry="0" fill="none" stroke="#000000" stroke-width="2" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><rect x="25" y="111.8125" width="301.515625" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="175.7578125" y="121.015625" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">generate wallets for scooter,DApp</tspan></text><rect x="371.515625" y="155.21875" width="220.03125" height="28.40625" rx="0" ry="0" fill="none" stroke="#000000" stroke-width="2" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><rect x="376.515625" y="160.21875" width="210.03125" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="481.53125" y="169.421875" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">keys hardcoded in flash</tspan></text><rect x="631.546875" y="203.625" width="192.609375" height="28.40625" rx="0" ry="0" fill="none" stroke="#000000" stroke-width="2" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><rect x="636.546875" y="208.625" width="182.609375" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="727.8515625" y="217.828125" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">keys typed into DApp</tspan></text><rect x="431.390625" y="247.828125" width="100.28125" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="481.53125" y="257.03125" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">send tokens</tspan></text><path fill="none" stroke="#000000" d="M351.515625,270.4375C351.515625,270.4375,570.5187435764819,270.4375,606.5558778344284,270.4375" stroke-width="2" marker-end="url(#raphael-marker-endblock55-obj492cn)" stroke-dasharray="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><rect x="547.703125" y="286.234375" width="100.265625" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="597.8359375" y="295.4375" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">send tokens</tspan></text><path fill="none" stroke="#000000" d="M351.515625,308.84375C351.515625,308.84375,787.4371805349365,308.84375,839.1602947903025,308.84375" stroke-width="2" marker-end="url(#raphael-marker-endblock55-objkbr1l)" stroke-dasharray="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path></svg></pre><h3 id="Scooter-Device-Registration-Sequence"><a class="anchor hidden-xs" href="#Scooter-Device-Registration-Sequence" title="Scooter-Device-Registration-Sequence"><span class="octicon octicon-link"></span></a>Scooter Device Registration Sequence</h3><p>There is no automatic IOT device registration feature. Devices are registered using custom Javascript utility</p><pre class="sequence-diagram"><svg height="377.25" version="1.1" width="900.7109375" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="overflow: hidden; position: relative; left: -0.6px; top: -0.5375px;" viewBox="0 0 900.7109375 377.25" preserveAspectRatio="xMidYMid meet"><desc style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Created with Raphaël 2.2.0</desc><defs style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><marker id="raphael-marker-endblock55-obj94op8" markerHeight="5" markerWidth="5" orient="auto" refX="2.5" refY="2.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><use xlink:href="#raphael-marker-block" transform="rotate(180 2.5 2.5) scale(1,1)" stroke-width="1.0000" fill="#000" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></use></marker></defs><rect x="10" y="10" width="256.625" height="28.40625" rx="0" ry="0" fill="none" stroke="#000000" stroke-width="2" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><rect x="15" y="15" width="246.625" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="138.3125" y="24.203125" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Scooter Device Registration</tspan></text><rect x="10" y="48.40625" width="138.578125" height="38.40625" rx="0" ry="0" fill="none" stroke="#000000" stroke-width="2" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><rect x="20" y="58.40625" width="118.578125" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="79.2890625" y="67.609375" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Scooter Owner</tspan></text><rect x="10" y="318.84375" width="138.578125" height="38.40625" rx="0" ry="0" fill="none" stroke="#000000" stroke-width="2" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><rect x="20" y="328.84375" width="118.578125" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="79.2890625" y="338.046875" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Scooter Owner</tspan></text><path fill="none" stroke="#000000" d="M79.2890625,86.8125L79.2890625,318.84375" stroke-width="2" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><rect x="462.9296875" y="48.40625" width="120.28125" height="38.40625" rx="0" ry="0" fill="none" stroke="#000000" stroke-width="2" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><rect x="472.9375" y="58.40625" width="100.265625" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="523.0703125" y="67.609375" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">bridgechain</tspan></text><rect x="462.9296875" y="318.84375" width="120.28125" height="38.40625" rx="0" ry="0" fill="none" stroke="#000000" stroke-width="2" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><rect x="472.9375" y="328.84375" width="100.265625" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="523.0703125" y="338.046875" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">bridgechain</tspan></text><path fill="none" stroke="#000000" d="M523.0703125,86.8125L523.0703125,318.84375" stroke-width="2" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><rect x="196.15625" y="102.609375" width="210.046875" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="301.1796875" y="111.8125" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">custom tx(Registration)</tspan></text><path fill="none" stroke="#000000" d="M79.2890625,125.21875C79.2890625,125.21875,469.2296099034138,125.21875,518.0673786577964,125.21875" stroke-width="2" marker-end="url(#raphael-marker-endblock55-obj94op8)" stroke-dasharray="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><rect x="99.2890625" y="145.21875" width="403.78125" height="105.21875" rx="0" ry="0" fill="none" stroke="#000000" stroke-width="2" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><rect x="103.890625" y="150.21875" width="393.78125" height="95.21875" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="301.1796875" y="197.828125" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="-33.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Registration TX </tspan><tspan dy="19.2" x="301.1796875" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"> To: multisig(1:2 device/owner)</tspan><tspan dy="19.2" x="301.1796875" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"> Amount: Deposit  </tspan><tspan dy="19.2" x="301.1796875" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"> Fee: Registration </tspan><tspan dy="19.2" x="301.1796875" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"> Asset: Scooter Device Public Key, other....</tspan></text><rect x="543.0703125" y="270.4375" width="247.5" height="28.40625" rx="0" ry="0" fill="none" stroke="#000000" stroke-width="2" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><rect x="548.078125" y="275.4375" width="237.484375" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="666.8203125" y="284.640625" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">emit registration complete</tspan></text></svg></pre><h3 id="Rental-Session-Sequence"><a class="anchor hidden-xs" href="#Rental-Session-Sequence" title="Rental-Session-Sequence"><span class="octicon octicon-link"></span></a>Rental Session Sequence</h3><pre class="sequence-diagram"><svg height="1222.984375" version="1.1" width="1091.1328125" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="overflow: hidden; position: relative; left: -0.6px; top: -0.075px;" viewBox="0 0 1091.1328125 1222.984375" preserveAspectRatio="xMidYMid meet"><desc style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Created with Raphaël 2.2.0</desc><defs style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><marker id="raphael-marker-endblock55-objdj74o" markerHeight="5" markerWidth="5" orient="auto" refX="2.5" refY="2.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><use xlink:href="#raphael-marker-block" transform="rotate(180 2.5 2.5) scale(1,1)" stroke-width="1.0000" fill="#000" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></use></marker><marker id="raphael-marker-endblock55-obj0z96i" markerHeight="5" markerWidth="5" orient="auto" refX="2.5" refY="2.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><use xlink:href="#raphael-marker-block" transform="rotate(180 2.5 2.5) scale(1,1)" stroke-width="1.0000" fill="#000" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></use></marker><marker id="raphael-marker-endblock55-objxo379" markerHeight="5" markerWidth="5" orient="auto" refX="2.5" refY="2.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><use xlink:href="#raphael-marker-block" transform="rotate(180 2.5 2.5) scale(1,1)" stroke-width="1.0000" fill="#000" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></use></marker><marker id="raphael-marker-endblock55-objk14w6" markerHeight="5" markerWidth="5" orient="auto" refX="2.5" refY="2.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><use xlink:href="#raphael-marker-block" transform="rotate(180 2.5 2.5) scale(1,1)" stroke-width="1.0000" fill="#000" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></use></marker><marker id="raphael-marker-endblock55-objtwced" markerHeight="5" markerWidth="5" orient="auto" refX="2.5" refY="2.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><use xlink:href="#raphael-marker-block" transform="rotate(180 2.5 2.5) scale(1,1)" stroke-width="1.0000" fill="#000" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></use></marker><marker id="raphael-marker-endblock55-objdc59h" markerHeight="5" markerWidth="5" orient="auto" refX="2.5" refY="2.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><use xlink:href="#raphael-marker-block" transform="rotate(180 2.5 2.5) scale(1,1)" stroke-width="1.0000" fill="#000" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></use></marker><marker id="raphael-marker-endblock55-obj2hc38" markerHeight="5" markerWidth="5" orient="auto" refX="2.5" refY="2.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><use xlink:href="#raphael-marker-block" transform="rotate(180 2.5 2.5) scale(1,1)" stroke-width="1.0000" fill="#000" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></use></marker><marker id="raphael-marker-endblock55-objyu053" markerHeight="5" markerWidth="5" orient="auto" refX="2.5" refY="2.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><use xlink:href="#raphael-marker-block" transform="rotate(180 2.5 2.5) scale(1,1)" stroke-width="1.0000" fill="#000" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></use></marker><marker id="raphael-marker-endblock55-objejc1y" markerHeight="5" markerWidth="5" orient="auto" refX="2.5" refY="2.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><use xlink:href="#raphael-marker-block" transform="rotate(180 2.5 2.5) scale(1,1)" stroke-width="1.0000" fill="#000" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></use></marker><marker id="raphael-marker-endblock55-obj9jjwz" markerHeight="5" markerWidth="5" orient="auto" refX="2.5" refY="2.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><use xlink:href="#raphael-marker-block" transform="rotate(180 2.5 2.5) scale(1,1)" stroke-width="1.0000" fill="#000" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></use></marker><marker id="raphael-marker-endblock55-obje03ic" markerHeight="5" markerWidth="5" orient="auto" refX="2.5" refY="2.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><use xlink:href="#raphael-marker-block" transform="rotate(180 2.5 2.5) scale(1,1)" stroke-width="1.0000" fill="#000" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></use></marker><marker id="raphael-marker-endblock55-obj2rgle" markerHeight="5" markerWidth="5" orient="auto" refX="2.5" refY="2.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><use xlink:href="#raphael-marker-block" transform="rotate(180 2.5 2.5) scale(1,1)" stroke-width="1.0000" fill="#000" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></use></marker><marker id="raphael-marker-endblock55-objq341b" markerHeight="5" markerWidth="5" orient="auto" refX="2.5" refY="2.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><use xlink:href="#raphael-marker-block" transform="rotate(180 2.5 2.5) scale(1,1)" stroke-width="1.0000" fill="#000" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></use></marker><marker id="raphael-marker-endblock55-objmqees" markerHeight="5" markerWidth="5" orient="auto" refX="2.5" refY="2.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><use xlink:href="#raphael-marker-block" transform="rotate(180 2.5 2.5) scale(1,1)" stroke-width="1.0000" fill="#000" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></use></marker><marker id="raphael-marker-endblock55-objrahkk" markerHeight="5" markerWidth="5" orient="auto" refX="2.5" refY="2.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><use xlink:href="#raphael-marker-block" transform="rotate(180 2.5 2.5) scale(1,1)" stroke-width="1.0000" fill="#000" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></use></marker><marker id="raphael-marker-endblock55-obje6ykd" markerHeight="5" markerWidth="5" orient="auto" refX="2.5" refY="2.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><use xlink:href="#raphael-marker-block" transform="rotate(180 2.5 2.5) scale(1,1)" stroke-width="1.0000" fill="#000" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></use></marker><marker id="raphael-marker-endblock55-objz1fvk" markerHeight="5" markerWidth="5" orient="auto" refX="2.5" refY="2.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><use xlink:href="#raphael-marker-block" transform="rotate(180 2.5 2.5) scale(1,1)" stroke-width="1.0000" fill="#000" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></use></marker><marker id="raphael-marker-endblock55-objk5hds" markerHeight="5" markerWidth="5" orient="auto" refX="2.5" refY="2.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><use xlink:href="#raphael-marker-block" transform="rotate(180 2.5 2.5) scale(1,1)" stroke-width="1.0000" fill="#000" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></use></marker></defs><rect x="10" y="10" width="137.71875" height="28.40625" rx="0" ry="0" fill="none" stroke="#000000" stroke-width="2" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><rect x="15" y="15" width="127.71875" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="78.859375" y="24.203125" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Rental Session</tspan></text><rect x="10" y="48.40625" width="47.109375" height="38.40625" rx="0" ry="0" fill="none" stroke="#000000" stroke-width="2" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><rect x="20" y="58.40625" width="27.109375" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="33.5546875" y="67.609375" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">app</tspan></text><rect x="10" y="1164.578125" width="47.109375" height="38.40625" rx="0" ry="0" fill="none" stroke="#000000" stroke-width="2" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><rect x="20" y="1174.578125" width="27.109375" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="33.5546875" y="1183.78125" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">app</tspan></text><path fill="none" stroke="#000000" d="M33.5546875,86.8125L33.5546875,1164.578125" stroke-width="2" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><rect x="370.6796875" y="48.40625" width="83.6875" height="38.40625" rx="0" ry="0" fill="none" stroke="#000000" stroke-width="2" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><rect x="380.671875" y="58.40625" width="63.703125" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="412.5234375" y="67.609375" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">scooter</tspan></text><rect x="370.6796875" y="1164.578125" width="83.6875" height="38.40625" rx="0" ry="0" fill="none" stroke="#000000" stroke-width="2" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><rect x="380.671875" y="1174.578125" width="63.703125" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="412.5234375" y="1183.78125" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">scooter</tspan></text><path fill="none" stroke="#000000" d="M412.5234375,86.8125L412.5234375,1164.578125" stroke-width="2" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><rect x="940.8515625" y="48.40625" width="120.28125" height="38.40625" rx="0" ry="0" fill="none" stroke="#000000" stroke-width="2" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><rect x="950.859375" y="58.40625" width="100.265625" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="1000.9921875" y="67.609375" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">bridgechain</tspan></text><rect x="940.8515625" y="1164.578125" width="120.28125" height="38.40625" rx="0" ry="0" fill="none" stroke="#000000" stroke-width="2" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><rect x="950.859375" y="1174.578125" width="100.265625" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="1000.9921875" y="1183.78125" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">bridgechain</tspan></text><path fill="none" stroke="#000000" d="M1000.9921875,86.8125L1000.9921875,1164.578125" stroke-width="2" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><rect x="58.5625" y="106.8125" width="81.984375" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="99.5546875" y="116.015625" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">start app</tspan></text><path fill="none" stroke="#000000" d="M33.5546875,101.8125L53.5546875,101.8125" stroke-width="2" stroke-dasharray="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><path fill="none" stroke="#000000" d="M53.5546875,101.8125L53.5546875,135.21875" stroke-width="2" stroke-dasharray="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><path fill="none" stroke="#000000" d="M53.5546875,135.21875C53.5546875,135.21875,44.47380065917969,135.21875,38.54994088411331,135.21875" stroke-width="2" stroke-dasharray="none" marker-end="url(#raphael-marker-endblock55-objdj74o)" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><rect x="437.515625" y="145.21875" width="548.484375" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="711.7578125" y="154.421875" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Display QR code:Public Key,random hash,Rate, GPS coordinates</tspan></text><path fill="none" stroke="#000000" d="M412.5234375,140.21875L432.5234375,140.21875" stroke-width="2" stroke-dasharray="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><path fill="none" stroke="#000000" d="M432.5234375,140.21875L432.5234375,173.625" stroke-width="2" stroke-dasharray="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><path fill="none" stroke="#000000" d="M432.5234375,173.625C432.5234375,173.625,423.4425506591797,173.625,417.5186908841133,173.625" stroke-width="2" stroke-dasharray="none" marker-end="url(#raphael-marker-endblock55-obj0z96i)" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><rect x="168.328125" y="179.421875" width="109.421875" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="223.0390625" y="188.625" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">scan QR code</tspan></text><path fill="none" stroke="#000000" d="M412.5234375,202.03125C412.5234375,202.03125,83.25102061778307,202.03125,38.554862466779014,202.03125" stroke-width="2" marker-end="url(#raphael-marker-endblock55-objxo379)" stroke-dasharray="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><rect x="58.5625" y="222.03125" width="200.890625" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="159.0078125" y="231.234375" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Select Rental Duration</tspan></text><path fill="none" stroke="#000000" d="M33.5546875,217.03125L53.5546875,217.03125" stroke-width="2" stroke-dasharray="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><path fill="none" stroke="#000000" d="M53.5546875,217.03125L53.5546875,250.4375" stroke-width="2" stroke-dasharray="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><path fill="none" stroke="#000000" d="M53.5546875,250.4375C53.5546875,250.4375,44.47380065917969,250.4375,38.54994088411331,250.4375" stroke-width="2" stroke-dasharray="none" marker-end="url(#raphael-marker-endblock55-objk14w6)" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><rect x="58.546875" y="260.4375" width="146.015625" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="131.5546875" y="269.640625" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Finalize Payment</tspan></text><path fill="none" stroke="#000000" d="M33.5546875,255.4375L53.5546875,255.4375" stroke-width="2" stroke-dasharray="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><path fill="none" stroke="#000000" d="M53.5546875,255.4375L53.5546875,288.84375" stroke-width="2" stroke-dasharray="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><path fill="none" stroke="#000000" d="M53.5546875,288.84375C53.5546875,288.84375,44.47380065917969,288.84375,38.54994088411331,288.84375" stroke-width="2" stroke-dasharray="none" marker-end="url(#raphael-marker-endblock55-objtwced)" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><rect x="320.78125" y="294.640625" width="392.984375" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="517.2734375" y="303.84375" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">custom tx:(Rental start) to scooter address</tspan></text><path fill="none" stroke="#000000" d="M33.5546875,317.25C33.5546875,317.25,921.2222204273567,317.25,995.9891390943337,317.25" stroke-width="2" marker-end="url(#raphael-marker-endblock55-objdc59h)" stroke-dasharray="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><rect x="53.5546875" y="337.25" width="294.015625" height="105.21875" rx="0" ry="0" fill="none" stroke="#000000" stroke-width="2" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><rect x="58.15625" y="342.25" width="284.015625" height="95.21875" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="200.5625" y="389.859375" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="-33.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Rental Start TX </tspan><tspan dy="19.2" x="200.5625" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"> To: Scooter Address</tspan><tspan dy="19.2" x="200.5625" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"> Amount: Rental Amount  </tspan><tspan dy="19.2" x="200.5625" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"> Fee: Rental </tspan><tspan dy="19.2" x="200.5625" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"> Asset: hash(random SHA256), GPS</tspan></text><rect x="58.546875" y="462.46875" width="219.203125" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="168.1484375" y="471.671875" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">wait for tx confirmation</tspan></text><path fill="none" stroke="#000000" d="M33.5546875,457.46875L53.5546875,457.46875" stroke-width="2" stroke-dasharray="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><path fill="none" stroke="#000000" d="M53.5546875,457.46875L53.5546875,490.875" stroke-width="2" stroke-dasharray="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><path fill="none" stroke="#000000" d="M53.5546875,490.875C53.5546875,490.875,44.47380065917969,490.875,38.54994088411331,490.875" stroke-width="2" stroke-dasharray="none" marker-end="url(#raphael-marker-endblock55-obj2hc38)" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><rect x="58.5625" y="500.875" width="200.890625" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="159.0078125" y="510.078125" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">display message in app</tspan></text><path fill="none" stroke="#000000" d="M33.5546875,495.875L53.5546875,495.875" stroke-width="2" stroke-dasharray="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><path fill="none" stroke="#000000" d="M53.5546875,495.875L53.5546875,529.28125" stroke-width="2" stroke-dasharray="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><path fill="none" stroke="#000000" d="M53.5546875,529.28125C53.5546875,529.28125,44.47380065917969,529.28125,38.54994088411331,529.28125" stroke-width="2" stroke-dasharray="none" marker-end="url(#raphael-marker-endblock55-objyu053)" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><rect x="437.515625" y="539.28125" width="210.046875" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="542.5390625" y="548.484375" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">search for Rental Start</tspan></text><path fill="none" stroke="#000000" d="M412.5234375,534.28125L432.5234375,534.28125" stroke-width="2" stroke-dasharray="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><path fill="none" stroke="#000000" d="M432.5234375,534.28125L432.5234375,567.6875" stroke-width="2" stroke-dasharray="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><path fill="none" stroke="#000000" d="M432.5234375,567.6875C432.5234375,567.6875,423.4425506591797,567.6875,417.5186908841133,567.6875" stroke-width="2" stroke-dasharray="none" marker-end="url(#raphael-marker-endblock55-objejc1y)" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><rect x="606.3125" y="573.484375" width="200.890625" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="706.7578125" y="582.6875" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">custom tx:Rental Start</tspan></text><path fill="none" stroke="#000000" d="M1000.9921875,596.09375C1000.9921875,596.09375,474.5838710144162,596.09375,417.52203202037344,596.09375" stroke-width="2" marker-end="url(#raphael-marker-endblock55-obj9jjwz)" stroke-dasharray="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><rect x="432.5234375" y="616.09375" width="284.0625" height="28.40625" rx="0" ry="0" fill="none" stroke="#000000" stroke-width="2" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><rect x="437.515625" y="621.09375" width="274.078125" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="574.5546875" y="630.296875" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">verify hash. Refund if invalid</tspan></text><rect x="437.515625" y="664.5" width="127.734375" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="501.3828125" y="673.703125" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Unlock scooter</tspan></text><path fill="none" stroke="#000000" d="M412.5234375,659.5L432.5234375,659.5" stroke-width="2" stroke-dasharray="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><path fill="none" stroke="#000000" d="M432.5234375,659.5L432.5234375,692.90625" stroke-width="2" stroke-dasharray="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><path fill="none" stroke="#000000" d="M432.5234375,692.90625C432.5234375,692.90625,423.4425506591797,692.90625,417.5186908841133,692.90625" stroke-width="2" stroke-dasharray="none" marker-end="url(#raphael-marker-endblock55-obje03ic)" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><rect x="437.515625" y="702.90625" width="338.109375" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="606.5703125" y="712.109375" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Record start time, display ride timer</tspan></text><path fill="none" stroke="#000000" d="M412.5234375,697.90625L432.5234375,697.90625" stroke-width="2" stroke-dasharray="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><path fill="none" stroke="#000000" d="M432.5234375,697.90625L432.5234375,731.3125" stroke-width="2" stroke-dasharray="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><path fill="none" stroke="#000000" d="M432.5234375,731.3125C432.5234375,731.3125,423.4425506591797,731.3125,417.5186908841133,731.3125" stroke-width="2" stroke-dasharray="none" marker-end="url(#raphael-marker-endblock55-obj2rgle)" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><rect x="53.5546875" y="741.3125" width="338.96875" height="28.40625" rx="0" ry="0" fill="none" stroke="#000000" stroke-width="2" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><rect x="58.5625" y="746.3125" width="328.953125" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="223.0390625" y="755.515625" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">fun with scooter until timer expires</tspan></text><rect x="437.53125" y="789.71875" width="109.421875" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="492.2421875" y="798.921875" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">lock scooter</tspan></text><path fill="none" stroke="#000000" d="M412.5234375,784.71875L432.5234375,784.71875" stroke-width="2" stroke-dasharray="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><path fill="none" stroke="#000000" d="M432.5234375,784.71875L432.5234375,818.125" stroke-width="2" stroke-dasharray="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><path fill="none" stroke="#000000" d="M432.5234375,818.125C432.5234375,818.125,423.4425506591797,818.125,417.5186908841133,818.125" stroke-width="2" stroke-dasharray="none" marker-end="url(#raphael-marker-endblock55-objq341b)" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><rect x="437.515625" y="828.125" width="338.109375" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="606.5703125" y="837.328125" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">record GPS, display ride finished msg</tspan></text><path fill="none" stroke="#000000" d="M412.5234375,823.125L432.5234375,823.125" stroke-width="2" stroke-dasharray="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><path fill="none" stroke="#000000" d="M432.5234375,823.125L432.5234375,856.53125" stroke-width="2" stroke-dasharray="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><path fill="none" stroke="#000000" d="M432.5234375,856.53125C432.5234375,856.53125,423.4425506591797,856.53125,417.5186908841133,856.53125" stroke-width="2" stroke-dasharray="none" marker-end="url(#raphael-marker-endblock55-objmqees)" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><rect x="592.59375" y="862.328125" width="228.328125" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="706.7578125" y="871.53125" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">custom tx:(Rental finish)</tspan></text><path fill="none" stroke="#000000" d="M412.5234375,884.9375C412.5234375,884.9375,938.9317539855838,884.9375,995.9935929796266,884.9375" stroke-width="2" marker-end="url(#raphael-marker-endblock55-objrahkk)" stroke-dasharray="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><rect x="432.5234375" y="904.9375" width="339.765625" height="124.421875" rx="0" ry="0" fill="none" stroke="#000000" stroke-width="2" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><rect x="437.125" y="909.9375" width="329.75" height="114.421875" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="602.40625" y="967.1484375" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="-42.796875" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Rental Finish TX </tspan><tspan dy="19.2" x="602.40625" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"> To: Renter Address </tspan><tspan dy="19.2" x="602.40625" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"> Amount: 0  </tspan><tspan dy="19.2" x="602.40625" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"> Fee: Rental </tspan><tspan dy="19.2" x="602.40625" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"> Asset:start &amp; end GPS,rate,duration </tspan><tspan dy="19.2" x="602.40625" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"> start timestamp</tspan></text><rect x="58.546875" y="1049.359375" width="219.203125" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="168.1484375" y="1058.5625" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">search for Rental finish</tspan></text><path fill="none" stroke="#000000" d="M33.5546875,1044.359375L53.5546875,1044.359375" stroke-width="2" stroke-dasharray="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><path fill="none" stroke="#000000" d="M53.5546875,1044.359375L53.5546875,1077.765625" stroke-width="2" stroke-dasharray="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><path fill="none" stroke="#000000" d="M53.5546875,1077.765625C53.5546875,1077.765625,44.47380065917969,1077.765625,38.54994088411331,1077.765625" stroke-width="2" stroke-dasharray="none" marker-end="url(#raphael-marker-endblock55-obje6ykd)" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><rect x="407.671875" y="1083.5625" width="219.203125" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="517.2734375" y="1092.765625" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">custom tx: rental finish</tspan></text><path fill="none" stroke="#000000" d="M1000.9921875,1106.171875C1000.9921875,1106.171875,113.32465457264334,1106.171875,38.55773590566628,1106.171875" stroke-width="2" marker-end="url(#raphael-marker-endblock55-objz1fvk)" stroke-dasharray="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><rect x="58.5625" y="1126.171875" width="292.359375" height="18.40625" rx="0" ry="0" fill="#ffffff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect><text x="204.7421875" y="1135.375" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;"><tspan dy="5.203125" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Display ride stats(GPS,time,etc)</tspan></text><path fill="none" stroke="#000000" d="M33.5546875,1121.171875L53.5546875,1121.171875" stroke-width="2" stroke-dasharray="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><path fill="none" stroke="#000000" d="M53.5546875,1121.171875L53.5546875,1154.578125" stroke-width="2" stroke-dasharray="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><path fill="none" stroke="#000000" d="M53.5546875,1154.578125C53.5546875,1154.578125,44.47380065917969,1154.578125,38.54994088411331,1154.578125" stroke-width="2" stroke-dasharray="none" marker-end="url(#raphael-marker-endblock55-objk5hds)" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path></svg></pre><hr><h2 id="Rental-Session-Screenshots"><a class="anchor hidden-xs" href="#Rental-Session-Screenshots" title="Rental-Session-Screenshots"><span class="octicon octicon-link"></span></a>Rental Session Screenshots</h2><p>The following screenshots of the app, scooter, and analytics dashboard illustrates the sequence of a rental transaction.</p><h3 id="Step-1-Scooter-Bootup"><a class="anchor hidden-xs" href="#Step-1-Scooter-Bootup" title="Step-1-Scooter-Bootup"><span class="octicon octicon-link"></span></a>Step 1: Scooter Bootup</h3><p><strong>Scooter displays boot screen while waiting for waiting for WiFi connection</strong><br>
+<img src="https://i.imgur.com/Uv2taZn.jpg" alt="" width="200"></p><p><strong>Scooter A status is broken while it waits for GPS sync</strong>
+<img src="https://i.imgur.com/qfOYwE8.png" alt=""></p><h3 id="Step-2-Scooter-Ready-for-Rental"><a class="anchor hidden-xs" href="#Step-2-Scooter-Ready-for-Rental" title="Step-2-Scooter-Ready-for-Rental"><span class="octicon octicon-link"></span></a>Step 2 Scooter Ready for Rental</h3><p><strong>Once all of the networks are connected then QR code is displayed</strong><br>
+<img src="https://i.imgur.com/c9PhRlZ.jpg" alt="" width="200"></p><h3 id="Step-3-App-Bootup"><a class="anchor hidden-xs" href="#Step-3-App-Bootup" title="Step-3-App-Bootup"><span class="octicon octicon-link"></span></a>Step 3 App Bootup</h3><p><strong>Press the ‘+’ on the top right to open camera for QR code scanning</strong><br>
+<img src="https://i.imgur.com/bWRdbfK.png" alt="" width="200"></p><h3 id="Step-4-App-Ready-for-QR-Scanning"><a class="anchor hidden-xs" href="#Step-4-App-Ready-for-QR-Scanning" title="Step-4-App-Ready-for-QR-Scanning"><span class="octicon octicon-link"></span></a>Step 4 App Ready for QR Scanning</h3><p><strong>You can scan QR code via camera or via file for testing</strong><br>
+<img src="https://i.imgur.com/y5SrxYy.png" alt="" width="200"></p><h3 id="Step-5-App-Scanning-QR-code"><a class="anchor hidden-xs" href="#Step-5-App-Scanning-QR-code" title="Step-5-App-Scanning-QR-code"><span class="octicon octicon-link"></span></a>Step 5 App Scanning QR code</h3><p><strong>You would need to zoom in more to scan QR code</strong><br>
+<img src="https://i.imgur.com/j4Fs3fF.jpg" alt="" width="200"></p><h3 id="Step-6-App-Configure-Ride-Length"><a class="anchor hidden-xs" href="#Step-6-App-Configure-Ride-Length" title="Step-6-App-Configure-Ride-Length"><span class="octicon octicon-link"></span></a>Step 6 App Configure Ride Length</h3><p><strong>Use slider to configure the length of the ride</strong><br>
+<img src="https://i.imgur.com/fN8whde.png" alt="" width="200"></p><h3 id="Step-7-App-Sends-Rental-Start"><a class="anchor hidden-xs" href="#Step-7-App-Sends-Rental-Start" title="Step-7-App-Sends-Rental-Start"><span class="octicon octicon-link"></span></a>Step 7 App Sends Rental Start</h3><p><strong>Rental Start Transaction is sent along with payment to Scooter</strong><br>
+<img src="https://i.imgur.com/3wytmbB.png" alt="" width="200"></p><h3 id="Step-8-Scooter-Rental-in-Progress"><a class="anchor hidden-xs" href="#Step-8-Scooter-Rental-in-Progress" title="Step-8-Scooter-Rental-in-Progress"><span class="octicon octicon-link"></span></a>Step 8 Scooter Rental in Progress</h3><p><strong>Once Rental Start transaction is received the scooter unlocks and starts ride timer.</strong><br>
+Speed and rental countdown timer are displayed.<br>
+Rental Finish transaction is sent once timer expires.<br>
+<img src="https://i.imgur.com/C8IiTgU.jpg" alt="" width="200"></p><p><strong>Scooter A status is now Rented.</strong><br>
+GPS, Battery, Speed are updated in realtime via MQTT<br>
+Radians Scooter.Rental.Start panel shows the latest transaction event received via blockchain
+<img src="https://i.imgur.com/41xEkH0.png" alt=""></p><h3 id="Step-9-App-Rental-in-Progress"><a class="anchor hidden-xs" href="#Step-9-App-Rental-in-Progress" title="Step-9-App-Rental-in-Progress"><span class="octicon octicon-link"></span></a>Step 9 App Rental in Progress</h3><p><img src="https://i.imgur.com/M46OIDw.png" alt="" width="200"></p><h3 id="Step-10-App-Received-Rental-Finish"><a class="anchor hidden-xs" href="#Step-10-App-Received-Rental-Finish" title="Step-10-App-Received-Rental-Finish"><span class="octicon octicon-link"></span></a>Step 10 App Received Rental Finish</h3><p><strong>App receives Rental Finish transaction from scooter when ride timer elapses.</strong><br>
+<img src="https://i.imgur.com/855lBDf.png" alt="" width="200"></p><p><strong>Scooter A status is now available.</strong><br>
+Radians Scooter.Rental.Finish panel shows the latest transaction event received via blockchain<br>
+<img src="https://i.imgur.com/Sh36GnX.png" alt=""></p><hr><h2 id="Rental-Session-Video-Screenshots"><a class="anchor hidden-xs" href="#Rental-Session-Video-Screenshots" title="Rental-Session-Video-Screenshots"><span class="octicon octicon-link"></span></a>Rental Session Video Screenshots</h2><h3 id="Rental-Session-using-App-and-Test-Utility-to-Emulate-Scooter"><a class="anchor hidden-xs" href="#Rental-Session-using-App-and-Test-Utility-to-Emulate-Scooter" title="Rental-Session-using-App-and-Test-Utility-to-Emulate-Scooter"><span class="octicon octicon-link"></span></a>Rental Session using App and Test Utility to Emulate Scooter</h3><p><a href="https://www.youtube.com/watch?v=Jxn2BhQjYgY" target="_blank" rel="noopener">https://www.youtube.com/watch?v=Jxn2BhQjYgY</a></p><h3 id="Analytics-Dashboard-During-Rental-Session"><a class="anchor hidden-xs" href="#Analytics-Dashboard-During-Rental-Session" title="Analytics-Dashboard-During-Rental-Session"><span class="octicon octicon-link"></span></a>Analytics Dashboard During Rental Session</h3><p><a href="https://youtu.be/QSazY9Nj_Pc" target="_blank" rel="noopener">https://youtu.be/QSazY9Nj_Pc</a></p><hr><h2 id="Custom-Transaction-and-Wallet-Attributes-Design"><a class="anchor hidden-xs" href="#Custom-Transaction-and-Wallet-Attributes-Design" title="Custom-Transaction-and-Wallet-Attributes-Design"><span class="octicon octicon-link"></span></a>Custom Transaction and Wallet Attributes Design</h2><h3 id="Transaction-Types"><a class="anchor hidden-xs" href="#Transaction-Types" title="Transaction-Types"><span class="octicon octicon-link"></span></a>Transaction Types</h3><p>TYPE_GROUP: 4000<br>
+SCOOTER_REGISTRATION_TYPE: 401<br>
+RENTAL_START_TYPE: 500<br>
+RENTAL_FINISH_TYPE: 600</p><h3 id="Scooter-Registration"><a class="anchor hidden-xs" href="#Scooter-Registration" title="Scooter-Registration"><span class="octicon octicon-link"></span></a>Scooter Registration</h3><p><em><strong>Note: data types and length needed to be updated</strong></em></p><p><strong>From:</strong> Scooter</p><ul>
+<li>type = SCOOTER_REGISTRATION_TYPE</li>
+<li>typeGroup = TYPE_GROUP</li>
+<li>fee = Register = xxxxx</li>
+</ul><p><strong>Scooter Register Example:</strong>
+<a href="https://radians.nl/api/v2/transactions/444b5172476a7f86b38392eaeffcd1bf35123cdd83b44c96aaa597e24c05006e" target="_blank" rel="noopener">https://radians.nl/api/v2/transactions/444b5172476a7f86b38392eaeffcd1bf35123cdd83b44c96aaa597e24c05006e</a></p><pre><code>{
+   "data":{
+      "id":"444b5172476a7f86b38392eaeffcd1bf35123cdd83b44c96aaa597e24c05006e",
+      "blockId":"7142238589308015273",
+      "version":2,
+      "type":401,
+      "typeGroup":4000,
+      "amount":"0",
+      "fee":"3000000000",
+      "sender":"TRXA2NUACckkYwWnS9JRkATQA453ukAcD1",
+      "senderPublicKey":"03e063f436ccfa3dfa9e9e6ee5e08a65a82a5ce2b2daf58a9be235753a971411e2",
+      "recipient":"TRXA2NUACckkYwWnS9JRkATQA453ukAcD1",
+      "signature":"2ad52e6d3c927c66b7f0760f05311d48cb22ec124315745d4c842170c869e31c73f16fe53f1ad3d8c5eb2a61076a776d0a759c4029cbb31c1aa9dedb97028898",
+      "asset":{
+         "scooterId":"1234567890"
+      },
+      "confirmations":846380,
+      "timestamp":{
+         "epoch":9109608,
+         "unix":1581103948,
+         "human":"2020-02-07T19:32:28.856Z"
+      },
+      "nonce":"41"
+   }
+}
+</code></pre><h3 id="Rental-Start"><a class="anchor hidden-xs" href="#Rental-Start" title="Rental-Start"><span class="octicon octicon-link"></span></a>Rental Start</h3><p><em><strong>Note: data types and length needed to be updated</strong></em></p><p><strong>From:</strong> App<br>
+<strong>To:</strong> Scooter</p><ul>
+<li>type = RENTAL_START_TYPE</li>
+<li>typeGroup = TYPE_GROUP</li>
+<li>version = 2</li>
+<li>fee = Rental = xxxxx</li>
+<li>amount = number</li>
+<li>vendorField = optional</li>
+<li>asset = {sessionID, gps: {[timestamp, lat, long]}, rate}
+<ul>
+<li>sessionID = SHA256</li>
+<li>timestamp = {epoch: integer}, {human: string}</li>
+<li>lat = GPS latitude; String(1-&gt;16 characters)</li>
+<li>long = GPS longitude; String(1-&gt;16 characters)</li>
+<li>rate = integer</li>
+</ul>
+</li>
+</ul><p><strong>Note:</strong><br>
+SessionID, GPS coordinates, and rate are values that are generated by scooter and embedded in the QR code that the app scans.<br>
+Hash is SHA256 of random number.<br>
+Rate is the cost of the ride measured in RAD/seconds.<br>
+The amount transferred determines the length of ride.<br>
+Length of Ride(seconds) = Amount / Rate</p><p><strong>Rental Start Example:</strong>
+<a href="https://radians.nl/api/v2/transactions/c9dbbede340926fab174e56fd3cea75b3b99a1cc9eb594f18e7250fbd11392e7" target="_blank" rel="noopener">https://radians.nl/api/v2/transactions/c9dbbede340926fab174e56fd3cea75b3b99a1cc9eb594f18e7250fbd11392e7</a></p><pre><code>{
+   "data":{
+      "id":"c9dbbede340926fab174e56fd3cea75b3b99a1cc9eb594f18e7250fbd11392e7",
+      "blockId":"2072591193193033951",
+      "version":2,
+      "type":500,
+      "typeGroup":4000,
+      "amount":"3700020",
+      "fee":"10000000",
+      "sender":"TLdYHTKRSD3rG66zsytqpAgJDX75qbcvgT",
+      "senderPublicKey":"02cbe4667ab08693cbb3c248b96635f84b5412a99b49237f059a724f2cfe2b733f",
+      "recipient":"TRXA2NUACckkYwWnS9JRkATQA453ukAcD1",
+      "signature":"84315ff2c7382a0986c326daac84fe076e4a963a31d87ef710904f37c28d4657e9c3a3696d3b2ae33c557f13b727a188c440f23387040cd2657c1b01b8ab9c7b",
+      "asset":{
+         "gps":{
+            "timestamp":1585720792,
+            "latitude":"53.534603",
+            "longitude":"-113.329002",
+            "human":"2020-04-01T05:59:52.000Z"
+         },
+         "sessionId":"bc9583e4c8094c7a84fc6dc0ec916d7e1a8fdac3dcaf2dcbec8073babaa00165",
+         "rate":"61667",
+         "gpsCount":1
+      },
+      "confirmations":269412,
+      "timestamp":{
+         "epoch":13726456,
+         "unix":1585720796,
+         "human":"2020-04-01T05:59:56.856Z"
+      },
+      "nonce":"104"
+   }
+}
+</code></pre><hr><h3 id="Rental-Finish"><a class="anchor hidden-xs" href="#Rental-Finish" title="Rental-Finish"><span class="octicon octicon-link"></span></a>Rental Finish</h3><p><a href="https://radians.nl/api/v2/wallets/TGGUtM6KPdWn7LSpNcWj1y5ngGa8xJqxHf/scooter-transactions" target="_blank" rel="noopener">https://radians.nl/api/v2/wallets/TGGUtM6KPdWn7LSpNcWj1y5ngGa8xJqxHf/scooter-transactions</a></p><p><em><strong>Note: data types and length needed to be updated</strong></em></p><p><strong>From:</strong> Scooter<br>
+<strong>To:</strong> App</p><ul>
+<li>type = RENTAL_FINISH_TYPE: 500</li>
+<li>typeGroup = TYPE_GROUP</li>
+<li>version = 2</li>
+<li>fee = Rental = xxxxxxx</li>
+<li>amount = number</li>
+<li>vendorField = optional</li>
+<li>asset = {SessionID, gps: {[start timestamp, lat, long],[finish timestamp, lat, long] }, rideDuration}
+<ul>
+<li>sessionID = SHA256</li>
+<li>timestamp = {epoch: integer}, {human: string}</li>
+<li>lat = GPS latitude; String(1-&gt;16 characters)</li>
+<li>long = GPS longitude; String(1-&gt;16 characters)</li>
+<li>rideDuration = RIDE_DURATION_IN_SECONDS</li>
+</ul>
+</li>
+</ul><p><strong>Rental Finish Example:</strong>
+<a href="https://radians.nl/api/v2/transactions/6ad85654597fe9fab5f61930f0eccfb02cbb892fbfc78b91d723797d82408c6d" target="_blank" rel="noopener">https://radians.nl/api/v2/transactions/6ad85654597fe9fab5f61930f0eccfb02cbb892fbfc78b91d723797d82408c6d</a></p><pre><code>{
+   "data":{
+      "id":"6ad85654597fe9fab5f61930f0eccfb02cbb892fbfc78b91d723797d82408c6d",
+      "blockId":"18274364918586419922",
+      "version":2,
+      "type":600,
+      "typeGroup":4000,
+      "amount":"1",
+      "fee":"10000000",
+      "sender":"TRXA2NUACckkYwWnS9JRkATQA453ukAcD1",
+      "senderPublicKey":"03e063f436ccfa3dfa9e9e6ee5e08a65a82a5ce2b2daf58a9be235753a971411e2",
+      "recipient":"TLdYHTKRSD3rG66zsytqpAgJDX75qbcvgT",
+      "signature":"30440220295d8140f99bf8a9b3a2c576f94f6e93ce44060f38d3c927e1301166525eb15602201a4be28023b3c3d50fc639f699c13340acb984aab01824667c861e3463b500a2",
+      "asset":{
+         "gps":[
+            {
+               "timestamp":1585720806,
+               "latitude":"53.534560",
+               "longitude":"-113.329120",
+               "human":"2020-04-01T06:00:06.000Z"
+            },
+            {
+               "timestamp":1585720866,
+               "latitude":"53.534724",
+               "longitude":"-113.328960",
+               "human":"2020-04-01T06:01:06.000Z"
+            }
+         ],
+         "sessionId":"bc9583e4c8094c7a84fc6dc0ec916d7e1a8fdac3dcaf2dcbec8073babaa00165",
+         "containsRefund":false,
+         "gpsCount":2,
+         "rideDuration":60
+      },
+      "confirmations":269413,
+      "timestamp":{
+         "epoch":13726528,
+         "unix":1585720868,
+         "human":"2020-04-01T06:01:08.856Z"
+      },
+      "nonce":"131"
+   }
+}
+</code></pre><hr><h3 id="Custom-Wallet-Attributes"><a class="anchor hidden-xs" href="#Custom-Wallet-Attributes" title="Custom-Wallet-Attributes"><span class="octicon octicon-link"></span></a>Custom Wallet Attributes</h3><p>Two custom wallet attributes were created to implement a semaphore mechanism to control shared access of the scooter. The attributes are also used to control which custom transactions are available based on wallet type. Example: Rental Start transactions can only be sent by DApp and Rental Finish transactions can only be sent by scooters.</p><pre><code>module.exports = {  
+    IS_REGISTERED_AS_SCOOTER: "isRegisteredAsScooter",  
+	IS_RENTED: "isRented"  
+};
+</code></pre><p>When a scooter wallet sends the custom <em><strong>Register Scooter</strong></em> transaction the <em><strong>IS_REGISTERED_AS_SCOOTER</strong></em> attribute is set to TRUE.<br>
+If you try to register the scooter a second time, the transaction will be rejected by the node and not added to the transaction pool.</p><p>When the DApp wallet sends a custom <em><strong>Rental Start</strong></em> transaction two wallet attributes are checked. The node will reject the transaction if the receiving wallet is not registered as a scooter. The node will reject the transaction if the receiving wallet attribute <em><strong>IS_RENTED</strong></em> is true. If the attribute is false then the transaction will be accepted and attribute will be set true.</p><p><strong>NOTE: Need to confirm that the following is implemented:</strong>  <em><strong>Rental Finish</strong></em> transaction will be rejected by the node if the wallet is not registered as a scooter. <em><strong>Rental Start</strong></em> transaction will be rejected by the node if sent by wallet registered as scooter.</p><hr><h2 id="Embedded-Electronics"><a class="anchor hidden-xs" href="#Embedded-Electronics" title="Embedded-Electronics"><span class="octicon octicon-link"></span></a>Embedded Electronics</h2><p>The highlighted section in the following diagram shows the implemented components of the embedded electronics. The dotted line section shows how the current project could be integrated into an existing of the shelf electrical scooter for a completely functional demonstration.</p><p><img src="https://i.imgur.com/8kIXYTd.jpg" alt=""></p><p><img src="https://i.imgur.com/MN1TPzu.jpg" alt="" width="500"></p><p><strong>Embedded Processor</strong><br>
+The ESP32 Feather module is a 32bit highly integrated System on Chip(SoC) processor. The module integrates a 240MHz dual-core Tensilica LX6 microcontroller with 520KB SRAM, 4MB Flash, 802.11b/g/n HT40 Wi-Fi, and power supply.</p><p>Several peripheral devices are interfaced to the ESP32 module to provide the necessary I/O.</p><p><strong>Peripheral devices:</strong></p><ul>
+<li>A GPS module is used to provide location data for the scooter. The module includes an onboard antenna however an external antenna was used for significant gain especially when testing indoors</li>
+<li>A small 2.4" TFT display is used for the user interface. It generates dynamic QRcodes as well as displaying ride statistics.</li>
+<li>A wifi hotspot provides the internet connection for communicating to Ark bridgechain and analytics dashboard. A GSM module could be integrated as a future upgrade.</li>
+<li>The lock/unlock security mechanism is a relay to control lock or power system of physical scooter</li>
+</ul><h3 id="Bill-of-Materials"><a class="anchor hidden-xs" href="#Bill-of-Materials" title="Bill-of-Materials"><span class="octicon octicon-link"></span></a>Bill of Materials</h3><table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Adafruit Part #</th>
+<th>Digi-Key Part #</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HUZZAH32 ESP32 FEATHER</td>
+<td>3619</td>
+<td>1528-2515-ND</td>
+</tr>
+<tr>
+<td>ULTIMATE GPS FEATHERWING</td>
+<td>3133</td>
+<td>1528-1695-ND</td>
+</tr>
+<tr>
+<td>FEATHERWING 2.4" 320X240 LCD</td>
+<td>3315</td>
+<td>1528-1802-ND</td>
+</tr>
+<tr>
+<td>FEATHERWING DOUBLER</td>
+<td>2890</td>
+<td>1528-1535-ND</td>
+</tr>
+<tr>
+<td>RF ANT - SMA (optional)</td>
+<td>960</td>
+<td>1528-1170-ND</td>
+</tr>
+<tr>
+<td>SMA to uFL Adapter (optional)</td>
+<td>851</td>
+<td>1528-2053-ND</td>
+</tr>
+<tr>
+<td>Lithium Ion Battery - JST-PH</td>
+<td>2011</td>
+<td></td>
+</tr>
+</tbody>
+</table><h4 id="FutureOptional-Integration-into-physical-scooter"><a class="anchor hidden-xs" href="#FutureOptional-Integration-into-physical-scooter" title="FutureOptional-Integration-into-physical-scooter"><span class="octicon octicon-link"></span></a>Future/Optional (Integration into physical scooter)</h4><ul>
+<li>xiaomi m365 is a common scooter that rideshare companies rebranded for their service launch in 2018/2019</li>
+<li>The large rideshare companies are now starting to create modified electronics and upgraded scooters.</li>
+<li>There seems to be an easily accessible serial interface available for reading out data from the m365 scooter.</li>
+</ul><hr><h2 id="Embedded-Firmware"><a class="anchor hidden-xs" href="#Embedded-Firmware" title="Embedded-Firmware"><span class="octicon octicon-link"></span></a>Embedded Firmware</h2><p>Firmware is developed using Arduino / PlatformIO environment and Ark C++ SDK.</p><h3 id="Arduino-Development-Environment-Setup"><a class="anchor hidden-xs" href="#Arduino-Development-Environment-Setup" title="Arduino-Development-Environment-Setup"><span class="octicon octicon-link"></span></a>Arduino Development Environment Setup</h3><p>The following are detailed steps on setting up Arduino programming environment.<br>
+The following process is testing on Windows 10 environment but should be similar on other operating systems.</p><ol>
+<li>Download and install Arduino
+<ul>
+<li><a href="https://www.arduino.cc/en/Main/Software" target="_blank" rel="noopener">https://www.arduino.cc/en/Main/Software</a></li>
+</ul>
+</li>
+<li>Run Arduino</li>
+<li>Install ESP32 processor board hardware library
+<ol>
+<li>File-&gt;Preferences</li>
+<li>Enter <a href="https://dl.espressif.com/dl/package_esp32_index.json" target="_blank" rel="noopener">https://dl.espressif.com/dl/package_esp32_index.json</a> into the “Additional Board Manager URLs” field and select ok</li>
+<li>Open the Boards Manager. Tools-&gt;Board-&gt;Boards Manager</li>
+<li>Search for ESP32 and install “ESP32 by Espressif Systems” version 1.0.4.  Some times this can take a while to download</li>
+<li>ESP32 support should now be installed</li>
+</ol>
+</li>
+</ol><h3 id="Install-Firmware-Library-Dependencies"><a class="anchor hidden-xs" href="#Install-Firmware-Library-Dependencies" title="Install-Firmware-Library-Dependencies"><span class="octicon octicon-link"></span></a>Install Firmware Library Dependencies</h3><p>The following are steps to install dependencies for the Scooter fimware project.</p><p>Install the following libraries via the Arduino library manager.<br>
+Tools-&gt;Manage Libraries.<br>
+You can then search and add each of the following libraries and versions indicated.</p><ul>
+<li>EspMQTTClient by Patrick Lapointe Ver 1.8.0</li>
+<li>PubSubClient by Nick O’Leary Ver 2.7.0</li>
+<li>Adafruit GPS by Adafruit Ver 1.4.1</li>
+<li>Adafruit GFX by Adafruit Ver 1.7.5</li>
+<li>Adafruit Touchscreen by Adafruit 1.0.5</li>
+<li>Adafruit ILI9341 by Adafruit Ver 1.5.4</li>
+<li>Adafruit STMPE610 by Adafruit Ver 1.1.1</li>
+<li>QRCode by Richard Moore Ver 0.0.1</li>
+<li>ArduinoJson by Benoit Blanchon Ver 6.13.0</li>
+<li>BIP66 by Ark Ecosystem Ver 0.3.2</li>
+<li>bcl by Project Nayuki Ver 0.0.5</li>
+<li>micro-ecc by Kenneth MacKay Ver 1.0.0</li>
+<li>Ark-Cpp-Client by Ark Ecosystem V 1.4.0-arduino</li>
+</ul><h3 id="Installing-Ark-SDK-Crypto-C-Library-with-support-for-custom-Radians-bridgechain-transactions"><a class="anchor hidden-xs" href="#Installing-Ark-SDK-Crypto-C-Library-with-support-for-custom-Radians-bridgechain-transactions" title="Installing-Ark-SDK-Crypto-C-Library-with-support-for-custom-Radians-bridgechain-transactions"><span class="octicon octicon-link"></span></a>Installing Ark SDK Crypto C++ Library with support for custom Radians bridgechain transactions</h3><p>The standard Ark-Cpp-Crypto (Ver 1.0.0) by <a href="http://Ark.io" target="_blank" rel="noopener">Ark.io</a> was forked to include custom Radians transaction support.(thanks to @sleepdeficit for support)</p><ol>
+<li>Download the chains\Radians branch(not the main branch) from:
+<ul>
+<li><a href="https://github.com" target="_blank" rel="noopener">https://github.com</a>\sleepdefic1t\cpp-crypto\tree\chains\radians</li>
+</ul>
+</li>
+<li>Move cpp-crypto folder to \Arduino\libraries</li>
+<li>rename cpp-crypto to Ark-Cpp-Crypto</li>
+</ol><p>A bash script needs to be executed to format the library for use with Arduino development. Windows10 does not have native support for this. I use “git for windows” which has gitbash included.<br>
+<a href="https://gitforwindows.org/" target="_blank" rel="noopener">https://gitforwindows.org/</a><br>
+After installation of gitbash right click in \Ark-Cpp-Crypto\extras\ folder and select “GIT Bash Here”.</p><ol start="4">
+<li>gitbash shell window should open. Run “sh ARDUINO_IDE.sh”
+<ul>
+<li>script should start and ask for confirmation to continue. Press y</li>
+<li>script should complete with message “You can now use Cpp-Crypto with the Arduino IDE”.</li>
+</ul>
+</li>
+</ol><h3 id="Library-Modification"><a class="anchor hidden-xs" href="#Library-Modification" title="Library-Modification"><span class="octicon octicon-link"></span></a>Library Modification</h3><p>In the Arduino\libraries folder open \PubSubClient\src\PubSubClient.h<br>
+Change this line: #define MQTT_MAX_PACKET_SIZE 128
+to:   #define MQTT_MAX_PACKET_SIZE 512</p><h3 id="Configure-WiFi-credentials-in-Firmware"><a class="anchor hidden-xs" href="#Configure-WiFi-credentials-in-Firmware" title="Configure-WiFi-credentials-in-Firmware"><span class="octicon octicon-link"></span></a>Configure WiFi credentials in Firmware</h3><p>open firmware file secrets.h
+Configure the WiFi credentials with your network details.</p><pre><code>  #define WIFI_SSID         "*****"
+  #define WIFI_PASS         "*****"
+</code></pre><h3 id="Configure-Wallet-Credentials-in-Firmware"><a class="anchor hidden-xs" href="#Configure-Wallet-Credentials-in-Firmware" title="Configure-Wallet-Credentials-in-Firmware"><span class="octicon octicon-link"></span></a>Configure Wallet Credentials in Firmware</h3><p>The project code includes Radians blockchain private keys embedded in source code. This is of course a terrible idea for a real project but convenient for development.  The included wallet has already been registered on the Radians chain via custom Register Scooter transaction.</p><p>Another address can be configured by editing the following lines in secrets.h</p><pre><code>const char* ArkAddress = "TRXA2NUACckkYwWnS9JRkATQA453ukAcD1";  
+static const auto PASSPHRASE = "afford thumb forward wall salad diet title patch holiday metal cement wisdom";  
+</code></pre><p><strong>Instructions for sending Register Scooter transaction:</strong><br>
+Scooter wallet must be registered before being able to send or received Rental Transactions.
+<a href="https://hackmd.io/OuQMzbK6TaClVLTHu97fSg?view#Custom-Transaction-Test-Tool" target="_blank" rel="noopener">https://hackmd.io/OuQMzbK6TaClVLTHu97fSg?view#Custom-Transaction-Test-Tool</a></p><h3 id="Compiling-Scooter-Firmware"><a class="anchor hidden-xs" href="#Compiling-Scooter-Firmware" title="Compiling-Scooter-Firmware"><span class="octicon octicon-link"></span></a>Compiling Scooter Firmware</h3><ol>
+<li>Download Scooter firmware:
+<a href="https://github.com/PhillipJacobsen/Ark_Scooter" target="_blank" rel="noopener">https://github.com/PhillipJacobsen/Ark_Scooter</a></li>
+<li>Open Ark_Scooter.ino in Arduino</li>
+<li>TBD: Change compiler error/warning settings(not needed in windows)
+<ul>
+<li>Todo need to check this for compilation on MacOS</li>
+<li>need to check default error/warning settings after installing Arduino</li>
+</ul>
+</li>
+<li>Select the processor board
+<ul>
+<li>Tools-&gt;Board-&gt;Adafruit ESP32 Feather</li>
+</ul>
+</li>
+<li>Compile Firmware
+<ul>
+<li>Sketch-&gt;Verify/Compile</li>
+</ul>
+</li>
+</ol><h3 id="Download-Firmware"><a class="anchor hidden-xs" href="#Download-Firmware" title="Download-Firmware"><span class="octicon octicon-link"></span></a>Download Firmware</h3><ol>
+<li>Connect the ESP32 Feather module to PC via USB cable.  Serial -&gt; usb device drivers should have been installed during the installation of the Arduino software.</li>
+<li>Select COM port
+<ul>
+<li>Tools-&gt;port</li>
+</ul>
+</li>
+<li>Compile and upload
+<ul>
+<li>Sketch-&gt;Upload</li>
+</ul>
+</li>
+</ol><hr><h3 id="QR-code-Specification"><a class="anchor hidden-xs" href="#QR-code-Specification" title="QR-code-Specification"><span class="octicon octicon-link"></span></a>QR code Specification</h3><p>The scooter will generate and display a QR code when it is available for rent. The code embedds the following parameters:</p><ul>
+<li>Scooter Wallet Address: (34 characters)</li>
+<li>SessionID: SHA256 Hash of Unique/Random number. 256 bits</li>
+<li>Rental Rate: Cost per second of ride time</li>
+<li>GPS Latitude: Current location of scooter</li>
+<li>GPS longitude: Current location of scooter</li>
+</ul><h4 id="SessionID"><a class="anchor hidden-xs" href="#SessionID" title="SessionID"><span class="octicon octicon-link"></span></a>SessionID</h4><p>The sessionID is a random identifier that is unique to a Rental transaction. The QR code, Rental Start, and Rental Finish transactions all embed this unique identifier.</p><ol>
+<li>Scooter generates random 32 bit integer. SHA256 hash fuction is performed generating 256 bit result. This is used as the SessionID.</li>
+<li>App scans QR code which includes the SessionID. Apps sends Rental Start transaction with SessionID embedded.</li>
+<li>Scooter receives Rental Start and verifies received SessionID matches the value encoded in the QRcode</li>
+<li>Scooter sends Rental Finish and embedds SessionID</li>
+<li>App receives Rental Finish and confirms SessionID matches what it sent in Rental Start</li>
+</ol><p><strong>NOTE:</strong> GPS coordinates would need to be rounded as the value is not static even if the device is stationary. Rounding to the third decimal place is about 110m of precision. Accuracy of the readings is also a concern as you could get erroneous readings. QR code needs to be static.
+Does the app actually require the GPS coordinates to be received at the start of the rental? Perhaps the coordinates could be removed.</p><h4 id="Example-of-String-Encoded-in-QRcode"><a class="anchor hidden-xs" href="#Example-of-String-Encoded-in-QRcode" title="Example-of-String-Encoded-in-QRcode"><span class="octicon octicon-link"></span></a>Example of String Encoded in QRcode</h4><p>rad:TRXA2NUACckkYwWnS9JRkATQA453ukAcD1?hash=e4c18e33a25a1b8eec69c61fcc171e3503b21a80cada4d5bc78c037bd239c3b1&amp;rate=61667&amp;lat=53.535500&amp;lon=-113.278236</p><p><img src="https://i.imgur.com/iA4B1S3.jpg" alt="" width="225"></p><hr><h3 id="Status-Panel-on-Scooter-Display"><a class="anchor hidden-xs" href="#Status-Panel-on-Scooter-Display" title="Status-Panel-on-Scooter-Display"><span class="octicon octicon-link"></span></a>Status Panel on Scooter Display</h3><p>The bottom portion of the scooter display provides status of all the network connections and system parameters.</p><h4 id="Top-Row-of-Status-Panel"><a class="anchor hidden-xs" href="#Top-Row-of-Status-Panel" title="Top-Row-of-Status-Panel"><span class="octicon octicon-link"></span></a>Top Row of Status Panel</h4><p>“Speed(kmh) via GPS”  “Time(via NTP server)” “WiFi Signal Strength”</p><h4 id="Middle-Row-of-Status-Panel"><a class="anchor hidden-xs" href="#Middle-Row-of-Status-Panel" title="Middle-Row-of-Status-Panel"><span class="octicon octicon-link"></span></a>Middle Row of Status Panel</h4><p>“WiFi Connection” “MQTT Broker Connection” “Battery Voltage”</p><h4 id="Bottom-Row-of-Status-Panel"><a class="anchor hidden-xs" href="#Bottom-Row-of-Status-Panel" title="Bottom-Row-of-Status-Panel"><span class="octicon octicon-link"></span></a>Bottom Row of Status Panel</h4><p>“GPS Signal Lock” “Ark Node Connection” “# of GPS satellites”</p><h3 id="Communication-with-Radians-Bridgechain"><a class="anchor hidden-xs" href="#Communication-with-Radians-Bridgechain" title="Communication-with-Radians-Bridgechain"><span class="octicon octicon-link"></span></a>Communication with Radians Bridgechain</h3><p>The ESP32 is assigned a unique Bridgechain address and stores its private key in Flash memory. This is certainly a terrible idea for real production product but is fine for prototyping. Secure storage methods will be an optional enhanced feature.</p><p>The ESP32 will be able to send device registration transactions and optionally use its private key to sign / encrypt messages sent offchain. Transactions will use the public Bridgechain API.</p><h3 id="Communication-with-Analytics-platform"><a class="anchor hidden-xs" href="#Communication-with-Analytics-platform" title="Communication-with-Analytics-platform"><span class="octicon octicon-link"></span></a>Communication with Analytics platform</h3><h3 id="Detailed-Firmware-Description"><a class="anchor hidden-xs" href="#Detailed-Firmware-Description" title="Detailed-Firmware-Description"><span class="octicon octicon-link"></span></a>Detailed Firmware Description</h3><p>TBD</p><hr><h2 id="DApp---Rider-Mobile-Application"><a class="anchor hidden-xs" href="#DApp---Rider-Mobile-Application" title="DApp---Rider-Mobile-Application"><span class="octicon octicon-link"></span></a>DApp - Rider Mobile Application</h2><h3 id="Development-Environment"><a class="anchor hidden-xs" href="#Development-Environment" title="Development-Environment"><span class="octicon octicon-link"></span></a>Development Environment</h3><p>Cross-platform tool called Appcelerator (<a href="https://appcelerator.com" target="_blank" rel="noopener">https://appcelerator.com</a>) was used to develop the app. This tool allows you to develop mobile apps in JavaScript and compile them to native code(Java for Android or Objective C for iOS). The Appcelerator SDK used is Ti 8.3.0.</p><p>Webpack(<a href="https://webpack.js.org/" target="_blank" rel="noopener">https://webpack.js.org/</a>) was used in order to get the @arkecosystem/crypto (<a href="https://www.npmjs.com/package/@arkecosystem/crypto/v/2.6.0-next.7" target="_blank" rel="noopener">https://www.npmjs.com/package/@arkecosystem/crypto/v/2.6.0-next.7</a>) package working in the app.</p><p>PhpStorm IDE was used.</p><hr><h2 id="Custom-Transaction-Test-Tool"><a class="anchor hidden-xs" href="#Custom-Transaction-Test-Tool" title="Custom-Transaction-Test-Tool"><span class="octicon octicon-link"></span></a>Custom Transaction Test Tool</h2><p><strong>A custom javascript utility was created to send custom transactions.</strong><br>
+This is a nice simple utility for development.<br>
+This tool is currently the only method for sending Register Scooter transaction.</p><p><strong>Steps to run on Windows 10</strong></p><ol>
+<li>Download and install Node.js and NPM
+<ul>
+<li><a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">https://nodejs.org/en/download/</a></li>
+</ul>
+</li>
+<li>Verify installation and version
+<ul>
+<li>node –v</li>
+<li>npm -v</li>
+</ul>
+</li>
+<li>Download custom Transactions project
+<ul>
+<li><a href="https://github.com/e-m-s-y/scooter-transactions" target="_blank" rel="noopener">https://github.com/e-m-s-y/scooter-transactions</a></li>
+</ul>
+</li>
+<li>Open Windows command prompt or Windows PowerShell and navigate to local /scooter-transactions folder</li>
+<li>Edit test.js script with wallet credentials for the scooter and rider app
+<ul>
+<li>/scooter-transactions/src/test.js</li>
+</ul>
+</li>
+<li>Determine current nonce of scooter and app wallets.</li>
+</ol><h3 id="Easy-way-to-retrieve-current-nonce-of-wallet"><a class="anchor hidden-xs" href="#Easy-way-to-retrieve-current-nonce-of-wallet" title="Easy-way-to-retrieve-current-nonce-of-wallet"><span class="octicon octicon-link"></span></a>Easy way to retrieve current nonce of wallet</h3><p>Edit the following with the desired wallet address.
+<a href="https://radians.nl/api/v2/wallets/TRXA2NUACckkYwWnS9JRkATQA453ukAcD1" target="_blank" rel="noopener">https://radians.nl/api/v2/wallets/TRXA2NUACckkYwWnS9JRkATQA453ukAcD1</a></p><h3 id="How-to-Send-test-transactions"><a class="anchor hidden-xs" href="#How-to-Send-test-transactions" title="How-to-Send-test-transactions"><span class="octicon octicon-link"></span></a>How to Send test transactions</h3><p>execute the following commands in command prompt.</p><p><strong>Send Standard transaction</strong><br>
+<code>npm run t -- --nonce 22</code></p><p><strong>Send Register Scooter transaction</strong><br>
+scooter must be registered before using Rental Start/Finish<br>
+<code>npm run sr -- --nonce 22</code></p><p><strong>Send Rental Start transaction</strong><br>
+<code>npm run rs -- --nonce 22</code></p><p><strong>Send Rental Finish transaction</strong><br>
+<code>npm run rf -- --nonce 22</code></p><hr><h2 id="Off-Chain-IoT-Analytics-amp-Dashboard"><a class="anchor hidden-xs" href="#Off-Chain-IoT-Analytics-amp-Dashboard" title="Off-Chain-IoT-Analytics-amp-Dashboard"><span class="octicon octicon-link"></span></a>Off Chain IoT Analytics &amp; Dashboard</h2><h3 id="Purpose-of-IoT-Dashboard"><a class="anchor hidden-xs" href="#Purpose-of-IoT-Dashboard" title="Purpose-of-IoT-Dashboard"><span class="octicon octicon-link"></span></a>Purpose of IoT Dashboard</h3><p>The Iot dashboard is an opportunity to connect some well know traditional IoT tools with blockchain technology. The rental transaction process does not depend on this platform. In addition to providing a realtime status of the hardware and the blockchain network it also aided in the debugging and development of the embedded hardware and firmware.</p><h3 id="Features-of-IoT-Dashboard"><a class="anchor hidden-xs" href="#Features-of-IoT-Dashboard" title="Features-of-IoT-Dashboard"><span class="octicon octicon-link"></span></a>Features of IoT Dashboard</h3><ul>
+<li>Blockchain transaction events via MQTT are used to view and audit all the transactions on the chain and correlate with resulting actions of the IOT device.</li>
+<li>Scooter publishes via MQTT realtime GPS, Speed, Battery level, and wallet value. Location of scooters are shown on map and data is plotted on graphs.</li>
+<li>Scooter will also publish via MQTT its current operating mode(broken, available, rented, charging, etc).</li>
+</ul><h3 id="Cloud-Services"><a class="anchor hidden-xs" href="#Cloud-Services" title="Cloud-Services"><span class="octicon octicon-link"></span></a>Cloud Services</h3><p>Three cloud services were used for the IOT dashboard demonstration however all of these services could be combined and optimzed to run on a single VPS. It is also possible that these services could be run on the same VPS as an Ark relay node.</p><ul>
+<li>CloudMQTT</li>
+<li>Node-Red</li>
+<li>Thingsboard</li>
+</ul><p>Thingsboard is the IoT platform that is used to display the web-based Dashboard. This tool offers a nice visual display however the communication interfaces are not as intuitive and flexible as other platforms. For a “real” product you could design IoT protocols to conform directly to Thingsboard’s requirements. In the spirit of rapid prototyping I opted to used Node-Red as an intermediate platform to perform some data filtering and packet formating to interconnect all of the data sources and sinks.</p><hr><h3 id="MQTT-Broker"><a class="anchor hidden-xs" href="#MQTT-Broker" title="MQTT-Broker"><span class="octicon octicon-link"></span></a>MQTT Broker</h3><p>A low cost cloud service offering a dedicated MQTT message broker called <a href="https://www.cloudmqtt.com/" target="_blank" rel="noopener">CloudMQTT</a> is used. The current subscription allows for 100 simultaneous connections.</p><p>Alternatively an open source broker such as <a href="https://mosquitto.org/" target="_blank" rel="noopener">Mosquito</a> could be run on a VPS with other services. Mosquito broker could also likely run on the same server as a bridgechain relay node.</p><hr><h3 id="Node-Red"><a class="anchor hidden-xs" href="#Node-Red" title="Node-Red"><span class="octicon octicon-link"></span></a>Node-Red</h3><p>Open source browser-based programming tool for wiring together hardware devices, APIs and online services. It allows for rapid prototyping of services.
+This service can be run on a VPS with other services.  IBM offers a free teir with 250MB of storage which was acceptable for the tasks required.</p><h4 id="Radians-Blockchain-Event-Handler"><a class="anchor hidden-xs" href="#Radians-Blockchain-Event-Handler" title="Radians-Blockchain-Event-Handler"><span class="octicon octicon-link"></span></a>Radians Blockchain Event Handler</h4><p>Thingsboard is not able to handle complex JSON messages with more than 1 level of hierarchy.  Node-Red is used to do some refomatting of the Blockchain messages emitted by the MQTT Core plugin.<br>
+The various events types are split into separate packets and then routed to the corresponding display panel in Thingsboard.</p><p>Sceen
+<img src="https://i.imgur.com/jfVFznt.jpg" alt=""></p><h4 id="Realtime-Scooter-Data-Routing"><a class="anchor hidden-xs" href="#Realtime-Scooter-Data-Routing" title="Realtime-Scooter-Data-Routing"><span class="octicon octicon-link"></span></a>Realtime Scooter Data Routing</h4><ul>
+<li>Node-Red is used to route MQTT messages originating from the Scooter to Thingsboard.<br>
+Currently the messages are just routed without any modifications to the data.<br>
+The data received from the scooter is signed using it’s private key. We are currently not verifying this data however we could add this feature using Node-Red.</li>
+</ul><h4 id="Scooter-Device-Simulator"><a class="anchor hidden-xs" href="#Scooter-Device-Simulator" title="Scooter-Device-Simulator"><span class="octicon octicon-link"></span></a>Scooter Device Simulator</h4><ul>
+<li>Node-Red is used to create some simple scripts that simulate data for 3 scooters.  This is for demo purposes only so there is data displayed on the Thingsboard dashboard even if a real life scooter device is not power on.</li>
+</ul><p><img src="https://i.imgur.com/qNZwGEI.jpg" alt=""></p><hr><h3 id="Thingsboard"><a class="anchor hidden-xs" href="#Thingsboard" title="Thingsboard"><span class="octicon octicon-link"></span></a>Thingsboard</h3><p>Thingsboard is a great tool for visualizing all of the data from the nodes and providing a very nice admin dashboard. It is an open source platform. Free licence was used. Paid licence is available with additional features and support.  Both free and paid licences required the service to be self hosted. Hosted service does not appear to be available.</p><p><strong>VPS Specifications</strong></p><ul>
+<li>Digital Ocean</li>
+<li>2 CPU</li>
+<li>4GB RAM</li>
+<li>80GB SSD</li>
+<li>Ubuntu 18.04.3 (LTS) x64</li>
+</ul><h4 id="Public-Thingsboard-Dashboard"><a class="anchor hidden-xs" href="#Public-Thingsboard-Dashboard" title="Public-Thingsboard-Dashboard"><span class="octicon octicon-link"></span></a>Public Thingsboard Dashboard</h4><p><a href="http://165.22.237.171:8080/dashboard/f88894b0-d519-11e9-b281-0bd830c6c87f?publicId=f62146f0-cb7c-11e9-b281-0bd830c6c87f" target="_blank" rel="noopener">http://165.22.237.171:8080/dashboard/f88894b0-d519-11e9-b281-0bd830c6c87f?publicId=f62146f0-cb7c-11e9-b281-0bd830c6c87f</a></p><p><img src="https://i.imgur.com/aGJLUlq.jpg" alt=""></p><h2 id="IoT-Off-Chain-Communication"><a class="anchor hidden-xs" href="#IoT-Off-Chain-Communication" title="IoT-Off-Chain-Communication"><span class="octicon octicon-link"></span></a>IoT Off Chain Communication</h2><p>The Scooter electronics uses MQTT protocol as the basis for sending all of the off chain data to the analytics dashboard.  The server application will subscribe to the topics to retrieve data and publish to send commands.</p><h3 id="MQTT-Overview"><a class="anchor hidden-xs" href="#MQTT-Overview" title="MQTT-Overview"><span class="octicon octicon-link"></span></a>MQTT Overview</h3><p>MQTT is a lightweight publish/subscribe system that allows devices to publish information about a given topic to a server that functions as a message broker. The broker then pushes the information out to those clients that have previously subscribed to the topic. MQTT is very popular for hobby home automation projects however it is also popular in commercial applications. Facebook Messenger uses MQTT on mobile devices due to its low power consumption and fast transport with easy support for private or group chats.
+There is extensive library support for development with many languages.</p><ul>
+<li>MQTT Clients to aid development
+<ul>
+<li>MQTT Box - good client for PC / chrome extension</li>
+<li>MQTT Explorer - Awesome tool for exploring all the available topics on Broker</li>
+<li>Many MQTT Android / iOS apps are available</li>
+</ul>
+</li>
+<li>library used by for MQTT event emitter core plugin: <a href="https://www.npmjs.com/package/mqtt" target="_blank" rel="noopener">https://www.npmjs.com/package/mqtt</a></li>
+</ul><h3 id="MQTT-Packet-Structure"><a class="anchor hidden-xs" href="#MQTT-Packet-Structure" title="MQTT-Packet-Structure"><span class="octicon octicon-link"></span></a>MQTT Packet Structure</h3><p>Supports MQTT Protocol V3.1.1</p><h4 id="MQTT-Topic-Structure"><a class="anchor hidden-xs" href="#MQTT-Topic-Structure" title="MQTT-Topic-Structure"><span class="octicon octicon-link"></span></a>MQTT Topic Structure</h4><p>Topics are a string that the broker uses to filter messages for each client. The topic consists of three or more levels. Each level is separated by a froward slash.</p><p>The first 2 topic levels will be referred to as the root level of the device.</p><p>Level1: Top Level Application Name<br>
+Level2: Bridgechain Public Key. This is the base topic of the device.<br>
+Level3: Function(status,set, get,) or Device Property(begins with $)<br>
+Additional levels: Item Name</p><p>Example Topics:
+scooters/03b3019278420fb9351fa716a6c80d400a370d088058cec6e4260246cca83fe862/status/gps
+scooters/03b3019278420fb9351fa716a6c80d400a370d088058cec6e4260246cca83fe862/set/lock
+scooters/03b3019278420fb9351fa716a6c80d400a370d088058cec6e4260246cca83fe862/status/lock</p><p>root level = scooters/03b3019278420fb9351fa716a6c80d400a370d088058cec6e4260246cca83fe862/</p><h4 id="Scooter-MQTT-Topics"><a class="anchor hidden-xs" href="#Scooter-MQTT-Topics" title="Scooter-MQTT-Topics"><span class="octicon octicon-link"></span></a>Scooter MQTT Topics</h4><h5 id="Device-Properties"><a class="anchor hidden-xs" href="#Device-Properties" title="Device-Properties"><span class="octicon octicon-link"></span></a>Device Properties</h5><p>These are special level3 topics starting with $.</p><ul>
+<li>$state -&gt; device connection state</li>
+<li>$name -&gt; friendly device name</li>
+<li>$fw/version -&gt; Version of firmware</li>
+<li>$fw/checksum -&gt; checksum of firmware</li>
+</ul><h5 id="Status-Topics"><a class="anchor hidden-xs" href="#Status-Topics" title="Status-Topics"><span class="octicon octicon-link"></span></a>Status Topics</h5><p>Scooter devices will publish to these topics</p><h5 id="Cmd-Topics"><a class="anchor hidden-xs" href="#Cmd-Topics" title="Cmd-Topics"><span class="octicon octicon-link"></span></a>Cmd Topics</h5><p>Scooter devices will Subscribe to these topics. This is used by the server logic to control actions on the scooter. The device will update the state of the corresponding status topic after command has been executed. The server logic should monitor the status toouc to kniw when command has been completed.</p><h4 id="MQTT-Message-Payload-Structure"><a class="anchor hidden-xs" href="#MQTT-Message-Payload-Structure" title="MQTT-Message-Payload-Structure"><span class="octicon octicon-link"></span></a>MQTT Message Payload Structure</h4><ul>
+<li>The message format for status function topics is either a simple value or a JSON encoded object.</li>
+<li>The message fromat for set function topics is a simple value(boolean, integer, floating point number, or string)</li>
+</ul><h4 id="Broadcast-Channel"><a class="anchor hidden-xs" href="#Broadcast-Channel" title="Broadcast-Channel"><span class="octicon octicon-link"></span></a>Broadcast Channel</h4><p>This is a special topic that the server can use to broadcast messages to all devices.<br>
+scooters/$broadcast</p><h3 id="Message-Signing-using-Private-Keys"><a class="anchor hidden-xs" href="#Message-Signing-using-Private-Keys" title="Message-Signing-using-Private-Keys"><span class="octicon octicon-link"></span></a>Message Signing using Private Keys</h3><hr><h6 id="tags-arkio-Documentation-IoT"><a class="anchor hidden-xs" href="#tags-arkio-Documentation-IoT" title="tags-arkio-Documentation-IoT"><span class="octicon octicon-link"></span></a>tags: <code>ark.io</code> <code>Documentation</code> <code>IoT</code></h6></div>
+    <div class="ui-toc dropup unselectable hidden-print" style="display:none;">
+        <div class="pull-right dropdown">
+            <a id="tocLabel" class="ui-toc-label btn btn-default" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" title="Table of content">
+                <i class="fa fa-bars"></i>
+            </a>
+            <ul id="ui-toc" class="ui-toc-dropdown dropdown-menu" aria-labelledby="tocLabel">
+                <div class="toc"><ul class="nav">
+<li class=""><a href="#Proof-of-Concept-Ark-Scooter-Rental-DApp" title="Proof of Concept Ark Scooter Rental DApp">Proof of Concept Ark Scooter Rental DApp</a><ul class="nav">
+<li class=""><a href="#Table-of-Contents" title="Table of Contents">Table of Contents</a></li>
+</ul>
+</li>
+<li class=""><a href="#Project-Overview" title="Project Overview">Project Overview</a></li>
+<li class=""><a href="#Team" title="Team">Team</a></li>
+<li class=""><a href="#Functional-Requirements-Defined-Prior-to-Start-of-Project" title="Functional Requirements Defined Prior to Start of Project">Functional Requirements Defined Prior to Start of Project</a><ul class="nav">
+<li class=""><a href="#Components" title="Components">Components</a><ul class="nav">
+<li class=""><a href="#Mobile-App" title="Mobile App">Mobile App</a></li>
+<li class=""><a href="#IOT-device" title="IOT device">IOT device</a></li>
+<li class=""><a href="#Custom-ARK-Bridgechain" title="Custom ARK Bridgechain">Custom ARK Bridgechain</a></li>
+<li><a href="#Provided-by-the-ARKio-Team" title="Provided by the ARK.io Team">Provided by the ARK.io Team</a></li>
+<li class=""><a href="#Requirements-for-Completion" title="Requirements for Completion">Requirements for Completion</a></li>
+</ul>
+</li>
+<li class=""><a href="#Milestones" title="Milestones">Milestones</a></li>
+<li class=""><a href="#Project-Costs" title="Project Costs">Project Costs</a></li>
+</ul>
+</li>
+<li class=""><a href="#Technical-Specification" title="Technical Specification">Technical Specification</a><ul class="nav">
+<li class=""><a href="#Github-Repositories" title="Github Repositories">Github Repositories</a></li>
+<li><a href="#System-Block-Diagram" title="System Block Diagram">System Block Diagram</a></li>
+<li><a href="#Bridgechain-Specifications" title="Bridgechain Specifications">Bridgechain Specifications</a><ul class="nav">
+<li><a href="#Detailed-Bridgechain-Configuration" title="Detailed Bridgechain Configuration">Detailed Bridgechain Configuration</a></li>
+</ul>
+</li>
+<li><a href="#Adding-Radians-Bridgechain-to-Ark-Desktop" title="Adding Radians Bridgechain to Ark Desktop">Adding Radians Bridgechain to Ark Desktop</a></li>
+<li><a href="#Scooter---DApp-Communication-Sequence-Diagrams" title="Scooter - DApp Communication Sequence Diagrams">Scooter - DApp Communication Sequence Diagrams</a><ul class="nav">
+<li><a href="#Manually-generate-private-keys-for-app-amp-scooter" title="Manually generate private keys for app &amp; scooter">Manually generate private keys for app &amp; scooter</a></li>
+<li><a href="#Scooter-Device-Registration-Sequence" title="Scooter Device Registration Sequence">Scooter Device Registration Sequence</a></li>
+<li><a href="#Rental-Session-Sequence" title="Rental Session Sequence">Rental Session Sequence</a></li>
+</ul>
+</li>
+<li><a href="#Rental-Session-Screenshots" title="Rental Session Screenshots">Rental Session Screenshots</a><ul class="nav">
+<li><a href="#Step-1-Scooter-Bootup" title="Step 1: Scooter Bootup">Step 1: Scooter Bootup</a></li>
+<li><a href="#Step-2-Scooter-Ready-for-Rental" title="Step 2 Scooter Ready for Rental">Step 2 Scooter Ready for Rental</a></li>
+<li><a href="#Step-3-App-Bootup" title="Step 3 App Bootup">Step 3 App Bootup</a></li>
+<li><a href="#Step-4-App-Ready-for-QR-Scanning" title="Step 4 App Ready for QR Scanning">Step 4 App Ready for QR Scanning</a></li>
+<li><a href="#Step-5-App-Scanning-QR-code" title="Step 5 App Scanning QR code">Step 5 App Scanning QR code</a></li>
+<li><a href="#Step-6-App-Configure-Ride-Length" title="Step 6 App Configure Ride Length">Step 6 App Configure Ride Length</a></li>
+<li><a href="#Step-7-App-Sends-Rental-Start" title="Step 7 App Sends Rental Start">Step 7 App Sends Rental Start</a></li>
+<li><a href="#Step-8-Scooter-Rental-in-Progress" title="Step 8 Scooter Rental in Progress">Step 8 Scooter Rental in Progress</a></li>
+<li><a href="#Step-9-App-Rental-in-Progress" title="Step 9 App Rental in Progress">Step 9 App Rental in Progress</a></li>
+<li><a href="#Step-10-App-Received-Rental-Finish" title="Step 10 App Received Rental Finish">Step 10 App Received Rental Finish</a></li>
+</ul>
+</li>
+<li><a href="#Rental-Session-Video-Screenshots" title="Rental Session Video Screenshots">Rental Session Video Screenshots</a><ul class="nav">
+<li><a href="#Rental-Session-using-App-and-Test-Utility-to-Emulate-Scooter" title="Rental Session using App and Test Utility to Emulate Scooter">Rental Session using App and Test Utility to Emulate Scooter</a></li>
+<li><a href="#Analytics-Dashboard-During-Rental-Session" title="Analytics Dashboard During Rental Session">Analytics Dashboard During Rental Session</a></li>
+</ul>
+</li>
+<li><a href="#Custom-Transaction-and-Wallet-Attributes-Design" title="Custom Transaction and Wallet Attributes Design">Custom Transaction and Wallet Attributes Design</a><ul class="nav">
+<li><a href="#Transaction-Types" title="Transaction Types">Transaction Types</a></li>
+<li><a href="#Scooter-Registration" title="Scooter Registration">Scooter Registration</a></li>
+<li><a href="#Rental-Start" title="Rental Start">Rental Start</a></li>
+<li><a href="#Rental-Finish" title="Rental Finish">Rental Finish</a></li>
+<li><a href="#Custom-Wallet-Attributes" title="Custom Wallet Attributes">Custom Wallet Attributes</a></li>
+</ul>
+</li>
+<li><a href="#Embedded-Electronics" title="Embedded Electronics">Embedded Electronics</a><ul class="nav">
+<li><a href="#Bill-of-Materials" title="Bill of Materials">Bill of Materials</a></li>
+</ul>
+</li>
+<li class=""><a href="#Embedded-Firmware" title="Embedded Firmware">Embedded Firmware</a><ul class="nav">
+<li><a href="#Arduino-Development-Environment-Setup" title="Arduino Development Environment Setup">Arduino Development Environment Setup</a></li>
+<li><a href="#Install-Firmware-Library-Dependencies" title="Install Firmware Library Dependencies">Install Firmware Library Dependencies</a></li>
+<li><a href="#Installing-Ark-SDK-Crypto-C-Library-with-support-for-custom-Radians-bridgechain-transactions" title="Installing Ark SDK Crypto C++ Library with support for custom Radians bridgechain transactions">Installing Ark SDK Crypto C++ Library with support for custom Radians bridgechain transactions</a></li>
+<li><a href="#Library-Modification" title="Library Modification">Library Modification</a></li>
+<li><a href="#Configure-WiFi-credentials-in-Firmware" title="Configure WiFi credentials in Firmware">Configure WiFi credentials in Firmware</a></li>
+<li><a href="#Configure-Wallet-Credentials-in-Firmware" title="Configure Wallet Credentials in Firmware">Configure Wallet Credentials in Firmware</a></li>
+<li><a href="#Compiling-Scooter-Firmware" title="Compiling Scooter Firmware">Compiling Scooter Firmware</a></li>
+<li class=""><a href="#Download-Firmware" title="Download Firmware">Download Firmware</a></li>
+<li><a href="#QR-code-Specification" title="QR code Specification">QR code Specification</a></li>
+<li><a href="#Status-Panel-on-Scooter-Display" title="Status Panel on Scooter Display">Status Panel on Scooter Display</a></li>
+<li><a href="#Communication-with-Radians-Bridgechain" title="Communication with Radians Bridgechain">Communication with Radians Bridgechain</a></li>
+<li><a href="#Communication-with-Analytics-platform" title="Communication with Analytics platform">Communication with Analytics platform</a></li>
+<li><a href="#Detailed-Firmware-Description" title="Detailed Firmware Description">Detailed Firmware Description</a></li>
+</ul>
+</li>
+<li><a href="#DApp---Rider-Mobile-Application" title="DApp - Rider Mobile Application">DApp - Rider Mobile Application</a><ul class="nav">
+<li><a href="#Development-Environment" title="Development Environment">Development Environment</a></li>
+</ul>
+</li>
+<li><a href="#Custom-Transaction-Test-Tool" title="Custom Transaction Test Tool">Custom Transaction Test Tool</a><ul class="nav">
+<li><a href="#Easy-way-to-retrieve-current-nonce-of-wallet" title="Easy way to retrieve current nonce of wallet">Easy way to retrieve current nonce of wallet</a></li>
+<li><a href="#How-to-Send-test-transactions" title="How to Send test transactions">How to Send test transactions</a></li>
+</ul>
+</li>
+<li><a href="#Off-Chain-IoT-Analytics-amp-Dashboard" title="Off Chain IoT Analytics &amp; Dashboard">Off Chain IoT Analytics &amp; Dashboard</a><ul class="nav">
+<li><a href="#Purpose-of-IoT-Dashboard" title="Purpose of IoT Dashboard">Purpose of IoT Dashboard</a></li>
+<li><a href="#Features-of-IoT-Dashboard" title="Features of IoT Dashboard">Features of IoT Dashboard</a></li>
+<li><a href="#Cloud-Services" title="Cloud Services">Cloud Services</a></li>
+<li><a href="#MQTT-Broker" title="MQTT Broker">MQTT Broker</a></li>
+<li><a href="#Node-Red" title="Node-Red">Node-Red</a></li>
+<li><a href="#Thingsboard" title="Thingsboard">Thingsboard</a></li>
+</ul>
+</li>
+<li><a href="#IoT-Off-Chain-Communication" title="IoT Off Chain Communication">IoT Off Chain Communication</a><ul class="nav">
+<li><a href="#MQTT-Overview" title="MQTT Overview">MQTT Overview</a></li>
+<li><a href="#MQTT-Packet-Structure" title="MQTT Packet Structure">MQTT Packet Structure</a></li>
+<li><a href="#Message-Signing-using-Private-Keys" title="Message Signing using Private Keys">Message Signing using Private Keys</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div><div class="toc-menu"><a class="expand-toggle" href="#">Expand all</a><a class="back-to-top" href="#">Back to top</a><a class="go-to-bottom" href="#">Go to bottom</a></div>
+            </ul>
+        </div>
+    </div>
+    <div id="ui-toc-affix" class="ui-affix-toc ui-toc-dropdown unselectable hidden-print" data-spy="affix" style="top:17px;display:none;" null null>
+        <div class="toc"><ul class="nav">
+<li class=""><a href="#Proof-of-Concept-Ark-Scooter-Rental-DApp" title="Proof of Concept Ark Scooter Rental DApp">Proof of Concept Ark Scooter Rental DApp</a><ul class="nav">
+<li class=""><a href="#Table-of-Contents" title="Table of Contents">Table of Contents</a></li>
+</ul>
+</li>
+<li class=""><a href="#Project-Overview" title="Project Overview">Project Overview</a></li>
+<li class=""><a href="#Team" title="Team">Team</a></li>
+<li class=""><a href="#Functional-Requirements-Defined-Prior-to-Start-of-Project" title="Functional Requirements Defined Prior to Start of Project">Functional Requirements Defined Prior to Start of Project</a><ul class="nav">
+<li class=""><a href="#Components" title="Components">Components</a><ul class="nav">
+<li class=""><a href="#Mobile-App" title="Mobile App">Mobile App</a></li>
+<li class=""><a href="#IOT-device" title="IOT device">IOT device</a></li>
+<li class=""><a href="#Custom-ARK-Bridgechain" title="Custom ARK Bridgechain">Custom ARK Bridgechain</a></li>
+<li><a href="#Provided-by-the-ARKio-Team" title="Provided by the ARK.io Team">Provided by the ARK.io Team</a></li>
+<li class=""><a href="#Requirements-for-Completion" title="Requirements for Completion">Requirements for Completion</a></li>
+</ul>
+</li>
+<li class=""><a href="#Milestones" title="Milestones">Milestones</a></li>
+<li class=""><a href="#Project-Costs" title="Project Costs">Project Costs</a></li>
+</ul>
+</li>
+<li class=""><a href="#Technical-Specification" title="Technical Specification">Technical Specification</a><ul class="nav">
+<li class=""><a href="#Github-Repositories" title="Github Repositories">Github Repositories</a></li>
+<li><a href="#System-Block-Diagram" title="System Block Diagram">System Block Diagram</a></li>
+<li><a href="#Bridgechain-Specifications" title="Bridgechain Specifications">Bridgechain Specifications</a><ul class="nav">
+<li><a href="#Detailed-Bridgechain-Configuration" title="Detailed Bridgechain Configuration">Detailed Bridgechain Configuration</a></li>
+</ul>
+</li>
+<li><a href="#Adding-Radians-Bridgechain-to-Ark-Desktop" title="Adding Radians Bridgechain to Ark Desktop">Adding Radians Bridgechain to Ark Desktop</a></li>
+<li><a href="#Scooter---DApp-Communication-Sequence-Diagrams" title="Scooter - DApp Communication Sequence Diagrams">Scooter - DApp Communication Sequence Diagrams</a><ul class="nav">
+<li><a href="#Manually-generate-private-keys-for-app-amp-scooter" title="Manually generate private keys for app &amp; scooter">Manually generate private keys for app &amp; scooter</a></li>
+<li><a href="#Scooter-Device-Registration-Sequence" title="Scooter Device Registration Sequence">Scooter Device Registration Sequence</a></li>
+<li><a href="#Rental-Session-Sequence" title="Rental Session Sequence">Rental Session Sequence</a></li>
+</ul>
+</li>
+<li><a href="#Rental-Session-Screenshots" title="Rental Session Screenshots">Rental Session Screenshots</a><ul class="nav">
+<li><a href="#Step-1-Scooter-Bootup" title="Step 1: Scooter Bootup">Step 1: Scooter Bootup</a></li>
+<li><a href="#Step-2-Scooter-Ready-for-Rental" title="Step 2 Scooter Ready for Rental">Step 2 Scooter Ready for Rental</a></li>
+<li><a href="#Step-3-App-Bootup" title="Step 3 App Bootup">Step 3 App Bootup</a></li>
+<li><a href="#Step-4-App-Ready-for-QR-Scanning" title="Step 4 App Ready for QR Scanning">Step 4 App Ready for QR Scanning</a></li>
+<li><a href="#Step-5-App-Scanning-QR-code" title="Step 5 App Scanning QR code">Step 5 App Scanning QR code</a></li>
+<li><a href="#Step-6-App-Configure-Ride-Length" title="Step 6 App Configure Ride Length">Step 6 App Configure Ride Length</a></li>
+<li><a href="#Step-7-App-Sends-Rental-Start" title="Step 7 App Sends Rental Start">Step 7 App Sends Rental Start</a></li>
+<li><a href="#Step-8-Scooter-Rental-in-Progress" title="Step 8 Scooter Rental in Progress">Step 8 Scooter Rental in Progress</a></li>
+<li><a href="#Step-9-App-Rental-in-Progress" title="Step 9 App Rental in Progress">Step 9 App Rental in Progress</a></li>
+<li><a href="#Step-10-App-Received-Rental-Finish" title="Step 10 App Received Rental Finish">Step 10 App Received Rental Finish</a></li>
+</ul>
+</li>
+<li><a href="#Rental-Session-Video-Screenshots" title="Rental Session Video Screenshots">Rental Session Video Screenshots</a><ul class="nav">
+<li><a href="#Rental-Session-using-App-and-Test-Utility-to-Emulate-Scooter" title="Rental Session using App and Test Utility to Emulate Scooter">Rental Session using App and Test Utility to Emulate Scooter</a></li>
+<li><a href="#Analytics-Dashboard-During-Rental-Session" title="Analytics Dashboard During Rental Session">Analytics Dashboard During Rental Session</a></li>
+</ul>
+</li>
+<li><a href="#Custom-Transaction-and-Wallet-Attributes-Design" title="Custom Transaction and Wallet Attributes Design">Custom Transaction and Wallet Attributes Design</a><ul class="nav">
+<li><a href="#Transaction-Types" title="Transaction Types">Transaction Types</a></li>
+<li><a href="#Scooter-Registration" title="Scooter Registration">Scooter Registration</a></li>
+<li><a href="#Rental-Start" title="Rental Start">Rental Start</a></li>
+<li><a href="#Rental-Finish" title="Rental Finish">Rental Finish</a></li>
+<li><a href="#Custom-Wallet-Attributes" title="Custom Wallet Attributes">Custom Wallet Attributes</a></li>
+</ul>
+</li>
+<li><a href="#Embedded-Electronics" title="Embedded Electronics">Embedded Electronics</a><ul class="nav">
+<li><a href="#Bill-of-Materials" title="Bill of Materials">Bill of Materials</a></li>
+</ul>
+</li>
+<li class=""><a href="#Embedded-Firmware" title="Embedded Firmware">Embedded Firmware</a><ul class="nav">
+<li><a href="#Arduino-Development-Environment-Setup" title="Arduino Development Environment Setup">Arduino Development Environment Setup</a></li>
+<li><a href="#Install-Firmware-Library-Dependencies" title="Install Firmware Library Dependencies">Install Firmware Library Dependencies</a></li>
+<li><a href="#Installing-Ark-SDK-Crypto-C-Library-with-support-for-custom-Radians-bridgechain-transactions" title="Installing Ark SDK Crypto C++ Library with support for custom Radians bridgechain transactions">Installing Ark SDK Crypto C++ Library with support for custom Radians bridgechain transactions</a></li>
+<li><a href="#Library-Modification" title="Library Modification">Library Modification</a></li>
+<li><a href="#Configure-WiFi-credentials-in-Firmware" title="Configure WiFi credentials in Firmware">Configure WiFi credentials in Firmware</a></li>
+<li><a href="#Configure-Wallet-Credentials-in-Firmware" title="Configure Wallet Credentials in Firmware">Configure Wallet Credentials in Firmware</a></li>
+<li><a href="#Compiling-Scooter-Firmware" title="Compiling Scooter Firmware">Compiling Scooter Firmware</a></li>
+<li class=""><a href="#Download-Firmware" title="Download Firmware">Download Firmware</a></li>
+<li><a href="#QR-code-Specification" title="QR code Specification">QR code Specification</a></li>
+<li><a href="#Status-Panel-on-Scooter-Display" title="Status Panel on Scooter Display">Status Panel on Scooter Display</a></li>
+<li><a href="#Communication-with-Radians-Bridgechain" title="Communication with Radians Bridgechain">Communication with Radians Bridgechain</a></li>
+<li><a href="#Communication-with-Analytics-platform" title="Communication with Analytics platform">Communication with Analytics platform</a></li>
+<li><a href="#Detailed-Firmware-Description" title="Detailed Firmware Description">Detailed Firmware Description</a></li>
+</ul>
+</li>
+<li><a href="#DApp---Rider-Mobile-Application" title="DApp - Rider Mobile Application">DApp - Rider Mobile Application</a><ul class="nav">
+<li><a href="#Development-Environment" title="Development Environment">Development Environment</a></li>
+</ul>
+</li>
+<li><a href="#Custom-Transaction-Test-Tool" title="Custom Transaction Test Tool">Custom Transaction Test Tool</a><ul class="nav">
+<li><a href="#Easy-way-to-retrieve-current-nonce-of-wallet" title="Easy way to retrieve current nonce of wallet">Easy way to retrieve current nonce of wallet</a></li>
+<li><a href="#How-to-Send-test-transactions" title="How to Send test transactions">How to Send test transactions</a></li>
+</ul>
+</li>
+<li><a href="#Off-Chain-IoT-Analytics-amp-Dashboard" title="Off Chain IoT Analytics &amp; Dashboard">Off Chain IoT Analytics &amp; Dashboard</a><ul class="nav">
+<li><a href="#Purpose-of-IoT-Dashboard" title="Purpose of IoT Dashboard">Purpose of IoT Dashboard</a></li>
+<li><a href="#Features-of-IoT-Dashboard" title="Features of IoT Dashboard">Features of IoT Dashboard</a></li>
+<li><a href="#Cloud-Services" title="Cloud Services">Cloud Services</a></li>
+<li><a href="#MQTT-Broker" title="MQTT Broker">MQTT Broker</a></li>
+<li><a href="#Node-Red" title="Node-Red">Node-Red</a></li>
+<li><a href="#Thingsboard" title="Thingsboard">Thingsboard</a></li>
+</ul>
+</li>
+<li><a href="#IoT-Off-Chain-Communication" title="IoT Off Chain Communication">IoT Off Chain Communication</a><ul class="nav">
+<li><a href="#MQTT-Overview" title="MQTT Overview">MQTT Overview</a></li>
+<li><a href="#MQTT-Packet-Structure" title="MQTT Packet Structure">MQTT Packet Structure</a></li>
+<li><a href="#Message-Signing-using-Private-Keys" title="Message Signing using Private Keys">Message Signing using Private Keys</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div><div class="toc-menu"><a class="expand-toggle" href="#">Expand all</a><a class="back-to-top" href="#">Back to top</a><a class="go-to-bottom" href="#">Go to bottom</a></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gist-embed/2.6.0/gist-embed.min.js" integrity="sha256-KyF2D6xPIJUW5sUDSs93vWyZm+1RzIpKCexxElmxl8g=" crossorigin="anonymous" defer></script>
+    <script>
+        var markdown = $(".markdown-body");
+        //smooth all hash trigger scrolling
+        function smoothHashScroll() {
+            var hashElements = $("a[href^='#']").toArray();
+            for (var i = 0; i < hashElements.length; i++) {
+                var element = hashElements[i];
+                var $element = $(element);
+                var hash = element.hash;
+                if (hash) {
+                    $element.on('click', function (e) {
+                        // store hash
+                        var hash = this.hash;
+                        if ($(hash).length <= 0) return;
+                        // prevent default anchor click behavior
+                        e.preventDefault();
+                        // animate
+                        $('body, html').stop(true, true).animate({
+                            scrollTop: $(hash).offset().top
+                        }, 100, "linear", function () {
+                            // when done, add hash to url
+                            // (default click behaviour)
+                            window.location.hash = hash;
+                        });
+                    });
+                }
+            }
+        }
+
+        smoothHashScroll();
+        var toc = $('.ui-toc');
+        var tocAffix = $('.ui-affix-toc');
+        var tocDropdown = $('.ui-toc-dropdown');
+        //toc
+        tocDropdown.click(function (e) {
+            e.stopPropagation();
+        });
+
+        var enoughForAffixToc = true;
+
+        function generateScrollspy() {
+            $(document.body).scrollspy({
+                target: ''
+            });
+            $(document.body).scrollspy('refresh');
+            if (enoughForAffixToc) {
+                toc.hide();
+                tocAffix.show();
+            } else {
+                tocAffix.hide();
+                toc.show();
+            }
+            $(document.body).scroll();
+        }
+
+        function windowResize() {
+            //toc right
+            var paddingRight = parseFloat(markdown.css('padding-right'));
+            var right = ($(window).width() - (markdown.offset().left + markdown.outerWidth() - paddingRight));
+            toc.css('right', right + 'px');
+            //affix toc left
+            var newbool;
+            var rightMargin = (markdown.parent().outerWidth() - markdown.outerWidth()) / 2;
+            //for ipad or wider device
+            if (rightMargin >= 133) {
+                newbool = true;
+                var affixLeftMargin = (tocAffix.outerWidth() - tocAffix.width()) / 2;
+                var left = markdown.offset().left + markdown.outerWidth() - affixLeftMargin;
+                tocAffix.css('left', left + 'px');
+            } else {
+                newbool = false;
+            }
+            if (newbool != enoughForAffixToc) {
+                enoughForAffixToc = newbool;
+                generateScrollspy();
+            }
+        }
+        $(window).resize(function () {
+            windowResize();
+        });
+        $(document).ready(function () {
+            windowResize();
+            generateScrollspy();
+        });
+
+        //remove hash
+        function removeHash() {
+            window.location.hash = '';
+        }
+
+        var backtotop = $('.back-to-top');
+        var gotobottom = $('.go-to-bottom');
+
+        backtotop.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (scrollToTop)
+                scrollToTop();
+            removeHash();
+        });
+        gotobottom.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (scrollToBottom)
+                scrollToBottom();
+            removeHash();
+        });
+
+        var toggle = $('.expand-toggle');
+        var tocExpand = false;
+
+        checkExpandToggle();
+        toggle.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            tocExpand = !tocExpand;
+            checkExpandToggle();
+        })
+
+        function checkExpandToggle () {
+            var toc = $('.ui-toc-dropdown .toc');
+            var toggle = $('.expand-toggle');
+            if (!tocExpand) {
+                toc.removeClass('expand');
+                toggle.text('Expand all');
+            } else {
+                toc.addClass('expand');
+                toggle.text('Collapse all');
+            }
+        }
+
+        function scrollToTop() {
+            $('body, html').stop(true, true).animate({
+                scrollTop: 0
+            }, 100, "linear");
+        }
+
+        function scrollToBottom() {
+            $('body, html').stop(true, true).animate({
+                scrollTop: $(document.body)[0].scrollHeight
+            }, 100, "linear");
+        }
+    </script>
+</body>
+
+</html>
