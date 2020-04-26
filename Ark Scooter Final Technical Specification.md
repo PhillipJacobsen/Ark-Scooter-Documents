@@ -433,10 +433,13 @@ Length of Ride(seconds) = Amount / Rate
 ### Custom Wallet Attributes
 Two custom wallet attributes were created to implement a semaphore mechanism to control shared access of the scooter. The attributes are also used to control which custom transactions are available based on wallet type. Example: Rental Start transactions can only be sent by DApp and Rental Finish transactions can only be sent by scooters.
 
-***module.exports = {  
+
+```
+module.exports = {  
     IS_REGISTERED_AS_SCOOTER: "isRegisteredAsScooter",  
 	IS_RENTED: "isRented"  
-};*** 
+};
+```
 
 When a scooter wallet sends the custom ***Register Scooter*** transaction the ***IS_REGISTERED_AS_SCOOTER*** attribute is set to TRUE.  
 If you try to register the scooter a second time, the transaction will be rejected by the node and not added to the transaction pool.  
@@ -589,10 +592,10 @@ https://github.com/PhillipJacobsen/Ark_Scooter
 
 ### Download Firmware
 1. Connect the ESP32 Feather module to PC via USB cable.  Serial -> usb device drivers should have been installed during the installation of the Arduino software.  
-2. Select COM port: Tools->port
-3. Compile and upload: Sketch->Upload
-
-
+2. Select COM port
+    * Tools->port
+3. Compile and upload
+    * Sketch->Upload
 
 ---
 
@@ -659,22 +662,45 @@ PhpStorm IDE was used.
 ## Custom Transaction Test Tool
 
 **A custom javascript utility was created to send custom transactions.**  
-https://github.com/e-m-s-y/scooter-transactions/blob/master/src/test.js
+This is a nice simple utility for development. 
 
-**Steps to install**  
-TBD
+**Steps to run on Windows 10**
+1. Download and install Node.js and NPM 
+    * https://nodejs.org/en/download/
+2. Verify installation and version
+    * node –v
+    * npm -v
+3. Download custom Transactions project
+    * https://github.com/e-m-s-y/scooter-transactions
+4. Open Windows command prompt or Windows PowerShell and navigate to local /scooter-transactions folder
+5. Edit test.js script with wallet credentials for the scooter and rider app
+    * /scooter-transactions/src/test.js 
+6. Determine current nonce of scooter and app wallets.
 
-**How to Send standard transaction**  
-npm run t -- --nonce 22
+### Easy way to retrieve current nonce of wallet
+Edit the following with the desired wallet address.
+https://radians.nl/api/v2/wallets/TRXA2NUACckkYwWnS9JRkATQA453ukAcD1
 
-**How to Send Rental Start transaction**  
-npm run rs -- --nonce 22
+### How to Send test transactions
+execute the following commands in command prompt.
 
-**How to Send Rental Finish transaction**  
-npm run rf -- --nonce 22
+**Send Standard transaction**  
+`npm run t -- --nonce 22`
 
-**How to Send Register Scooter transaction**  
-npm run sr -- --nonce 22
+**Send Register Scooter transaction**  
+scooter must be registered before using Rental Start/Finish  
+`npm run sr -- --nonce 22`
+
+**Send Rental Start transaction**  
+`npm run rs -- --nonce 22`
+
+**Send Rental Finish transaction**  
+`npm run rf -- --nonce 22`
+
+
+
+
+
 
 ---
 
