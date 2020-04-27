@@ -300,13 +300,23 @@ The following instructions can be used to add Radians chain to the standard Ark 
     * Description: Radians Testnet
     * Seed Server: http://37.34.60.90:4040
 5. Press Fetch
-6. Finish this Part.....
-7. Go to Profile(bottom icon on the left) -> Add profile
-8. Fill in Profile information
-    * Profile Name: whatever you want to call it
-    * Network: Radians
+    * The network should be found.
+    * Press Save and you should get message saying "validating network"
+6. Go to Profile(bottom icon on the left) -> Add profile
+7. Fill in Profile Name (whatever you want to call it)
+    * Press next
+8. Select Radians custom network and press next
+9. Select appearance options and then press done
 
-Need to finish these steps!!!!!!!!
+Note: I find that it does not automatically find the peer.  
+How to connect to custom peer:
+1. Network->Connect custom peer and fill in these details
+    * Protocol + IP / Hostname: http://37.34.60.90
+    * Port: 4040
+2. Press Connect
+
+You should now be able to create or import a Radians wallet.
+
 
 ## Scooter - DApp Communication Sequence Diagrams
 
@@ -892,22 +902,24 @@ This tool is currently the only method for sending Register Scooter transaction.
 **Steps to run on Windows 10**
 1. Download and install Node.js and NPM 
     * https://nodejs.org/en/download/
-2. Verify installation and version
-    * node –v
-    * npm -v
-3. Download custom Transactions project
+2. Reboot Computer
+3. Verify installation and version in windows command prompt
+    * `node –v`
+    * `npm -v`
+4. Download custom Transactions project
     * https://github.com/e-m-s-y/scooter-transactions
 4. Open Windows command prompt or Windows PowerShell and navigate to local /scooter-transactions folder
-5. Edit test.js script with wallet credentials for the scooter and rider app
+5. run in command prompt 
+    * `npm install`
+7. Edit test.js script with wallet credentials for the scooter and rider app
     * /scooter-transactions/src/test.js 
-6. Determine current nonce of scooter and app wallets.
 
 ### Easy way to retrieve current nonce of wallet
 Edit the following with the desired wallet address.
 https://radians.nl/api/v2/wallets/TRXA2NUACckkYwWnS9JRkATQA453ukAcD1
 
 ### How to Send test transactions
-execute the following commands in command prompt.
+execute the following commands in command prompt. If the nonce is not valid the transaction will fail and produce error message.
 
 **Send Standard transaction**  
 `npm run t -- --nonce 22`
@@ -1016,26 +1028,81 @@ There is extensive library support for development with many languages.
     - MQTT Box - good client for PC / chrome extension
     - MQTT Explorer - Awesome tool for exploring all the available topics on Broker
     - Many MQTT Android / iOS apps are available
-- library used by for MQTT event emitter core plugin: https://www.npmjs.com/package/mqtt
+- library used by MQTT event emitter core plugin: https://www.npmjs.com/package/mqtt
 
 ### MQTT Packet Structure
 Supports MQTT Protocol V3.1.1
-#### MQTT Topic Structure
-Topics are a string that the broker uses to filter messages for each client. The topic consists of three or more levels. Each level is separated by a froward slash.  
 
+### MQTT Topic Structure
+Topics are a string that the broker uses to filter messages for each client. Topic structures are determined entirely by each application and there is no standard structure.  
+
+For the scooter project the topic structure is very simple and consists of three levels. Each level is separated by a forward slash. .
+
+Level1: Top Level Application Name  
+Level2: Bridgechain Wallet Address  
+Level3: Data Name  
+
+All data is sent in a single topic encoded as a JSON message. The third level topic is just called 'data'.  
+
+The first two topic levels will be referred to as the root level of the device.  
+root level = scooters/TRXA2NUACckkYwWnS9JRkATQA453ukAcD1/
+
+**The full topic path is:  scooters/TRXA2NUACckkYwWnS9JRkATQA453ukAcD1/data**  
+
+
+### MQTT JSON Packet Structure
+```
+{
+   "status":"Available",
+   "fix":1,
+   "lat":53.53858513,
+   "lon":-113.27569070,
+   "speed":0.04,
+   "sat":11,
+   "bal":94968174556,
+   "bat":78,
+   "sig":"3045022100d8636ab909be41dc3d3512433265bb21586fdcaf54f702d91617d542b7018a3602201ce7ad0be20064eca08b1e51d6c283c6d1fb0855619156b5a092c66a55b44d84"
+}
+
+```
+* status: Available, Broken, Rented, Charging
+* fix: 1 = GPS satelite lock, 0 = no lock
+* lat: GPS latitude
+* lon: GPS longitude
+* speed: km/hour 
+* bal: wallet ballance
+* sig: packet signature signed with prviate keys
+
+---
+## Message Signing using Private Keys
+For the proof of concept the MQTT data packets are signed using the the Radians wallet private keys. The packets are currently not being verified by the broker or by the Thingsboard dashboard.
+
+Message signatures were verified using the desktop wallet.  
+Example:   
+
+Message: "status":"Available","fix":1,"lat":53.53858513,"lon":-113.27569070,"speed":0.04,"sat":11,"bal":94968174556,"bat":78
+
+Signature: 3045022100d8636ab909be41dc3d3512433265bb21586fdcaf54f702d91617d542b7018a3602201ce7ad0be20064eca08b1e51d6c283c6d1fb0855619156b5a092c66a55b44d84
+
+
+
+ ---
+
+## MQTT Topic structures not currently being used in Scooter project
 The first 2 topic levels will be referred to as the root level of the device.  
 
 Level1: Top Level Application Name  
-Level2: Bridgechain Public Key. This is the base topic of the device.  
+Level2: Bridgechain Wallet Address. This is the base topic of the device.  
 Level3: Function(status,set, get,) or Device Property(begins with $)  
 Additional levels: Item Name  
   
 Example Topics: 
-scooters/03b3019278420fb9351fa716a6c80d400a370d088058cec6e4260246cca83fe862/status/gps
-scooters/03b3019278420fb9351fa716a6c80d400a370d088058cec6e4260246cca83fe862/set/lock 
-scooters/03b3019278420fb9351fa716a6c80d400a370d088058cec6e4260246cca83fe862/status/lock 
+scooters/TRXA2NUACckkYwWnS9JRkATQA453ukAcD1/status/gps
+scooters/TRXA2NUACckkYwWnS9JRkATQA453ukAcD1/set/lock 
+scooters/TRXA2NUACckkYwWnS9JRkATQA453ukAcD1/status/lock 
 
-root level = scooters/03b3019278420fb9351fa716a6c80d400a370d088058cec6e4260246cca83fe862/
+root level = scooters/TRXA2NUACckkYwWnS9JRkATQA453ukAcD1/
+
 
 #### Scooter MQTT Topics
 
@@ -1061,7 +1128,7 @@ Scooter devices will Subscribe to these topics. This is used by the server logic
 This is a special topic that the server can use to broadcast messages to all devices.  
 scooters/$broadcast
 
-### Message Signing using Private Keys
+
 
 ---
 
