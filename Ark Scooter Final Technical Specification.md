@@ -153,10 +153,10 @@ https://github.com/e-m-s-y/socket-event-forwarder
 https://github.com/deadlock-delegate/mqtt
 
 **Node-Red Flow Backup**  
-https://github.com/PhillipJacobsen/Ark_Scooter/tree/master/NodeRed
+https://github.com/PhillipJacobsen/Ark-Scooter-Documents/tree/master/NodeRed
 
 **ThingsBoard Dashboard Backup**  
-https://github.com/PhillipJacobsen/Ark_Scooter/tree/master/ThingsBoard
+https://github.com/PhillipJacobsen/Ark-Scooter-Documents/tree/master/ThingsBoard
 
 **Public IoT Dashboard**  
 http://165.22.237.171:8080/dashboard/f88894b0-d519-11e9-b281-0bd830c6c87f?publicId=f62146f0-cb7c-11e9-b281-0bd830c6c87f
@@ -198,11 +198,11 @@ The blockchain is a custom ARK.io bridgechain called Radians.
 
 Bridgechain Name: Radians  
 Ark core V2.6.0-next.7 Testnet (as of April 14, 2020)  
-https://radians.nl/api/node/configuration for more node details.  
+https://api.radians.nl/api/node/configuration for more node details.  
 Token: RAD  
 Delegates: 53  
 Blocktime: 8 seconds  
-Explorer: [radians.nl](https://radians.nl/)  
+Explorer: [explorer.radians.nl](https://explorer.radians.nl/)  
 Peer / Seed server: http://37.34.60.90:4040  
 Epoch: 2019-10-25T09:05:40.856Z  
 
@@ -213,16 +213,16 @@ Epoch: 2019-10-25T09:05:40.856Z
 - 5TB pooled traffic running on CentOS 7.7.1908
 
 ### Detailed Bridgechain Configuration
-https://radians.nl/api/node/configuration
+https://api.radians.nl/api/node/configuration
 ```
 {
    "data":{
       "core":{
-         "version":"2.6.0-next.7"
+         "version":"2.6.37"
       },
-      "nethash":"f39a61f04d6136a690a0b675ef6eedbd053665bd343b4e4f03311f12065fb875",
+      "nethash":"314ccfc8c437e10cccb527ee6726be606da8fbaebe54c5c105df30882511c25a",
       "slip44":1,
-      "wif":206,
+      "wif":145,
       "token":"RAD",
       "symbol":"R",
       "explorer":"http://0.0.0.0:4200",
@@ -232,8 +232,8 @@ https://radians.nl/api/node/configuration
          "@arkecosystem/core-api":4103
       },
       "constants":{
-         "height":1850,
-         "reward":200000000,
+         "height":2,
+         "reward":100,
          "activeDelegates":53,
          "blocktime":8,
          "block":{
@@ -241,45 +241,26 @@ https://radians.nl/api/node/configuration
             "maxTransactions":150,
             "maxPayload":6291456
          },
-         "epoch":"2019-10-25T09:05:40.856Z",
+         "epoch":"2020-05-12T11:34:19.156Z",
          "fees":{
             "staticFees":{
-               "transfer":10000000,
-               "secondSignature":500000000,
-               "delegateRegistration":2500000000,
-               "vote":100000000,
-               "multiSignature":500000000,
-               "ipfs":500000000,
-               "multiPayment":100000000,
-               "delegateResignation":2500000000,
-               "htlcLock":10000000,
-               "htlcClaim":0,
-               "htlcRefund":0
+               "transfer":1,
+               "secondSignature":1,
+               "delegateRegistration":25000,
+               "vote":250,
+               "multiSignature":1,
+               "ipfs":1,
+               "multiPayment":1,
+               "delegateResignation":1
             }
          },
-         "vendorFieldLength":512,
-         "multiPaymentLimit":256,
+         "htlcEnabled":true,
          "aip11":true,
-         "htlcEnabled":true
+         "vendorFieldLength":255
       },
       "transactionPool":{
          "dynamicFees":{
-            "enabled":true,
-            "minFeePool":3000,
-            "minFeeBroadcast":3000,
-            "addonBytes":{
-               "transfer":100,
-               "secondSignature":250,
-               "delegateRegistration":400000,
-               "vote":100,
-               "multiSignature":500,
-               "ipfs":250,
-               "multiPayment":500,
-               "delegateResignation":400000,
-               "htlcLock":100,
-               "htlcClaim":0,
-               "htlcRefund":0
-            }
+            "enabled":false
          }
       }
    }
@@ -288,7 +269,7 @@ https://radians.nl/api/node/configuration
 
 ---
 
-## Adding Radians Bridgechain to Ark Desktop
+## Adding Radians Bridgechain to Ark Desktop Wallet
 The following instructions can be used to add Radians chain to the standard Ark desktop wallet. The following instructions were tested on Windows 10 and version 2.9.1 of the wallet.
 1. Download and install Ark.io desktop wallet from one of the following locations.
     * https://ark.io/wallet 
@@ -484,31 +465,31 @@ RENTAL_FINISH_TYPE: 600
 * fee = Register = xxxxx  
 
 **Scooter Register Example:**
-https://radians.nl/api/v2/transactions/444b5172476a7f86b38392eaeffcd1bf35123cdd83b44c96aaa597e24c05006e
+https://api.radians.nl/api/v2/transactions/9179819a6a4e2e02c9d3ea9f70b2e73844dd5107825e2561307276b09dfa4793
 ```
 {
    "data":{
-      "id":"444b5172476a7f86b38392eaeffcd1bf35123cdd83b44c96aaa597e24c05006e",
-      "blockId":"7142238589308015273",
+      "id":"9179819a6a4e2e02c9d3ea9f70b2e73844dd5107825e2561307276b09dfa4793",
+      "blockId":"15514313251344972024",
       "version":2,
       "type":401,
       "typeGroup":4000,
       "amount":"0",
-      "fee":"3000000000",
-      "sender":"TRXA2NUACckkYwWnS9JRkATQA453ukAcD1",
-      "senderPublicKey":"03e063f436ccfa3dfa9e9e6ee5e08a65a82a5ce2b2daf58a9be235753a971411e2",
-      "recipient":"TRXA2NUACckkYwWnS9JRkATQA453ukAcD1",
-      "signature":"2ad52e6d3c927c66b7f0760f05311d48cb22ec124315745d4c842170c869e31c73f16fe53f1ad3d8c5eb2a61076a776d0a759c4029cbb31c1aa9dedb97028898",
+      "fee":"10",
+      "sender":"TUtc5kn9PnVJZKyAvovBBacHtmmiaK9Stv",
+      "senderPublicKey":"0276bb621b1152a511f27fd2b3f61d959d903255850dd155080443d2552691e6ca",
+      "recipient":"TUtc5kn9PnVJZKyAvovBBacHtmmiaK9Stv",
+      "signature":"130a8b1767baa5d75ef741aea09be66ac2fa6f508016afa59079c0dd9d9739a906cb2c76f44e7f6bfc5b8e444787392ade6f727a66a0a140898af34a6d9e83c7",
       "asset":{
          "scooterId":"1234567890"
       },
-      "confirmations":846380,
+      "confirmations":6427,
       "timestamp":{
-         "epoch":9109608,
-         "unix":1581103948,
-         "human":"2020-02-07T19:32:28.856Z"
+         "epoch":469880,
+         "unix":1589753139,
+         "human":"2020-05-17T22:05:39.156Z"
       },
-      "nonce":"41"
+      "nonce":"1"
    }
 }
 ```
@@ -540,40 +521,40 @@ The amount transferred determines the length of ride.
 Length of Ride(seconds) = Amount / Rate
 
 **Rental Start Example:**
-https://radians.nl/api/v2/transactions/c9dbbede340926fab174e56fd3cea75b3b99a1cc9eb594f18e7250fbd11392e7
+https://api.radians.nl/api/v2/transactions/5f939ba34b63664cbd668716596706d15bcc928828c4f6a5c92640fde05776e3
 
 ```
 {
    "data":{
-      "id":"c9dbbede340926fab174e56fd3cea75b3b99a1cc9eb594f18e7250fbd11392e7",
-      "blockId":"2072591193193033951",
+      "id":"5f939ba34b63664cbd668716596706d15bcc928828c4f6a5c92640fde05776e3",
+      "blockId":"4520140158450246409",
       "version":2,
       "type":500,
       "typeGroup":4000,
-      "amount":"3700020",
-      "fee":"10000000",
-      "sender":"TLdYHTKRSD3rG66zsytqpAgJDX75qbcvgT",
-      "senderPublicKey":"02cbe4667ab08693cbb3c248b96635f84b5412a99b49237f059a724f2cfe2b733f",
-      "recipient":"TRXA2NUACckkYwWnS9JRkATQA453ukAcD1",
-      "signature":"84315ff2c7382a0986c326daac84fe076e4a963a31d87ef710904f37c28d4657e9c3a3696d3b2ae33c557f13b727a188c440f23387040cd2657c1b01b8ab9c7b",
+      "amount":"120",
+      "fee":"1",
+      "sender":"TU5z9Q8DVFHLHMF8SEPQZrrEyrsG4iUSVP",
+      "senderPublicKey":"02763547116aa1e5ba15ddad486d48fdcd4db3714c3c444326cacc1e0e1150ba67",
+      "recipient":"TUtc5kn9PnVJZKyAvovBBacHtmmiaK9Stv",
+      "signature":"da51400fe18b73ddc32a805e8c24ee6f4447cd296e70a41cfafb3c219e295bd0dd4e90e3924110643a0ae2041062794517bcef907c9d6711dce987a20d3cb0ab",
       "asset":{
          "gps":{
-            "timestamp":1585720792,
-            "latitude":"53.534603",
-            "longitude":"-113.329002",
-            "human":"2020-04-01T05:59:52.000Z"
+            "timestamp":1589943595,
+            "latitude":"53.535366",
+            "longitude":"-113.277946",
+            "human":"2020-05-20T02:59:55.000Z"
          },
-         "sessionId":"bc9583e4c8094c7a84fc6dc0ec916d7e1a8fdac3dcaf2dcbec8073babaa00165",
-         "rate":"61667",
+         "sessionId":"60b95a73720199bc917a57e93a8039b030a0bc0655a065ba9ac211ae4f156046",
+         "rate":"2",
          "gpsCount":1
       },
-      "confirmations":269412,
+      "confirmations":65,
       "timestamp":{
-         "epoch":13726456,
-         "unix":1585720796,
-         "human":"2020-04-01T05:59:56.856Z"
+         "epoch":660344,
+         "unix":1589943603,
+         "human":"2020-05-20T03:00:03.156Z"
       },
-      "nonce":"104"
+      "nonce":"4"
    }
 }
 ```
@@ -584,8 +565,6 @@ https://radians.nl/api/v2/transactions/c9dbbede340926fab174e56fd3cea75b3b99a1cc9
 
 
 ### Rental Finish
-https://radians.nl/api/v2/wallets/TGGUtM6KPdWn7LSpNcWj1y5ngGa8xJqxHf/scooter-transactions
-
 ***Note: data types and length needed to be updated***
 
 **From:** Scooter  
@@ -605,48 +584,48 @@ https://radians.nl/api/v2/wallets/TGGUtM6KPdWn7LSpNcWj1y5ngGa8xJqxHf/scooter-tra
     * rideDuration = RIDE_DURATION_IN_SECONDS
 
 **Rental Finish Example:**
-https://radians.nl/api/v2/transactions/6ad85654597fe9fab5f61930f0eccfb02cbb892fbfc78b91d723797d82408c6d
+https://api.radians.nl/api/v2/transactions/c0cdce323b718ff59f36a4c9bda463397b7f7676e325b3f0a8e7e116069ba5e2
 ```
 {
    "data":{
-      "id":"6ad85654597fe9fab5f61930f0eccfb02cbb892fbfc78b91d723797d82408c6d",
-      "blockId":"18274364918586419922",
+      "id":"c0cdce323b718ff59f36a4c9bda463397b7f7676e325b3f0a8e7e116069ba5e2",
+      "blockId":"5112874284220850775",
       "version":2,
       "type":600,
       "typeGroup":4000,
       "amount":"1",
-      "fee":"10000000",
-      "sender":"TRXA2NUACckkYwWnS9JRkATQA453ukAcD1",
-      "senderPublicKey":"03e063f436ccfa3dfa9e9e6ee5e08a65a82a5ce2b2daf58a9be235753a971411e2",
-      "recipient":"TLdYHTKRSD3rG66zsytqpAgJDX75qbcvgT",
-      "signature":"30440220295d8140f99bf8a9b3a2c576f94f6e93ce44060f38d3c927e1301166525eb15602201a4be28023b3c3d50fc639f699c13340acb984aab01824667c861e3463b500a2",
+      "fee":"1",
+      "sender":"TUtc5kn9PnVJZKyAvovBBacHtmmiaK9Stv",
+      "senderPublicKey":"0276bb621b1152a511f27fd2b3f61d959d903255850dd155080443d2552691e6ca",
+      "recipient":"TU5z9Q8DVFHLHMF8SEPQZrrEyrsG4iUSVP",
+      "signature":"304402207639a30ce7f66bfc3dc0f7e5842e9a220d4def8c74fec2067b8849acf390255302200b9266ed8a8d735cf159dfea32185d86817a2e20612bcbd9bd613794ca8f760b",
       "asset":{
          "gps":[
             {
-               "timestamp":1585720806,
-               "latitude":"53.534560",
-               "longitude":"-113.329120",
-               "human":"2020-04-01T06:00:06.000Z"
+               "timestamp":1589943613,
+               "latitude":"53.535352",
+               "longitude":"-113.277912",
+               "human":"2020-05-20T03:00:13.000Z"
             },
             {
-               "timestamp":1585720866,
-               "latitude":"53.534724",
-               "longitude":"-113.328960",
-               "human":"2020-04-01T06:01:06.000Z"
+               "timestamp":1589943673,
+               "latitude":"53.535352",
+               "longitude":"-113.277912",
+               "human":"2020-05-20T03:01:13.000Z"
             }
          ],
-         "sessionId":"bc9583e4c8094c7a84fc6dc0ec916d7e1a8fdac3dcaf2dcbec8073babaa00165",
+         "sessionId":"60b95a73720199bc917a57e93a8039b030a0bc0655a065ba9ac211ae4f156046",
          "containsRefund":false,
          "gpsCount":2,
          "rideDuration":60
       },
-      "confirmations":269413,
+      "confirmations":59,
       "timestamp":{
-         "epoch":13726528,
-         "unix":1585720868,
-         "human":"2020-04-01T06:01:08.856Z"
+         "epoch":660416,
+         "unix":1589943675,
+         "human":"2020-05-20T03:01:15.156Z"
       },
-      "nonce":"131"
+      "nonce":"5"
    }
 }
 ```
@@ -749,20 +728,20 @@ You can then search and add each of the following libraries and versions indicat
 * Adafruit GPS by Adafruit Ver 1.4.1
 * Adafruit GFX by Adafruit Ver 1.7.5
 * Adafruit Touchscreen by Adafruit 1.0.5
-* Adafruit ILI9341 by Adafruit Ver 1.5.4
+* Adafruit ILI9341 by Adafruit Ver 1.5.5
 * Adafruit STMPE610 by Adafruit Ver 1.1.1
 * QRCode by Richard Moore Ver 0.0.1
-* ArduinoJson by Benoit Blanchon Ver 6.13.0
+* ArduinoJson by Benoit Blanchon Ver 6.15.1
 * BIP66 by Ark Ecosystem Ver 0.3.2
 * bcl by Project Nayuki Ver 0.0.5
 * micro-ecc by Kenneth MacKay Ver 1.0.0
-* Ark-Cpp-Client by Ark Ecosystem V 1.4.0-arduino
+* Ark-Cpp-Client by Ark Ecosystem V 1.4.1-arduino
 
 ### Installing Ark SDK Crypto C++ Library with support for custom Radians bridgechain transactions
 The standard Ark-Cpp-Crypto (Ver 1.0.0) by Ark.io was forked to include custom Radians transaction support.(thanks to @sleepdeficit for support)  
 
-1. Download the chains\Radians branch(not the main branch) from:
-    * https://github.com\sleepdefic1t\cpp-crypto\tree\chains\radians
+1. Download the chains/Radians branch(not the main branch) from:
+    * https://github.com/sleepdefic1t/cpp-crypto/tree/chains/radians
 2. Move cpp-crypto folder to \Arduino\libraries
 3. rename cpp-crypto to Ark-Cpp-Crypto  
 
@@ -818,7 +797,7 @@ https://github.com/PhillipJacobsen/Ark_Scooter
     * Sketch->Verify/Compile
 
 ### Download Firmware
-1. Connect the ESP32 Feather module to PC via USB cable.  Serial -> usb device drivers should have been installed during the installation of the Arduino software.  
+1. Connect the ESP32 Feather module to PC via USB cable.  Serial to usb device drivers should have been installed during the installation of the Arduino software.  
 2. Select COM port
     * Tools->port
 3. Compile and upload
@@ -857,13 +836,19 @@ rad:TRXA2NUACckkYwWnS9JRkATQA453ukAcD1?hash=e4c18e33a25a1b8eec69c61fcc171e3503b2
 The bottom portion of the scooter display provides status of all the network connections and system parameters.
 
 #### Top Row of Status Panel
-"Speed(kmh) via GPS"  "Time(via NTP server)" "WiFi Signal Strength"
+"Speed(kmh) via GPS"  
+"Time(via NTP server)"  
+"WiFi Receive Signal Strength"  
 
 #### Middle Row of Status Panel
-"WiFi Connection" "MQTT Broker Connection" "Battery Voltage"
+"WiFi Connection"  
+"MQTT Broker Connection"  
+"Battery Voltage"  
 
 #### Bottom Row of Status Panel
-"GPS Signal Lock" "Ark Node Connection" "# of GPS satellites"
+"GPS Signal Lock"  
+"Ark Node Connection"  
+"# of GPS satellites"
 
 
 ### Communication with Radians Bridgechain
@@ -873,7 +858,7 @@ The ESP32 is assigned a unique Bridgechain address and stores its private key in
 The ESP32 will be able to send device registration transactions and optionally use its private key to sign / encrypt messages sent offchain. Transactions will use the public Bridgechain API.
 
 ### Communication with Analytics platform
-
+TBD
 
 
 ### Detailed Firmware Description
@@ -915,8 +900,8 @@ This tool is currently the only method for sending Register Scooter transaction.
     * /scooter-transactions/src/test.js 
 
 ### Easy way to retrieve current nonce of wallet
-Edit the following with the desired wallet address.
-https://radians.nl/api/v2/wallets/TRXA2NUACckkYwWnS9JRkATQA453ukAcD1
+Edit the following with the desired wallet address to retrieve the current nonce.
+https://api.radians.nl/api/v2/wallets/TUtc5kn9PnVJZKyAvovBBacHtmmiaK9Stv
 
 ### How to Send test transactions
 execute the following commands in command prompt. If the nonce is not valid the transaction will fail and produce error message.
