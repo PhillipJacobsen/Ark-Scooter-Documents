@@ -197,14 +197,14 @@ The blockchain is a custom ARK.io bridgechain called Radians.
 ## Bridgechain Specifications
 
 Bridgechain Name: Radians  
-Ark core V2.6.0-next.7 Testnet (as of April 14, 2020)  
+Ark core V2.6.37 Testnet (as of May 28, 2020)  
 https://api.radians.nl/api/node/configuration for more node details.  
 Token: RAD  
 Delegates: 53  
 Blocktime: 8 seconds  
 Explorer: [explorer.radians.nl](https://explorer.radians.nl/)  
 Peer / Seed server: http://37.34.60.90:4040  
-Epoch: 2019-10-25T09:05:40.856Z  
+Epoch: 2020-05-12T11:34:19.156Z  
 
 **VPS Specifications**  
 - 2 CPU
