@@ -3,8 +3,6 @@ Proof of Concept Ark Scooter Rental DApp
 ===
 [Tier 0 Program](https://ark.io/projects/ark-scooters)
 
-https://hackmd.io/OuQMzbK6TaClVLTHu97fSg
-
 ## Table of Contents
 
 [TOC]
@@ -740,7 +738,7 @@ You can then search and add each of the following libraries and versions indicat
 ### Installing Ark SDK Crypto C++ Library with support for custom Radians bridgechain transactions
 The standard Ark-Cpp-Crypto (Ver 1.0.0) by Ark.io was forked to include custom Radians transaction support.(thanks to @sleepdeficit for support)  
 
-1. Download the chains/Radians branch(not the main branch) from:
+1. Download the **chains/Radians branch** (not the main branch) from:
     * https://github.com/sleepdefic1t/cpp-crypto/tree/chains/radians
 2. Move cpp-crypto folder to \Arduino\libraries
 3. rename cpp-crypto to Ark-Cpp-Crypto  
