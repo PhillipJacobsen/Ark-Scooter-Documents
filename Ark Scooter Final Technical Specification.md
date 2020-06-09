@@ -9,32 +9,13 @@ Proof of Concept Ark Scooter Rental DApp
 
 # Project Overview
 This project is a proof of concept of an electric scooter rental solution utilizing a mobile app and an associated Ark custom bridgechain to record the rental contract created. 
-This project is a great illustration on how to code and interact with custom Ark transactions. It will demonstrate C++ SDK running on "small" embedded processor.
+This project illustrates how to code and interact with custom Ark transactions. It will demonstrate C++ SDK running on "small" embedded processor.
 
-This project will not integrate the electronics inside of an actual scooter however this integration could easily be accomplished as a future project if desired. 
+This project does not integrate the electronics inside of an actual scooter however this integration could easily be accomplished as a future project if desired. 
 
 This POC is a great foundation and template for future projects.
 
-
-# Team
-
-- **@emsy - Community Member**  
--- Custom Transaction Plugins  
--- Bridgechain Deployment  
--- IOS/ Andriod Client App
-- **@pj (Phillip) - Community Member**  
--- Embedded Hardware/Firmware Development  
--- Off Chain Data IOT Dashboard
-- **@sleepdeficit - Ark Team Technical Coordinator**   
--- C++ library support for custom transactions   
-- **@Matthew DC - Ark Team Project Specs**   
-- Thanks to @console [deadlock] for developing MQTT core plugin
-
-
-# Functional Requirements Defined Prior to Start of Project 
-Create an electric scooter rental solution utilizing a mobile app and an associated Ark custom bridgechain to manage locking, unlocking, deposits, locations, and management of  Scooter rentals. All communication between the App and the IOT device will be on chain through the use of custom transactions.
-
-## Components
+## Main Components
 
 ### Mobile App
 The core user interface of the project will be a mobile app for both iOS and Android. This mobile app will manage the following:
@@ -64,17 +45,21 @@ All information related to the rental will be stored on the blockchain. This wil
 
 Administration functions to handle the registration of scooters and locations will not be implemented in the demo app. The transactions could be demonstrated by some script/tool
 
-### Provided by the ARK.io Team
-- The custom mobile app UI design
-- Additional guidance and support as necessary
 
-### Requirements for Completion
-- Provide a mobile application that meets the above minimum criteria.
-- Provide a functioning custom ARK Bridgchain blockchain with the above custom transactions and functionality
-- Demonstrate the application working as described
-- Provide a Bill of Materials (BOM) for the required IoT hardware.
-- Project will not include final integration of electronics into scooter hardware. 
 
+# Team
+
+- **@emsy - Community Member**  
+-- Custom Transaction Plugins  
+-- Bridgechain Deployment  
+-- IOS/ Andriod Client App
+- **@pj (Phillip) - Community Member**  
+-- Embedded Hardware/Firmware Development  
+-- Off Chain Data IOT Dashboard
+- **@sleepdeficit - Ark Team Technical Coordinator**   
+-- C++ library support for custom transactions   
+- **@Matthew DC - Ark Team Project Specs**   
+- Thanks to @console [deadlock] for developing MQTT core plugin
 
 ## Milestones
 We both agreed to split the amount of funding, each contributor will have 12.5k to diversify over the assigned milestones. After completed approved by the Ark team the contributer is egible to request a payment.
